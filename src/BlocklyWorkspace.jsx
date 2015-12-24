@@ -19,7 +19,8 @@ var BlocklyWorkspace = React.createClass({
     initialXml: React.PropTypes.string,
     workspaceConfiguration: React.PropTypes.object,
     wrapperDivClassName: React.PropTypes.string,
-    xmlDidChange: React.PropTypes.func
+    xmlDidChange: React.PropTypes.func,
+    toolboxMode: React.PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
   },
 
   getInitialState: function() {
@@ -88,12 +89,17 @@ var BlocklyWorkspace = React.createClass({
   render: function() {
     // We have to fool Blockly into setting up a toolbox with categories initially;
     // otherwise it will refuse to do so after we inject the real categories into it.
+    var dummyToolboxContent;
+    if (this.props.toolboxMode === "CATEGORIES") {
+      dummyToolboxContent = (
+        <category name="Dummy toolbox" />
+      );
+    }
 
     return (
       <div className={this.props.wrapperDivClassName}>
         <xml style={{display: "none"}} ref="dummyToolbox">
-          <category name="Dummy toolbox">
-          </category>
+          {dummyToolboxContent}
         </xml>
         <div ref="editorDiv" className={this.props.wrapperDivClassName} />
       </div>

@@ -15,6 +15,21 @@ var BlocklyToolboxBlock = React.createClass({
     })
   },
 
+  statics: {
+    renderBlock: function(block, key) {
+      return (
+        <BlocklyToolboxBlock
+          type={block.type}
+          key={key}
+          fields={block.fields}
+          values={block.values}
+          mutation={block.mutation}
+          shadow={block.shadow}
+          next={block.next} />
+      );
+    }
+  },
+
   componentDidMount: function() {
     if (this.props.mutation) {
       var mutation = ReactDOM.findDOMNode(this.refs.mutation);
@@ -47,15 +62,7 @@ var BlocklyToolboxBlock = React.createClass({
 
         return (
           <value name={valueName} key={"value_" + valueName + "_" + i}>
-            <BlocklyToolboxBlock
-              name={valueName}
-              type={valueBlock.type}
-              fields={valueBlock.fields}
-              values={valueBlock.values}
-              mutation={valueBlock.mutation}
-              shadow={valueBlock.shadow}
-              next={valueBlock.next}
-              />
+            {BlocklyToolboxBlock.renderBlock(valueBlock)}
           </value>
         );
       }.bind(this));
@@ -67,14 +74,7 @@ var BlocklyToolboxBlock = React.createClass({
 
     if (this.props.next) {
       nextBlock = <next>
-        <BlocklyToolboxBlock
-          type={this.props.next.type}
-          fields={this.props.next.fields}
-          values={this.props.next.values}
-          mutation={this.props.next.mutation}
-          shadow={this.props.next.shadow}
-          next={this.props.next.next}
-          />
+        {BlocklyToolboxBlock.renderBlock(this.props.next)}
       </next>;
     }
 

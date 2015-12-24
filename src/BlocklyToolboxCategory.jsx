@@ -10,6 +10,23 @@ var BlocklyToolboxCategory = React.createClass({
     blocks: React.PropTypes.array
   },
 
+  statics: {
+    renderCategory: function(category, key) {
+      if (category.type == 'sep') {
+        return <sep key={key}></sep>;
+      } else if (category.type == 'search') {
+        return <search key={key}/>;
+      } else {
+        return <BlocklyToolboxCategory
+          name={category.name}
+          custom={category.custom}
+          key={key}
+          blocks={category.blocks}
+          categories={category.categories} />;
+      }
+    }
+  },
+
   componentDidMount: function() {
     if (this.props.custom) {
       ReactDOM.findDOMNode(this.refs.category).setAttribute('custom', this.props.custom);
@@ -17,27 +34,8 @@ var BlocklyToolboxCategory = React.createClass({
   },
 
   render: function() {
-    var subcategories = (this.props.categories || []).map(function(subcategory, i) {
-      return <BlocklyToolboxCategory
-        name={subcategory.name}
-        custom={subcategory.custom}
-        key={"category_" + subcategory.name + "_" + i}
-        blocks={subcategory.blocks}
-        categories={subcategory.categories} />;
-    }.bind(this));
-
-    var blocks = (this.props.blocks || []).map(function(block, i) {
-      return (
-        <BlocklyToolboxBlock
-          type={block.type}
-          key={"block_" + block.type + "_" + i}
-          fields={block.fields}
-          values={block.values}
-          mutation={block.mutation}
-          shadow={block.shadow}
-          next={block.next} />
-      );
-    });
+    var subcategories = (this.props.categories || []).map(BlocklyToolboxCategory.renderCategory);
+    var blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
     return (
       <category name={this.props.name} ref="category">
