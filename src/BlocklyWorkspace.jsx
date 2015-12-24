@@ -15,10 +15,17 @@ var debounce = function(func, wait) {
 };
 
 var BlocklyWorkspace = React.createClass({
+  propTypes: {
+    initialXml: React.PropTypes.string,
+    workspaceConfiguration: React.PropTypes.object,
+    className: React.PropTypes.string,
+    xmlDidChange: React.PropTypes.func
+  },
+
   getInitialState: function() {
     return {
       workspace: null,
-      xml: this.props.xml
+      xml: this.props.initialXml
     };
   },
 
@@ -33,6 +40,9 @@ var BlocklyWorkspace = React.createClass({
 
     if (this.state.xml) {
       this.importFromXml(this.state.xml);
+      if (this.props.xmlDidChange) {
+        this.props.xmlDidChange(this.state.xml);
+      }
     }
 
     this.state.workspace.addChangeListener(debounce(function() {
@@ -54,8 +64,8 @@ var BlocklyWorkspace = React.createClass({
   },
 
   componentWillReceiveProps: function(newProps) {
-    if (this.props.xml != newProps.xml) {
-      this.setState({xml: newProps.xml});
+    if (this.props.initialXml != newProps.initialXml) {
+      this.setState({xml: newProps.initialXml});
     }
   },
 

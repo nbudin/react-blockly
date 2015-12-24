@@ -5,6 +5,15 @@ import BlocklyToolbox from './BlocklyToolbox';
 import BlocklyWorkspace from './BlocklyWorkspace';
 
 var BlocklyEditor = React.createClass({
+  propTypes: {
+    initialXml: React.PropTypes.string,
+    workspaceConfiguration: React.PropTypes.object,
+    className: React.PropTypes.string,
+    toolboxCategories: React.PropTypes.array,
+    xmlDidChange: React.PropTypes.func,
+    processToolboxCategory: React.PropTypes.func
+  },
+
   toolboxDidUpdate: function() {
     if (this.refs.workspace) {
       this.refs.workspace.toolboxDidUpdate(ReactDOM.findDOMNode(this.refs.toolbox));
@@ -34,7 +43,7 @@ var BlocklyEditor = React.createClass({
           processCategory={this.props.processToolboxCategory}
           ref="toolbox" />
         <BlocklyWorkspace ref="workspace"
-          xml={this.props.xml}
+          initialXml={this.props.initialXml}
           xmlDidChange={this.xmlDidChange}
           className={this.props.className}
           workspaceConfiguration={this.props.workspaceConfiguration} />

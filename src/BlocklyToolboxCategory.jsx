@@ -3,6 +3,13 @@ import React from 'react';
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
 var BlocklyToolboxCategory = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    custom: React.PropTypes.string,
+    categories: React.PropTypes.array,
+    blocks: React.PropTypes.array
+  },
+
   componentDidMount: function() {
     if (this.props.custom) {
       ReactDOM.findDOMNode(this.refs.category).setAttribute('custom', this.props.custom);

@@ -3,6 +3,12 @@ import React from 'react';
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 
 var BlocklyToolbox = React.createClass({
+  propTypes: {
+    categories: React.PropTypes.array,
+    processCategory: React.PropTypes.func,
+    didUpdate: React.PropTypes.func
+  },
+
   renderCategories: function(categories) {
     return categories.map(function(category, i) {
       if (category.type == 'sep') {

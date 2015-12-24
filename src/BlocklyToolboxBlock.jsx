@@ -2,6 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 var BlocklyToolboxBlock = React.createClass({
+  propTypes: {
+    type: React.PropTypes.string.isRequired,
+    shadow: React.PropTypes.bool,
+    fields: React.PropTypes.object,
+    values: React.PropTypes.object,
+    statements: React.PropTypes.object,
+    next: React.PropTypes.object,
+    mutation: React.PropTypes.shape({
+      attributes: React.PropTypes.object,
+      innerContent: React.PropTypes.string
+    })
+  },
+
   componentDidMount: function() {
     if (this.props.mutation) {
       var mutation = ReactDOM.findDOMNode(this.refs.mutation);
