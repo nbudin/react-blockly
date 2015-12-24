@@ -47,6 +47,12 @@ All properties are optional except where otherwise specified.
 
 See `public/index.html` for a fairly full-fledged demo that shows off most of the features of this component.
 
+## Contributing
+
+We accept pull requests and issues!  You can file an issue on this project, or fork, modify, and file a pull request.
+
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
+
 ## Licensing
 
 react-blockly-component is Copyright &copy; 2015 PatientsLikeMe, Inc.  Distributed under the terms and conditions of the MIT License.
