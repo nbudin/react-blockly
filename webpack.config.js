@@ -10,6 +10,7 @@ module.exports = {
     libraryTarget: "var",
     library: "ReactBlocklyComponent"
   },
+  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -28,5 +29,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    contentBase: './public',
+    filename: 'react-blockly-component.js'
   }
 };
