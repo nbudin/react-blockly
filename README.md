@@ -23,7 +23,7 @@ All properties are optional except where otherwise specified.
     * `shadow`: True if this is a shadow block; false or undefined otherwise.
     * `fields`: An object mapping from field names to pre-set values for those fields.
     * `values`: An object mapping from value input names to pre-set connected blocks for those value inputs.  Each block is an object following the same format as this one.
-    * `statememts`: An object mapping from statement input names to pre-set connected blocks for those statement inputs.  Each block is an object following the same format as this one.
+    * `statements`: An object mapping from statement input names to pre-set connected blocks for those statement inputs.  Each block is an object following the same format as this one.
     * `next`: The next block connected to this one, which is an object following the same format as this one.
     * `mutation`: An object specifying the content of the `<mutation>` tag for this block, with the following properties:
       * `attributes`: An object mapping from attribute names to values for those attributes.
