@@ -29,9 +29,9 @@ var BlocklyToolbox = React.createClass({
   },
 
   processCategory: function(category) {
-    var processedCategory = _.clone(category);
+    var processedCategory = Object.assign({}, category);
     if (processedCategory.categories) {
-      _.extend(processedCategory, { categories: processedCategory.categories.map(this.processCategory) });
+      Object.assign(processedCategory, { categories: processedCategory.categories.map(this.processCategory) });
     }
 
     if (this.props.processCategory) {

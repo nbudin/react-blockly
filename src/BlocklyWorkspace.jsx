@@ -1,6 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+var debounce = function(func, wait) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			func.apply(context, args);
+		};
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+	};
+};
+
 var BlocklyWorkspace = React.createClass({
   getInitialState: function() {
     return {
@@ -13,7 +26,7 @@ var BlocklyWorkspace = React.createClass({
     // TODO figure out how to use setState here without breaking the toolbox when switching tabs
     this.state.workspace = Blockly.inject(
       this.refs.editorDiv,
-      _.extend(_.clone(this.props.workspaceConfiguration || {}), {
+      Object.assign({}, (this.props.workspaceConfiguration || {}), {
         toolbox: ReactDOM.findDOMNode(this.refs.dummyToolbox)
       })
     );
@@ -22,7 +35,7 @@ var BlocklyWorkspace = React.createClass({
       this.importFromXml(this.state.xml);
     }
 
-    this.state.workspace.addChangeListener(_.debounce(function() {
+    this.state.workspace.addChangeListener(debounce(function() {
       var newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(this.state.workspace));
       if (newXml == this.state.xml) {
         return;
