@@ -4,7 +4,7 @@ import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
 var BlocklyToolboxCategory = React.createClass({
   propTypes: {
-    name: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string,
     custom: React.PropTypes.string,
     categories: React.PropTypes.array,
     blocks: React.PropTypes.array
