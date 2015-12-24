@@ -23,6 +23,7 @@ var BlocklyToolboxBlock = React.createClass({
           key={key}
           fields={block.fields}
           values={block.values}
+          statements={block.statements}
           mutation={block.mutation}
           shadow={block.shadow}
           next={block.next} />
@@ -43,6 +44,7 @@ var BlocklyToolboxBlock = React.createClass({
   render: function() {
     var fields = [];
     var values = [];
+    var statements = [];
     var mutation = null;
     var nextBlock = null;
 
@@ -68,6 +70,18 @@ var BlocklyToolboxBlock = React.createClass({
       }.bind(this));
     }
 
+    if (this.props.statements) {
+      statements = Object.getOwnPropertyNames(this.props.statements).map(function(statementName, i) {
+        var statementBlock = this.props.statements[statementName];
+
+        return (
+          <statement name={statementName} key={"statement_" + statementName + "_" + i}>
+            {BlocklyToolboxBlock.renderBlock(statementBlock)}
+          </statement>
+        );
+      }.bind(this));
+    }
+
     if (this.props.mutation) {
       mutation = <mutation dangerouslySetInnerHTML={{__html: this.props.mutation.innerContent}} ref="mutation" />;
     }
@@ -84,6 +98,7 @@ var BlocklyToolboxBlock = React.createClass({
           {mutation}
           {fields}
           {values}
+          {statements}
           {nextBlock}
         </shadow>
       );
@@ -93,6 +108,7 @@ var BlocklyToolboxBlock = React.createClass({
           {mutation}
           {fields}
           {values}
+          {statements}
           {nextBlock}
         </block>
       );
