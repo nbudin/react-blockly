@@ -18,7 +18,7 @@ var BlocklyWorkspace = React.createClass({
   propTypes: {
     initialXml: React.PropTypes.string,
     workspaceConfiguration: React.PropTypes.object,
-    className: React.PropTypes.string,
+    wrapperDivClassName: React.PropTypes.string,
     xmlDidChange: React.PropTypes.func
   },
 
@@ -90,12 +90,12 @@ var BlocklyWorkspace = React.createClass({
     // otherwise it will refuse to do so after we inject the real categories into it.
 
     return (
-      <div className={this.props.className}>
+      <div className={this.props.wrapperDivClassName}>
         <xml style={{display: "none"}} ref="dummyToolbox">
           <category name="Dummy toolbox">
           </category>
         </xml>
-        <div ref="editorDiv" className={this.props.className} />
+        <div ref="editorDiv" className={this.props.wrapperDivClassName} />
       </div>
     );
   }

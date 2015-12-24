@@ -8,7 +8,7 @@ var BlocklyEditor = React.createClass({
   propTypes: {
     initialXml: React.PropTypes.string,
     workspaceConfiguration: React.PropTypes.object,
-    className: React.PropTypes.string,
+    wrapperDivClassName: React.PropTypes.string,
     toolboxCategories: React.PropTypes.array,
     xmlDidChange: React.PropTypes.func,
     processToolboxCategory: React.PropTypes.func
@@ -36,7 +36,7 @@ var BlocklyEditor = React.createClass({
 
   render: function() {
     return (
-      <div className={this.props.className}>
+      <div className={this.props.wrapperDivClassName}>
         <BlocklyToolbox
           categories={this.props.toolboxCategories}
           didUpdate={this.toolboxDidUpdate}
@@ -45,7 +45,7 @@ var BlocklyEditor = React.createClass({
         <BlocklyWorkspace ref="workspace"
           initialXml={this.props.initialXml}
           xmlDidChange={this.xmlDidChange}
-          className={this.props.className}
+          wrapperDivClassName={this.props.wrapperDivClassName}
           workspaceConfiguration={this.props.workspaceConfiguration} />
       </div>
     );
