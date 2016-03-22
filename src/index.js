@@ -13,3 +13,5 @@ var ReactBlocklyComponent = {
 };
 
 module.exports = ReactBlocklyComponent;
+
+export default ReactBlocklyComponent;
