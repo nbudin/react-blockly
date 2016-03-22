@@ -11,6 +11,23 @@ var BlocklyToolbox = React.createClass({
     didUpdate: React.PropTypes.func
   },
 
+  renderCategories: function(categories) {
+    return categories.map(function(category, i) {
+      if (category.type == 'sep') {
+        return <sep key={"sep_" + i}></sep>;
+      } else if (category.type == 'search') {
+        return <search key={"search_" + i}/>;
+      } else {
+        return <BlocklyToolboxCategory
+          name={category.name}
+          custom={category.custom}
+          key={"category_" + category.name + "_" + i}
+          blocks={category.blocks}
+          categories={category.categories} />;
+      }
+    }.bind(this));
+  },
+
   componentDidMount: function() {
     this.props.didUpdate();
   },
@@ -33,17 +50,9 @@ var BlocklyToolbox = React.createClass({
   },
 
   render: function() {
-    var content;
-    if (this.props.categories) {
-      var processedCategories = this.props.categories.map(this.processCategory);
-      content = processedCategories.map(BlocklyToolboxCategory.renderCategory);
-    } else if (this.props.blocks) {
-      content = this.props.blocks.map(BlocklyToolboxBlock.renderBlock);
-    }
-
     return (
       <xml style={{display: "none"}}>
-        {content}
+        {this.renderCategories(this.props.categories.map(this.processCategory))}
       </xml>
     );
   }
