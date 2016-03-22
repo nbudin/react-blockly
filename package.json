@@ -1,11 +1,13 @@
 {
   "name": "react-blockly-component",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A React wrapper for the Blockly visual programming editor",
+  "main": "dist-modules",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "babel ./src --out-dir ./dist-modules"
   },
   "author": "Nat Budin <nbudin@patientslikeme.com>",
   "license": "MIT",
