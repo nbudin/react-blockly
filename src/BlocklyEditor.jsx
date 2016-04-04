@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Immutable from 'immutable';
 
 import BlocklyToolbox from './BlocklyToolbox';
 import BlocklyWorkspace from './BlocklyWorkspace';
@@ -46,8 +47,8 @@ var BlocklyEditor = React.createClass({
     return (
       <div className={this.props.wrapperDivClassName}>
         <BlocklyToolbox
-          categories={this.props.toolboxCategories}
-          blocks={this.props.toolboxBlocks}
+          categories={Immutable.fromJS(this.props.toolboxCategories)}
+          blocks={Immutable.fromJS(this.props.toolboxBlocks)}
           didUpdate={this.toolboxDidUpdate}
           processCategory={this.props.processToolboxCategory}
           ref="toolbox" />

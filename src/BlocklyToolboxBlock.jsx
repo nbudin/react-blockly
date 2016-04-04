@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
 var BlocklyToolboxBlock = React.createClass({
+  mixins: [ImmutableRenderMixin],
+
   propTypes: {
     type: React.PropTypes.string.isRequired,
     shadow: React.PropTypes.bool,
-    fields: React.PropTypes.object,
-    values: React.PropTypes.object,
-    statements: React.PropTypes.object,
-    next: React.PropTypes.object,
-    mutation: React.PropTypes.shape({
-      attributes: React.PropTypes.object,
+    fields: ImmutablePropTypes.map,
+    values: ImmutablePropTypes.map,
+    statements: ImmutablePropTypes.map,
+    next: ImmutablePropTypes.map,
+    mutation: ImmutablePropTypes.mapContains({
+      attributes: ImmutablePropTypes.map,
       innerContent: React.PropTypes.string
     })
   },
@@ -19,14 +23,14 @@ var BlocklyToolboxBlock = React.createClass({
     renderBlock: function(block, key) {
       return (
         <BlocklyToolboxBlock
-          type={block.type}
+          type={block.get('type')}
           key={key}
-          fields={block.fields}
-          values={block.values}
-          statements={block.statements}
-          mutation={block.mutation}
-          shadow={block.shadow}
-          next={block.next} />
+          fields={block.get('fields')}
+          values={block.get('values')}
+          statements={block.get('statements')}
+          mutation={block.get('mutation')}
+          shadow={block.get('shadow')}
+          next={block.get('next')} />
       );
     }
   },
@@ -35,9 +39,10 @@ var BlocklyToolboxBlock = React.createClass({
     if (this.props.mutation) {
       var mutation = ReactDOM.findDOMNode(this.refs.mutation);
 
-      Object.getOwnPropertyNames(this.props.mutation.attributes).forEach(function(attributeName) {
-        mutation.setAttribute(attributeName, this.props.mutation.attributes[attributeName]);
-      }.bind(this));
+      this.props.mutation.get('attributes').forEach(function(value, attributeName) {
+        mutation.setAttribute(attributeName, value);
+        return true;
+      });
     }
   },
 
@@ -49,41 +54,38 @@ var BlocklyToolboxBlock = React.createClass({
     var nextBlock = null;
 
     if (this.props.fields) {
-      fields = Object.getOwnPropertyNames(this.props.fields).map(function(fieldName, i) {
+      fields = this.props.fields.map(function(fieldValue, fieldName, i) {
         return (
           <field name={fieldName} key={"field_" + fieldName + "_" + i}>
-            { this.props.fields[fieldName] }
+            {fieldValue}
           </field>
         );
-      }.bind(this));
+      }.bind(this)).valueSeq();
     }
 
     if (this.props.values) {
-      values = Object.getOwnPropertyNames(this.props.values).map(function(valueName, i) {
-        var valueBlock = this.props.values[valueName];
-
+      values = this.props.values.map(function(valueBlock, valueName, i) {
         return (
           <value name={valueName} key={"value_" + valueName + "_" + i}>
             {BlocklyToolboxBlock.renderBlock(valueBlock)}
           </value>
         );
-      }.bind(this));
+      }.bind(this)).valueSeq();
+
     }
 
     if (this.props.statements) {
-      statements = Object.getOwnPropertyNames(this.props.statements).map(function(statementName, i) {
-        var statementBlock = this.props.statements[statementName];
-
+      statements = this.props.statements.map(function(statementBlock, statementName, i) {
         return (
           <statement name={statementName} key={"statement_" + statementName + "_" + i}>
             {BlocklyToolboxBlock.renderBlock(statementBlock)}
           </statement>
         );
-      }.bind(this));
+      }.bind(this)).valueSeq();
     }
 
     if (this.props.mutation) {
-      mutation = <mutation dangerouslySetInnerHTML={{__html: this.props.mutation.innerContent}} ref="mutation" />;
+      mutation = <mutation dangerouslySetInnerHTML={{__html: this.props.mutation.get('innerContent')}} ref="mutation" />;
     }
 
     if (this.props.next) {

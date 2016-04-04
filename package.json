@@ -1,6 +1,6 @@
 {
   "name": "react-blockly-component",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A React wrapper for the Blockly visual programming editor",
   "main": "dist-modules",
   "scripts": {
@@ -12,8 +12,11 @@
   "author": "Nat Budin <nbudin@patientslikeme.com>",
   "license": "MIT",
   "dependencies": {
+    "immutable": "^3.7.6",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "react-immutable-proptypes": "^1.7.0",
+    "react-immutable-render-mixin": "^0.9.5"
   },
   "devDependencies": {
     "babel-core": "^6.3.26",

@@ -1,29 +1,33 @@
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
 var BlocklyToolbox = React.createClass({
+  mixins: [ImmutableRenderMixin],
+
   propTypes: {
-    categories: React.PropTypes.array,
-    blocks: React.PropTypes.array,
+    categories: ImmutablePropTypes.list,
+    blocks: ImmutablePropTypes.list,
     processCategory: React.PropTypes.func,
     didUpdate: React.PropTypes.func
   },
 
   renderCategories: function(categories) {
     return categories.map(function(category, i) {
-      if (category.type == 'sep') {
+      if (category.get('type') === 'sep') {
         return <sep key={"sep_" + i}></sep>;
-      } else if (category.type == 'search') {
+      } else if (category.get('type') === 'search') {
         return <search key={"search_" + i}/>;
       } else {
         return <BlocklyToolboxCategory
-          name={category.name}
-          custom={category.custom}
-          key={"category_" + category.name + "_" + i}
-          blocks={category.blocks}
-          categories={category.categories} />;
+          name={category.get('name')}
+          custom={category.get('custom')}
+          key={"category_" + category.get('name') + "_" + i}
+          blocks={category.get('blocks')}
+          categories={category.get('categories')} />;
       }
     }.bind(this));
   },
@@ -37,24 +41,35 @@ var BlocklyToolbox = React.createClass({
   },
 
   processCategory: function(category) {
-    var processedCategory = Object.assign({}, category);
-    if (processedCategory.categories) {
-      Object.assign(processedCategory, { categories: processedCategory.categories.map(this.processCategory) });
+    var processedCategory = category;
+
+    if (processedCategory.has('categories')) {
+      processedCategory = category.update('categories', function(subcategories) {
+        return subcategories.map(this.processCategory);
+      }.bind(this));
     }
 
     if (this.props.processCategory) {
-      this.props.processCategory(processedCategory);
+      return this.props.processCategory(processedCategory);
     }
 
     return processedCategory;
   },
 
   render: function() {
-    return (
-      <xml style={{display: "none"}}>
-        {this.renderCategories(this.props.categories.map(this.processCategory))}
-      </xml>
-    );
+    if (this.props.categories) {
+      return (
+        <xml style={{display: "none"}}>
+          {this.renderCategories(this.props.categories.map(this.processCategory))}
+        </xml>
+      );
+    } else {
+      return (
+        <xml style={{display: "none"}}>
+          {this.props.blocks.map(BlocklyToolboxBlock.renderBlock)}
+        </xml>
+      );
+    }
   }
 });
 
