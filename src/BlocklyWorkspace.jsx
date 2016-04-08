@@ -86,6 +86,10 @@ var BlocklyWorkspace = React.createClass({
     }
   },
 
+  resize: function() {
+    Blockly.svgResize(this.state.workspace);
+  },
+
   render: function() {
     // We have to fool Blockly into setting up a toolbox with categories initially;
     // otherwise it will refuse to do so after we inject the real categories into it.

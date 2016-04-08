@@ -36,6 +36,10 @@ var BlocklyEditor = React.createClass({
     this.refs.workspace.importFromXml(xml);
   },
 
+  resize: function() {
+    this.refs.workspace.resize();
+  },
+
   render: function() {
     var toolboxMode;
     if (this.props.toolboxCategories) {
