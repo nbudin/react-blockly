@@ -1,3 +1,7 @@
+# Version 1.1.1 - April 12, 2016
+
+* Fix a bug that was causing unnecessary toolbox updates.
+
 # Version 1.1.0 - April 8, 2016
 
 * Expose a `resize` function from `BlocklyEditor` and `BlocklyWorkspace` that causes the workspace to resize to fit its container element.

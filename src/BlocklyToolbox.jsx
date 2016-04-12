@@ -1,13 +1,11 @@
 import React from 'react';
+import { is } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
 var BlocklyToolbox = React.createClass({
-  mixins: [ImmutableRenderMixin],
-
   propTypes: {
     categories: ImmutablePropTypes.list,
     blocks: ImmutablePropTypes.list,
@@ -30,6 +28,10 @@ var BlocklyToolbox = React.createClass({
           categories={category.get('categories')} />;
       }
     }.bind(this));
+  },
+
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return !(is(nextProps.categories, this.props.categories) && is(nextProps.blocks, this.props.blocks));
   },
 
   componentDidMount: function() {
