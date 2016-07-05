@@ -1,3 +1,7 @@
+# Version 1.1.2 - July 5, 2016
+
+* Loosen the React version dependency.
+
 # Version 1.1.1 - April 12, 2016
 
 * Fix a bug that was causing unnecessary toolbox updates.

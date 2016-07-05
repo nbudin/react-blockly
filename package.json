@@ -14,8 +14,8 @@
   "license": "MIT",
   "dependencies": {
     "immutable": "^3.7.6",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
+    "react": "^0.14 || ^15.0",
+    "react-dom": "^0.14 || ^15.0",
     "react-immutable-proptypes": "^1.7.0",
     "react-immutable-render-mixin": "^0.9.5"
   },
