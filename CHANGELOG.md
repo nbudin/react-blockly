@@ -1,3 +1,7 @@
+# Version 1.1.3 - July 5, 2016
+
+* Make React a peerDependency.
+
 # Version 1.1.2 - July 5, 2016
 
 * Loosen the React version dependency.
