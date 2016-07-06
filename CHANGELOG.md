@@ -1,3 +1,7 @@
+# Version 1.1.4 - July 6, 2016
+
+* Add `.npmignore` so that npm doesn't use `.gitignore` by default.
+
 # Version 1.1.3 - July 5, 2016
 
 * Make React a peerDependency.
