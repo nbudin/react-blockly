@@ -31,6 +31,7 @@ All properties are optional except where otherwise specified.
   * `categories`: An array of subcategories, each of which follows the same format as this object.
   * `blocks`: An array of blocks to appear in the category.  Each block is an object including the following properties:
     * `type` (required): The Blockly type name for the block (such as `"controls_if"` or `"logic_compare"`).
+    * `colour`: If present, gives a custom colour value for the block.
     * `shadow`: True if this is a shadow block; false or undefined otherwise.
     * `fields`: An object mapping from field names to pre-set values for those fields.
     * `values`: An object mapping from value input names to pre-set connected blocks for those value inputs.  Each block is an object following the same format as this one.
