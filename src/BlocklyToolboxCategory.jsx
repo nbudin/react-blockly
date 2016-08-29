@@ -10,6 +10,7 @@ var BlocklyToolboxCategory = React.createClass({
   propTypes: {
     name: React.PropTypes.string,
     custom: React.PropTypes.string,
+    colour: React.PropTypes.string,
     categories: ImmutablePropTypes.list,
     blocks: ImmutablePropTypes.list
   },
@@ -24,16 +25,11 @@ var BlocklyToolboxCategory = React.createClass({
         return <BlocklyToolboxCategory
           name={category.get('name')}
           custom={category.get('custom')}
+          colour={category.get('colour')}
           key={key}
           blocks={category.get('blocks')}
           categories={category.get('categories')} />;
       }
-    }
-  },
-
-  componentDidMount: function() {
-    if (this.props.custom) {
-      ReactDOM.findDOMNode(this.refs.category).setAttribute('custom', this.props.custom);
     }
   },
 
@@ -42,7 +38,7 @@ var BlocklyToolboxCategory = React.createClass({
     var blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
     return (
-      <category name={this.props.name} ref="category">
+      <category is name={this.props.name} custom={this.props.custom} colour={this.props.colour} ref="category">
         {blocks}
         {subcategories}
       </category>

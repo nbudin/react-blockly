@@ -23,6 +23,7 @@ var BlocklyToolbox = React.createClass({
         return <BlocklyToolboxCategory
           name={category.get('name')}
           custom={category.get('custom')}
+          colour={category.get('colour')}
           key={"category_" + category.get('name') + "_" + i}
           blocks={category.get('blocks')}
           categories={category.get('categories')} />;
