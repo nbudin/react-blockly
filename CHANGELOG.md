@@ -1,3 +1,7 @@
+# Version 1.2.0 - August 29, 2016
+
+* Add `colour` property for toolbox blocks (thanks @benjie!).
+
 # Version 1.1.4 - July 6, 2016
 
 * Add `.npmignore` so that npm doesn't use `.gitignore` by default.
