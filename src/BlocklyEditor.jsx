@@ -17,7 +17,8 @@ var BlocklyEditor = React.createClass({
   },
 
   toolboxDidUpdate: function() {
-    if (this.refs.workspace) {
+    var workspaceConfiguration = this.props.workspaceConfiguration || {};
+    if (this.refs.workspace && !workspaceConfiguration.readOnly) {
       this.refs.workspace.toolboxDidUpdate(ReactDOM.findDOMNode(this.refs.toolbox));
     }
   },
