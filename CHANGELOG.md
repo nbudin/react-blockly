@@ -1,3 +1,7 @@
+# Version 1.2.1 - September 30, 2016
+
+* Support `readOnly` mode for workspaces (thanks @benjie!).
+
 # Version 1.2.0 - August 29, 2016
 
 * Add `colour` property for toolbox blocks (thanks @benjie!).
