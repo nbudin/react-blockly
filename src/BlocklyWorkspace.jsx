@@ -40,9 +40,10 @@ var BlocklyWorkspace = React.createClass({
     );
 
     if (this.state.xml) {
-      this.importFromXml(this.state.xml);
-      if (this.props.xmlDidChange) {
-        this.props.xmlDidChange(this.state.xml);
+      if (this.importFromXml(this.state.xml)) {
+        this.xmlDidChange();
+      } else {
+        this.setState({xml: null}, this.xmlDidChange);
       }
     }
 
@@ -52,16 +53,17 @@ var BlocklyWorkspace = React.createClass({
         return;
       }
 
-      this.setState({xml: newXml}, function() {
-        if (this.props.xmlDidChange) {
-          this.props.xmlDidChange(this.state.xml);
-        }
-      }.bind(this));
+      this.setState({xml: newXml}, this.xmlDidChange);
     }.bind(this), 200));
   },
 
   importFromXml: function(xml) {
-    Blockly.Xml.domToWorkspace(this.state.workspace, Blockly.Xml.textToDom(xml));
+    try {
+      Blockly.Xml.domToWorkspace(this.state.workspace, Blockly.Xml.textToDom(xml));
+      return true;
+    } catch (e) {
+      return false;
+    }
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -78,6 +80,12 @@ var BlocklyWorkspace = React.createClass({
 
   shouldComponentUpdate: function() {
     return false;
+  },
+
+  xmlDidChange: function() {
+    if (this.props.xmlDidChange) {
+      this.props.xmlDidChange(this.state.xml);
+    }
   },
 
   toolboxDidUpdate: function(toolboxNode) {

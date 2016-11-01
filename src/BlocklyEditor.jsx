@@ -34,7 +34,7 @@ var BlocklyEditor = React.createClass({
   },
 
   importFromXml: function(xml) {
-    this.refs.workspace.importFromXml(xml);
+    return this.refs.workspace.importFromXml(xml);
   },
 
   resize: function() {
