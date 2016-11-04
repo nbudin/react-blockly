@@ -20,6 +20,7 @@ var BlocklyWorkspace = React.createClass({
     workspaceConfiguration: React.PropTypes.object,
     wrapperDivClassName: React.PropTypes.string,
     xmlDidChange: React.PropTypes.func,
+    onImportXmlError: React.PropTypes.func,
     toolboxMode: React.PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
   },
 
@@ -62,6 +63,9 @@ var BlocklyWorkspace = React.createClass({
       Blockly.Xml.domToWorkspace(this.state.workspace, Blockly.Xml.textToDom(xml));
       return true;
     } catch (e) {
+      if (this.props.onImportXmlError) {
+        this.props.onImportXmlError(e);
+      }
       return false;
     }
   },
