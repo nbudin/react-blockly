@@ -20,6 +20,7 @@ var BlocklyWorkspace = React.createClass({
     workspaceConfiguration: React.PropTypes.object,
     wrapperDivClassName: React.PropTypes.string,
     xmlDidChange: React.PropTypes.func,
+    onImportXmlError: React.PropTypes.func,
     toolboxMode: React.PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
   },
 
@@ -40,9 +41,10 @@ var BlocklyWorkspace = React.createClass({
     );
 
     if (this.state.xml) {
-      this.importFromXml(this.state.xml);
-      if (this.props.xmlDidChange) {
-        this.props.xmlDidChange(this.state.xml);
+      if (this.importFromXml(this.state.xml)) {
+        this.xmlDidChange();
+      } else {
+        this.setState({xml: null}, this.xmlDidChange);
       }
     }
 
@@ -52,16 +54,20 @@ var BlocklyWorkspace = React.createClass({
         return;
       }
 
-      this.setState({xml: newXml}, function() {
-        if (this.props.xmlDidChange) {
-          this.props.xmlDidChange(this.state.xml);
-        }
-      }.bind(this));
+      this.setState({xml: newXml}, this.xmlDidChange);
     }.bind(this), 200));
   },
 
   importFromXml: function(xml) {
-    Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.state.workspace);
+    try {
+      Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.state.workspace);
+      return true;
+    } catch (e) {
+      if (this.props.onImportXmlError) {
+        this.props.onImportXmlError(e);
+      }
+      return false;
+    }
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -78,6 +84,12 @@ var BlocklyWorkspace = React.createClass({
 
   shouldComponentUpdate: function() {
     return false;
+  },
+
+  xmlDidChange: function() {
+    if (this.props.xmlDidChange) {
+      this.props.xmlDidChange(this.state.xml);
+    }
   },
 
   toolboxDidUpdate: function(toolboxNode) {

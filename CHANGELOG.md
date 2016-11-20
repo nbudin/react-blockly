@@ -1,3 +1,7 @@
+# Version 1.3.0 - November 19, 2016
+
+* Handle errors when importing/exporting workspace XML, optionally passing the error back to the app (thanks @benjie!)
+
 # Version 1.2.1 - September 30, 2016
 
 * Support `readOnly` mode for workspaces (thanks @benjie!).
