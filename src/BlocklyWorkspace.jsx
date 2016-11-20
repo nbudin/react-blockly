@@ -61,7 +61,7 @@ var BlocklyWorkspace = React.createClass({
   },
 
   importFromXml: function(xml) {
-    Blockly.Xml.domToWorkspace(this.state.workspace, Blockly.Xml.textToDom(xml));
+    Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.state.workspace);
   },
 
   componentWillReceiveProps: function(newProps) {
