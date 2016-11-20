@@ -1,3 +1,7 @@
+# Version 2.0.0 - November 19, 2016
+
+* BREAKING CHANGE: Swap the order of arguments for `domToWorkspace` to match the latest Blockly changes (thanks @ipince!)
+
 # Version 1.3.0 - November 19, 2016
 
 * Handle errors when importing/exporting workspace XML, optionally passing the error back to the app (thanks @benjie!)
