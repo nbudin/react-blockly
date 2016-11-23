@@ -1,3 +1,7 @@
+# Version 2.0.1 - November 22, 2016
+
+* Update react-immutable-proptypes dependency to avoid warning in newer React versions (thanks @ipince!)
+
 # Version 2.0.0 - November 19, 2016
 
 * BREAKING CHANGE: Swap the order of arguments for `domToWorkspace` to match the latest Blockly changes (thanks @ipince!)
