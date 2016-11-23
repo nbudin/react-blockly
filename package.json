@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "immutable": "^3.7.6",
-    "react-immutable-proptypes": "^1.7.0",
+    "react-immutable-proptypes": "^2.1.0",
     "react-immutable-render-mixin": "^0.9.5"
   },
   "peerDependencies": {
