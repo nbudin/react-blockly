@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { is } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
-var BlocklyToolbox = React.createClass({
-  propTypes: {
+class BlocklyToolbox extends React.Component {
+  static propTypes = {
     categories: ImmutablePropTypes.list,
     blocks: ImmutablePropTypes.list,
-    processCategory: React.PropTypes.func,
-    didUpdate: React.PropTypes.func
-  },
+    processCategory: PropTypes.func,
+    didUpdate: PropTypes.func
+  };
 
-  renderCategories: function(categories) {
+  renderCategories = (categories) => {
     return categories.map(function(category, i) {
       if (category.get('type') === 'sep') {
         return <sep key={"sep_" + i}></sep>;
@@ -29,21 +30,21 @@ var BlocklyToolbox = React.createClass({
           categories={category.get('categories')} />;
       }
     }.bind(this));
-  },
+  }
 
-  shouldComponentUpdate: function(nextProps, nextState) {
+  shouldComponentUpdate = (nextProps, nextState) => {
     return !(is(nextProps.categories, this.props.categories) && is(nextProps.blocks, this.props.blocks));
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount = () => {
     this.props.didUpdate();
-  },
+  }
 
-  componentDidUpdate: function(prevProps, prevState) {
+  componentDidUpdate = (prevProps, prevState) => {
     this.props.didUpdate();
-  },
+  }
 
-  processCategory: function(category) {
+  processCategory = (category) => {
     var processedCategory = category;
 
     if (processedCategory.has('categories')) {
@@ -57,9 +58,9 @@ var BlocklyToolbox = React.createClass({
     }
 
     return processedCategory;
-  },
+  }
 
-  render: function() {
+  render = () => {
     if (this.props.categories) {
       return (
         <xml style={{display: "none"}}>
@@ -74,6 +75,6 @@ var BlocklyToolbox = React.createClass({
       );
     }
   }
-});
+}
 
 export default BlocklyToolbox;

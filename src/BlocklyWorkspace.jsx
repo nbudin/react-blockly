@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 var debounce = function(func, wait) {
 	var timeout;
@@ -14,24 +15,26 @@ var debounce = function(func, wait) {
 	};
 };
 
-var BlocklyWorkspace = React.createClass({
-  propTypes: {
-    initialXml: React.PropTypes.string,
-    workspaceConfiguration: React.PropTypes.object,
-    wrapperDivClassName: React.PropTypes.string,
-    xmlDidChange: React.PropTypes.func,
-    onImportXmlError: React.PropTypes.func,
-    toolboxMode: React.PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
-  },
+class BlocklyWorkspace extends React.Component {
+  static propTypes = {
+    initialXml: PropTypes.string,
+    workspaceConfiguration: PropTypes.object,
+    wrapperDivClassName: PropTypes.string,
+    xmlDidChange: PropTypes.func,
+    onImportXmlError: PropTypes.func,
+    toolboxMode: PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
+  };
 
-  getInitialState: function() {
-    return {
-      workspace: null,
-      xml: this.props.initialXml
-    };
-  },
+	constructor(props) {
+		super(props);
 
-  componentDidMount: function() {
+		this.state = {
+			workspace: null,
+      xml: this.props.initialXml,
+		};
+	}
+
+  componentDidMount = () => {
     // TODO figure out how to use setState here without breaking the toolbox when switching tabs
     this.state.workspace = Blockly.inject(
       this.refs.editorDiv,
@@ -56,9 +59,9 @@ var BlocklyWorkspace = React.createClass({
 
       this.setState({xml: newXml}, this.xmlDidChange);
     }.bind(this), 200));
-  },
+  }
 
-  importFromXml: function(xml) {
+  importFromXml = (xml) => {
     try {
       Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), this.state.workspace);
       return true;
@@ -68,41 +71,41 @@ var BlocklyWorkspace = React.createClass({
       }
       return false;
     }
-  },
+  }
 
-  componentWillReceiveProps: function(newProps) {
+  componentWillReceiveProps = (newProps) => {
     if (this.props.initialXml != newProps.initialXml) {
       this.setState({xml: newProps.initialXml});
     }
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount = () => {
     if (this.state.workspace) {
       this.state.workspace.dispose();
     }
-  },
+  }
 
-  shouldComponentUpdate: function() {
+  shouldComponentUpdate = () => {
     return false;
-  },
+  }
 
-  xmlDidChange: function() {
+  xmlDidChange = () => {
     if (this.props.xmlDidChange) {
       this.props.xmlDidChange(this.state.xml);
     }
-  },
+  }
 
-  toolboxDidUpdate: function(toolboxNode) {
+  toolboxDidUpdate = (toolboxNode) => {
     if (toolboxNode && this.state.workspace) {
       this.state.workspace.updateToolbox(toolboxNode);
     }
-  },
+  }
 
-  resize: function() {
+  resize = () => {
     Blockly.svgResize(this.state.workspace);
-  },
+  }
 
-  render: function() {
+  render = () => {
     // We have to fool Blockly into setting up a toolbox with categories initially;
     // otherwise it will refuse to do so after we inject the real categories into it.
     var dummyToolboxContent;
@@ -121,6 +124,6 @@ var BlocklyWorkspace = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default BlocklyWorkspace;

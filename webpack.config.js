@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/index.js'
+    './src/dev-index.js'
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -21,10 +21,12 @@ module.exports = {
       }
     ]
   },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+      ReactDOM: 'react-dom',
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.jsx']
   },

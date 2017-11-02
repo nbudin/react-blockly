@@ -1,39 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
-var BlocklyToolboxCategory = React.createClass({
-  mixins: [ImmutableRenderMixin],
-
-  propTypes: {
-    name: React.PropTypes.string,
-    custom: React.PropTypes.string,
-    colour: React.PropTypes.string,
+class BlocklyToolboxCategory extends React.PureComponent {
+  static propTypes = {
+    name: PropTypes.string,
+    custom: PropTypes.string,
+    colour: PropTypes.string,
     categories: ImmutablePropTypes.list,
     blocks: ImmutablePropTypes.list
-  },
+  };
 
-  statics: {
-    renderCategory: function(category, key) {
-      if (category.get('type') === 'sep') {
-        return <sep key={key}></sep>;
-      } else if (category.get('type') === 'search') {
-        return <search key={key}/>;
-      } else {
-        return <BlocklyToolboxCategory
-          name={category.get('name')}
-          custom={category.get('custom')}
-          colour={category.get('colour')}
-          key={key}
-          blocks={category.get('blocks')}
-          categories={category.get('categories')} />;
-      }
+  static renderCategory = (category, key) => {
+    if (category.get('type') === 'sep') {
+      return <sep key={key}></sep>;
+    } else if (category.get('type') === 'search') {
+      return <search key={key}/>;
+    } else {
+      return <BlocklyToolboxCategory
+        name={category.get('name')}
+        custom={category.get('custom')}
+        colour={category.get('colour')}
+        key={key}
+        blocks={category.get('blocks')}
+        categories={category.get('categories')} />;
     }
-  },
+  };
 
-  render: function() {
+  render = () => {
     var subcategories = (this.props.categories || []).map(BlocklyToolboxCategory.renderCategory);
     var blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
@@ -44,6 +40,6 @@ var BlocklyToolboxCategory = React.createClass({
       </category>
     );
   }
-});
+}
 
 export default BlocklyToolboxCategory;

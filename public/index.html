@@ -2,8 +2,6 @@
 <html>
 <head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
   <script src="https://blockly-demo.appspot.com/static/blockly_compressed.js"></script>
   <script src="https://blockly-demo.appspot.com/static/blocks_compressed.js"></script>
   <script src="https://blockly-demo.appspot.com/static/demos/code/msg/en.js"></script>
@@ -16,80 +14,6 @@
     height: 100%;
   }
   </style>
-
-  <script type="text/javascript">
-  window.addEventListener('load', function() {
-    var editor = React.createElement(ReactBlocklyComponent.BlocklyEditor, {
-      workspaceConfiguration: {
-        grid: {
-          spacing: 20,
-          length: 3,
-          colour: '#ccc',
-          snap: true
-        }
-      },
-      toolboxCategories: [
-        {
-          name: "Controls",
-          blocks: [
-            { type: "controls_if" },
-            {
-              type: "controls_repeat_ext",
-              values: {
-                "TIMES": {
-                  type: "math_number",
-                  shadow: true,
-                  fields: {
-                    "NUM": 10
-                  }
-                }
-              },
-              statements: {
-                "DO": {
-                  type: "text_print",
-                  shadow: true,
-                  values: {
-                    "TEXT": {
-                      type: "text",
-                      shadow: true,
-                      fields: {
-                        "TEXT": "abc"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        {
-          name: "Text",
-          blocks: [
-            { type: "text" },
-            {
-              type: "text_print",
-              values: {
-                "TEXT": {
-                  type: "text",
-                  shadow: true,
-                  fields: {
-                    "TEXT": "abc"
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ],
-      initialXml: '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT"></field></block></xml>',
-      wrapperDivClassName: 'fill-height',
-      xmlDidChange: function(newXml) {
-        document.getElementById('generated-xml').innerText = newXml;
-      }
-    });
-    ReactDOM.render(editor, document.getElementById('blockly'));
-  });
-  </script>
 </head>
 <body>
   <div style="height: 600px; width: 800px;" id="blockly">
