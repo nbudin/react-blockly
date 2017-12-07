@@ -13,6 +13,7 @@ var BlocklyEditor = React.createClass({
     toolboxCategories: React.PropTypes.array,
     toolboxBlocks: React.PropTypes.array,
     xmlDidChange: React.PropTypes.func,
+	workspaceDidChange: React.PropTypes.func,
     onImportXmlError: React.PropTypes.func,
     processToolboxCategory: React.PropTypes.func
   },
@@ -31,6 +32,12 @@ var BlocklyEditor = React.createClass({
   xmlDidChange: function(newXml) {
     if (this.props.xmlDidChange) {
       this.props.xmlDidChange(newXml);
+    }
+  },
+  
+  workspaceDidChange: function(workspace) {
+    if (this.props.workspaceDidChange) {
+      this.props.workspaceDidChange(workspace);
     }
   },
 
@@ -63,6 +70,7 @@ var BlocklyEditor = React.createClass({
           onImportXmlError={this.props.onImportXmlError}
           toolboxMode={toolboxMode}
           xmlDidChange={this.xmlDidChange}
+		  workspaceDidChange={this.workspaceDidChange}
           wrapperDivClassName={this.props.wrapperDivClassName}
           workspaceConfiguration={this.props.workspaceConfiguration} />
       </div>
