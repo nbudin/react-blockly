@@ -29,7 +29,9 @@ var BlocklyEditor = React.createClass({
     this.toolboxDidUpdate();
 	
 	if(this.props.xmlDidChange) {
-	  console.error('Warning: xmlDidChange is deprecated and will be removed in future versions! Please use workspaceDidChange instead.');
+	  if(typeof console !== 'undefined') {
+	    console.error('Warning: xmlDidChange is deprecated and will be removed in future versions! Please use workspaceDidChange instead.');
+	  }
 	}
   },
 
