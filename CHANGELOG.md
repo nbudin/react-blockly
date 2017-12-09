@@ -1,3 +1,8 @@
+# Version 3.0.0 - TBD
+
+* Support React 16.
+* Deprecate `xmlDidChange` in favor of `workspaceDidChange`, which gives you access to the workspace object itself to allow generating code for any language including XML (thanks @Xaptor!)
+
 # Version 2.0.1 - November 22, 2016
 
 * Update react-immutable-proptypes dependency to avoid warning in newer React versions (thanks @ipince!)
