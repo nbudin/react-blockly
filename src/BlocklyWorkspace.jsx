@@ -20,6 +20,7 @@ var BlocklyWorkspace = React.createClass({
     workspaceConfiguration: React.PropTypes.object,
     wrapperDivClassName: React.PropTypes.string,
     xmlDidChange: React.PropTypes.func,
+	workspaceDidChange: React.PropTypes.func,
     onImportXmlError: React.PropTypes.func,
     toolboxMode: React.PropTypes.oneOf(['CATEGORIES', 'BLOCKS'])
   },
@@ -47,6 +48,8 @@ var BlocklyWorkspace = React.createClass({
         this.setState({xml: null}, this.xmlDidChange);
       }
     }
+	
+	this.state.workspace.addChangeListener(this.workspaceDidChange);
 
     this.state.workspace.addChangeListener(debounce(function() {
       var newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(this.state.workspace));
@@ -89,6 +92,12 @@ var BlocklyWorkspace = React.createClass({
   xmlDidChange: function() {
     if (this.props.xmlDidChange) {
       this.props.xmlDidChange(this.state.xml);
+    }
+  },
+  
+  workspaceDidChange: function(event) {
+    if (this.props.workspaceDidChange) {
+      this.props.workspaceDidChange(this.state.workspace);
     }
   },
 
