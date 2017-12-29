@@ -14,7 +14,7 @@ class BlocklyEditor extends React.Component {
     toolboxCategories: PropTypes.array,
     toolboxBlocks: PropTypes.array,
     xmlDidChange: PropTypes.func,
-    workspaceDidChange: React.PropTypes.func,
+    workspaceDidChange: PropTypes.func,
     onImportXmlError: PropTypes.func,
     processToolboxCategory: PropTypes.func
   };
@@ -28,12 +28,12 @@ class BlocklyEditor extends React.Component {
 
   componentDidMount = () => {
     this.toolboxDidUpdate();
-	
-	if (this.props.xmlDidChange) {
-	  if (typeof console !== 'undefined') {
-	    console.error('Warning: xmlDidChange is deprecated and will be removed in future versions! Please use workspaceDidChange instead.');
-	  }
-	}
+
+  	if (this.props.xmlDidChange) {
+  	  if (typeof console !== 'undefined') {
+  	    console.error('Warning: xmlDidChange is deprecated and will be removed in future versions! Please use workspaceDidChange instead.');
+  	  }
+  	}
   }
 
   xmlDidChange = (newXml) => {
@@ -41,8 +41,8 @@ class BlocklyEditor extends React.Component {
       this.props.xmlDidChange(newXml);
     }
   }
-  
-  workspaceDidChange: function(workspace) {
+
+  workspaceDidChange = (workspace) => {
     if (this.props.workspaceDidChange) {
       this.props.workspaceDidChange(workspace);
     }
