@@ -13,6 +13,14 @@ class BlocklyToolboxCategory extends React.PureComponent {
     blocks: ImmutablePropTypes.list,
   };
 
+  static defaultProps = {
+    name: null,
+    custom: null,
+    colour: null,
+    categories: null,
+    blocks: null,
+  };
+
   static renderCategory = (category, key) => {
     if (category.get('type') === 'sep') {
       return <sep key={key} />;
@@ -34,7 +42,7 @@ class BlocklyToolboxCategory extends React.PureComponent {
     const blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
     return (
-      <category is name={this.props.name} custom={this.props.custom} colour={this.props.colour} ref="category">
+      <category name={this.props.name} custom={this.props.custom} colour={this.props.colour}>
         {blocks}
         {subcategories}
       </category>

@@ -1,30 +1,39 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-const debounce = function (func, wait) {
+function debounce(func, wait) {
   let timeout;
-  return function () {
-    let context = this,
-      args = arguments;
-    const later = function () {
+
+  return function debouncedFunction(...args) {
+    const context = this;
+    const later = function later() {
       timeout = null;
       func.apply(context, args);
     };
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
-};
+}
 
 class BlocklyWorkspace extends React.Component {
   static propTypes = {
     initialXml: PropTypes.string,
-    workspaceConfiguration: PropTypes.object,
+    workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     wrapperDivClassName: PropTypes.string,
     xmlDidChange: PropTypes.func,
     workspaceDidChange: PropTypes.func,
     onImportXmlError: PropTypes.func,
     toolboxMode: PropTypes.oneOf(['CATEGORIES', 'BLOCKS']),
+  };
+
+  static defaultProps = {
+    initialXml: null,
+    workspaceConfiguration: null,
+    wrapperDivClassName: null,
+    xmlDidChange: null,
+    workspaceDidChange: null,
+    onImportXmlError: null,
+    toolboxMode: 'BLOCKS',
   };
 
   constructor(props) {
@@ -39,10 +48,11 @@ class BlocklyWorkspace extends React.Component {
   componentDidMount = () => {
     // TODO figure out how to use setState here without breaking the toolbox when switching tabs
     this.state.workspace = Blockly.inject(
-      this.refs.editorDiv,
-      Object.assign({}, (this.props.workspaceConfiguration || {}), {
-        toolbox: ReactDOM.findDOMNode(this.refs.dummyToolbox),
-      }),
+      this.editorDiv,
+      {
+        ...this.props.workspaceConfiguration,
+        toolbox: this.dummyToolbox,
+      },
     );
 
     if (this.state.xml) {
@@ -53,16 +63,30 @@ class BlocklyWorkspace extends React.Component {
       }
     }
 
-	  this.state.workspace.addChangeListener(this.workspaceDidChange);
+    this.state.workspace.addChangeListener(this.workspaceDidChange);
 
     this.state.workspace.addChangeListener(debounce(() => {
       const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(this.state.workspace));
-      if (newXml == this.state.xml) {
+      if (newXml === this.state.xml) {
         return;
       }
 
       this.setState({ xml: newXml }, this.xmlDidChange);
     }, 200));
+  }
+
+  componentWillReceiveProps = (newProps) => {
+    if (this.props.initialXml !== newProps.initialXml) {
+      this.setState({ xml: newProps.initialXml });
+    }
+  }
+
+  shouldComponentUpdate = () => false
+
+  componentWillUnmount = () => {
+    if (this.state.workspace) {
+      this.state.workspace.dispose();
+    }
   }
 
   importFromXml = (xml) => {
@@ -77,27 +101,13 @@ class BlocklyWorkspace extends React.Component {
     }
   }
 
-  componentWillReceiveProps = (newProps) => {
-    if (this.props.initialXml != newProps.initialXml) {
-      this.setState({ xml: newProps.initialXml });
-    }
-  }
-
-  componentWillUnmount = () => {
-    if (this.state.workspace) {
-      this.state.workspace.dispose();
-    }
-  }
-
-  shouldComponentUpdate = () => false
-
   xmlDidChange = () => {
     if (this.props.xmlDidChange) {
       this.props.xmlDidChange(this.state.xml);
     }
   }
 
-  workspaceDidChange = (event) => {
+  workspaceDidChange = () => {
     if (this.props.workspaceDidChange) {
       this.props.workspaceDidChange(this.state.workspace);
     }
@@ -125,10 +135,13 @@ class BlocklyWorkspace extends React.Component {
 
     return (
       <div className={this.props.wrapperDivClassName}>
-        <xml style={{ display: 'none' }} ref="dummyToolbox">
+        <xml style={{ display: 'none' }} ref={(dummyToolbox) => { this.dummyToolbox = dummyToolbox; }}>
           {dummyToolboxContent}
         </xml>
-        <div ref="editorDiv" className={this.props.wrapperDivClassName} />
+        <div
+          className={this.props.wrapperDivClassName}
+          ref={(editorDiv) => { this.editorDiv = editorDiv; }}
+        />
       </div>
     );
   }

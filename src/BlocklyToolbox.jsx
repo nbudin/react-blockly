@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
@@ -13,6 +15,41 @@ class BlocklyToolbox extends React.Component {
     processCategory: PropTypes.func,
     didUpdate: PropTypes.func,
   };
+
+  static defaultProps = {
+    categories: null,
+    blocks: null,
+    processCategory: null,
+    didUpdate: null,
+  };
+
+  componentDidMount = () => {
+    this.props.didUpdate();
+  }
+
+  shouldComponentUpdate = nextProps => !(
+    is(nextProps.categories, this.props.categories) && is(nextProps.blocks, this.props.blocks)
+  )
+
+  componentDidUpdate = () => {
+    this.props.didUpdate();
+  }
+
+  getRootNode = () => this.rootNode
+
+  processCategory = (category) => {
+    let processedCategory = category;
+
+    if (processedCategory.has('categories')) {
+      processedCategory = category.update('categories', subcategories => subcategories.map(this.processCategory));
+    }
+
+    if (this.props.processCategory) {
+      return this.props.processCategory(processedCategory);
+    }
+
+    return processedCategory;
+  }
 
   renderCategories = categories => categories.map((category, i) => {
     if (category.get('type') === 'sep') {
@@ -30,40 +67,16 @@ class BlocklyToolbox extends React.Component {
     />);
   })
 
-  shouldComponentUpdate = (nextProps, nextState) => !(is(nextProps.categories, this.props.categories) && is(nextProps.blocks, this.props.blocks))
-
-  componentDidMount = () => {
-    this.props.didUpdate();
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    this.props.didUpdate();
-  }
-
-  processCategory = (category) => {
-    let processedCategory = category;
-
-    if (processedCategory.has('categories')) {
-      processedCategory = category.update('categories', subcategories => subcategories.map(this.processCategory));
-    }
-
-    if (this.props.processCategory) {
-      return this.props.processCategory(processedCategory);
-    }
-
-    return processedCategory;
-  }
-
   render = () => {
     if (this.props.categories) {
       return (
-        <xml style={{ display: 'none' }}>
+        <xml style={{ display: 'none' }} ref={(node) => { this.rootNode = node; }}>
           {this.renderCategories(this.props.categories.map(this.processCategory))}
         </xml>
       );
     }
     return (
-      <xml style={{ display: 'none' }}>
+      <xml style={{ display: 'none' }} ref={(node) => { this.rootNode = node; }}>
         {this.props.blocks.map(BlocklyToolboxBlock.renderBlock)}
       </xml>
     );

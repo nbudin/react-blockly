@@ -1,8 +1,8 @@
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutableRenderMixin from 'react-immutable-render-mixin';
 
 class BlocklyToolboxBlock extends React.PureComponent {
   static propTypes = {
@@ -16,6 +16,15 @@ class BlocklyToolboxBlock extends React.PureComponent {
       attributes: ImmutablePropTypes.map,
       innerContent: PropTypes.string,
     }),
+  };
+
+  static defaultProps = {
+    shadow: false,
+    fields: null,
+    values: null,
+    statements: null,
+    next: null,
+    mutation: null,
   };
 
   static renderBlock = (block, key) => (
@@ -33,10 +42,8 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
   componentDidMount = () => {
     if (this.props.mutation) {
-      const mutation = ReactDOM.findDOMNode(this.refs.mutation);
-
       this.props.mutation.get('attributes').forEach((value, attributeName) => {
-        mutation.setAttribute(attributeName, value);
+        this.mutationElement.setAttribute(attributeName, value);
         return true;
       });
     }
@@ -74,13 +81,21 @@ class BlocklyToolboxBlock extends React.PureComponent {
     }
 
     if (this.props.mutation) {
-      mutation = <mutation dangerouslySetInnerHTML={{ __html: this.props.mutation.get('innerContent') }} ref="mutation" />;
+      mutation = ((
+        <mutation
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: this.props.mutation.get('innerContent') }}
+          ref={(mutationElement) => { this.mutationElement = mutationElement; }}
+        />
+      ));
     }
 
     if (this.props.next) {
-      nextBlock = (<next>
-        {BlocklyToolboxBlock.renderBlock(this.props.next)}
-      </next>);
+      nextBlock = ((
+        <next>
+          {BlocklyToolboxBlock.renderBlock(this.props.next)}
+        </next>
+      ));
     }
 
     if (this.props.shadow) {
@@ -94,6 +109,7 @@ class BlocklyToolboxBlock extends React.PureComponent {
         </shadow>
       );
     }
+
     return (
       <block type={this.props.type}>
         {mutation}
