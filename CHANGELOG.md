@@ -1,7 +1,9 @@
-# Version 3.0.0 - TBD
+# Version 3.0.0 - December 29, 2017
 
-* Support React 16.
+* Support React 16.  Drop support for React 0.14.x.
 * Deprecate `xmlDidChange` in favor of `workspaceDidChange`, which gives you access to the workspace object itself to allow generating code for any language including XML (thanks @Xaptor!)
+* Stop depending on ReactDOM in favor of callback refs.
+* Major internal cleanups to pass AirBnB's eslint configuration.
 
 # Version 2.0.1 - November 22, 2016
 

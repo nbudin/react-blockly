@@ -4,14 +4,12 @@ import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyWorkspace from './BlocklyWorkspace';
 
-var ReactBlocklyComponent = {
-  BlocklyEditor: BlocklyEditor,
-  BlocklyToolbox: BlocklyToolbox,
-  BlocklyToolboxBlock: BlocklyToolboxBlock,
-  BlocklyToolboxCategory: BlocklyToolboxCategory,
-  BlocklyWorkspace: BlocklyWorkspace
+const ReactBlocklyComponent = {
+  BlocklyEditor,
+  BlocklyToolbox,
+  BlocklyToolboxBlock,
+  BlocklyToolboxCategory,
+  BlocklyWorkspace,
 };
-
-module.exports = ReactBlocklyComponent;
 
 export default ReactBlocklyComponent;

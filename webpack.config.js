@@ -1,11 +1,12 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: [
-    './src/index.js'
+    './src/dev-index.js'
   ],
   output: {
-    path: './dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: "react-blockly-component.js",
     libraryTarget: "var",
     library: "ReactBlocklyComponent"
@@ -16,16 +17,18 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
+        loader: 'babel-loader'
       }
     ]
   },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+      ReactDOM: 'react-dom',
+    }),
+  ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   devServer: {
     contentBase: './public',
