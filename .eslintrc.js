@@ -7,6 +7,10 @@ module.exports = {
     node: true,
   },
 
+  globals: {
+    'Blockly': true,
+  },
+
   extends: [
     "airbnb",
   ],

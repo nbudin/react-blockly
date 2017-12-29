@@ -5,11 +5,11 @@ import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyWorkspace from './BlocklyWorkspace';
 
 const ReactBlocklyComponent = {
-  BlocklyEditor: BlocklyEditor,
-  BlocklyToolbox: BlocklyToolbox,
-  BlocklyToolboxBlock: BlocklyToolboxBlock,
-  BlocklyToolboxCategory: BlocklyToolboxCategory,
-  BlocklyWorkspace: BlocklyWorkspace
+  BlocklyEditor,
+  BlocklyToolbox,
+  BlocklyToolboxBlock,
+  BlocklyToolboxCategory,
+  BlocklyWorkspace,
 };
 
 export default ReactBlocklyComponent;

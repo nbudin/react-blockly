@@ -16,11 +16,11 @@ class BlocklyEditor extends React.Component {
     xmlDidChange: PropTypes.func,
     workspaceDidChange: PropTypes.func,
     onImportXmlError: PropTypes.func,
-    processToolboxCategory: PropTypes.func
+    processToolboxCategory: PropTypes.func,
   };
 
   toolboxDidUpdate = () => {
-    var workspaceConfiguration = this.props.workspaceConfiguration || {};
+    const workspaceConfiguration = this.props.workspaceConfiguration || {};
     if (this.refs.workspace && !workspaceConfiguration.readOnly) {
       this.refs.workspace.toolboxDidUpdate(ReactDOM.findDOMNode(this.refs.toolbox));
     }
@@ -48,20 +48,18 @@ class BlocklyEditor extends React.Component {
     }
   }
 
-  importFromXml = (xml) => {
-    return this.refs.workspace.importFromXml(xml);
-  }
+  importFromXml = xml => this.refs.workspace.importFromXml(xml)
 
   resize = () => {
     this.refs.workspace.resize();
   }
 
   render = () => {
-    var toolboxMode;
+    let toolboxMode;
     if (this.props.toolboxCategories) {
-      toolboxMode = "CATEGORIES";
+      toolboxMode = 'CATEGORIES';
     } else if (this.props.toolboxBlocks) {
-      toolboxMode = "BLOCKS";
+      toolboxMode = 'BLOCKS';
     }
 
     return (
@@ -71,15 +69,18 @@ class BlocklyEditor extends React.Component {
           blocks={Immutable.fromJS(this.props.toolboxBlocks)}
           didUpdate={this.toolboxDidUpdate}
           processCategory={this.props.processToolboxCategory}
-          ref="toolbox" />
-        <BlocklyWorkspace ref="workspace"
+          ref="toolbox"
+        />
+        <BlocklyWorkspace
+          ref="workspace"
           initialXml={this.props.initialXml}
           onImportXmlError={this.props.onImportXmlError}
           toolboxMode={toolboxMode}
           xmlDidChange={this.xmlDidChange}
-		  workspaceDidChange={this.workspaceDidChange}
+          workspaceDidChange={this.workspaceDidChange}
           wrapperDivClassName={this.props.wrapperDivClassName}
-          workspaceConfiguration={this.props.workspaceConfiguration} />
+          workspaceConfiguration={this.props.workspaceConfiguration}
+        />
       </div>
     );
   }

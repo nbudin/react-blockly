@@ -14,8 +14,8 @@ class BlocklyToolboxBlock extends React.PureComponent {
     next: ImmutablePropTypes.map,
     mutation: ImmutablePropTypes.mapContains({
       attributes: ImmutablePropTypes.map,
-      innerContent: PropTypes.string
-    })
+      innerContent: PropTypes.string,
+    }),
   };
 
   static renderBlock = (block, key) => (
@@ -27,14 +27,15 @@ class BlocklyToolboxBlock extends React.PureComponent {
       statements={block.get('statements')}
       mutation={block.get('mutation')}
       shadow={block.get('shadow')}
-      next={block.get('next')} />
+      next={block.get('next')}
+    />
   );
 
   componentDidMount = () => {
     if (this.props.mutation) {
-      var mutation = ReactDOM.findDOMNode(this.refs.mutation);
+      const mutation = ReactDOM.findDOMNode(this.refs.mutation);
 
-      this.props.mutation.get('attributes').forEach(function(value, attributeName) {
+      this.props.mutation.get('attributes').forEach((value, attributeName) => {
         mutation.setAttribute(attributeName, value);
         return true;
       });
@@ -42,51 +43,44 @@ class BlocklyToolboxBlock extends React.PureComponent {
   }
 
   render = () => {
-    var fields = [];
-    var values = [];
-    var statements = [];
-    var mutation = null;
-    var nextBlock = null;
+    let fields = [];
+    let values = [];
+    let statements = [];
+    let mutation = null;
+    let nextBlock = null;
 
     if (this.props.fields) {
-      fields = this.props.fields.map(function(fieldValue, fieldName, i) {
-        return (
-          <field name={fieldName} key={"field_" + fieldName + "_" + i}>
-            {fieldValue}
-          </field>
-        );
-      }.bind(this)).valueSeq();
+      fields = this.props.fields.map((fieldValue, fieldName, i) => (
+        <field name={fieldName} key={`field_${fieldName}_${i}`}>
+          {fieldValue}
+        </field>
+      )).valueSeq();
     }
 
     if (this.props.values) {
-      values = this.props.values.map(function(valueBlock, valueName, i) {
-        return (
-          <value name={valueName} key={"value_" + valueName + "_" + i}>
-            {BlocklyToolboxBlock.renderBlock(valueBlock)}
-          </value>
-        );
-      }.bind(this)).valueSeq();
-
+      values = this.props.values.map((valueBlock, valueName, i) => (
+        <value name={valueName} key={`value_${valueName}_${i}`}>
+          {BlocklyToolboxBlock.renderBlock(valueBlock)}
+        </value>
+      )).valueSeq();
     }
 
     if (this.props.statements) {
-      statements = this.props.statements.map(function(statementBlock, statementName, i) {
-        return (
-          <statement name={statementName} key={"statement_" + statementName + "_" + i}>
-            {BlocklyToolboxBlock.renderBlock(statementBlock)}
-          </statement>
-        );
-      }.bind(this)).valueSeq();
+      statements = this.props.statements.map((statementBlock, statementName, i) => (
+        <statement name={statementName} key={`statement_${statementName}_${i}`}>
+          {BlocklyToolboxBlock.renderBlock(statementBlock)}
+        </statement>
+      )).valueSeq();
     }
 
     if (this.props.mutation) {
-      mutation = <mutation dangerouslySetInnerHTML={{__html: this.props.mutation.get('innerContent')}} ref="mutation" />;
+      mutation = <mutation dangerouslySetInnerHTML={{ __html: this.props.mutation.get('innerContent') }} ref="mutation" />;
     }
 
     if (this.props.next) {
-      nextBlock = <next>
+      nextBlock = (<next>
         {BlocklyToolboxBlock.renderBlock(this.props.next)}
-      </next>;
+      </next>);
     }
 
     if (this.props.shadow) {
@@ -99,17 +93,16 @@ class BlocklyToolboxBlock extends React.PureComponent {
           {nextBlock}
         </shadow>
       );
-    } else {
-      return (
-        <block type={this.props.type}>
-          {mutation}
-          {fields}
-          {values}
-          {statements}
-          {nextBlock}
-        </block>
-      );
     }
+    return (
+      <block type={this.props.type}>
+        {mutation}
+        {fields}
+        {values}
+        {statements}
+        {nextBlock}
+      </block>
+    );
   }
 }
 

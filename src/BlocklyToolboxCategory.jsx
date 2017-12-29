@@ -10,28 +10,28 @@ class BlocklyToolboxCategory extends React.PureComponent {
     custom: PropTypes.string,
     colour: PropTypes.string,
     categories: ImmutablePropTypes.list,
-    blocks: ImmutablePropTypes.list
+    blocks: ImmutablePropTypes.list,
   };
 
   static renderCategory = (category, key) => {
     if (category.get('type') === 'sep') {
-      return <sep key={key}></sep>;
+      return <sep key={key} />;
     } else if (category.get('type') === 'search') {
-      return <search key={key}/>;
-    } else {
-      return <BlocklyToolboxCategory
-        name={category.get('name')}
-        custom={category.get('custom')}
-        colour={category.get('colour')}
-        key={key}
-        blocks={category.get('blocks')}
-        categories={category.get('categories')} />;
+      return <search key={key} />;
     }
+    return (<BlocklyToolboxCategory
+      name={category.get('name')}
+      custom={category.get('custom')}
+      colour={category.get('colour')}
+      key={key}
+      blocks={category.get('blocks')}
+      categories={category.get('categories')}
+    />);
   };
 
   render = () => {
-    var subcategories = (this.props.categories || []).map(BlocklyToolboxCategory.renderCategory);
-    var blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
+    const subcategories = (this.props.categories || []).map(BlocklyToolboxCategory.renderCategory);
+    const blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
     return (
       <category is name={this.props.name} custom={this.props.custom} colour={this.props.colour} ref="category">
