@@ -67,9 +67,13 @@ window.addEventListener('load', function() {
     ],
     initialXml: '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT"></field></block></xml>',
     wrapperDivClassName: 'fill-height',
-    xmlDidChange: function(newXml) {
+    workspaceDidChange: (workspace) => {
+      const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
       document.getElementById('generated-xml').innerText = newXml;
-    }
+
+      const code = Blockly.JavaScript.workspaceToCode(workspace);
+      document.getElementById('code').value = code;
+    },
   });
   ReactDOM.render(editor, document.getElementById('blockly'));
 });
