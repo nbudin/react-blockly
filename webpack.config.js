@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/dev-index.js'
+    './src/dev-index.jsx'
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
