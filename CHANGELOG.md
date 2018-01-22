@@ -1,3 +1,7 @@
+# Version 3.0.1 - January 22, 2018
+
+* If the toolbox props change, automatically update the toolbox in Blockly
+
 # Version 3.0.0 - December 29, 2017
 
 * Support React 16.  Drop support for React 0.14.x.
