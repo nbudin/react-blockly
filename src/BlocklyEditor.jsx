@@ -67,6 +67,21 @@ class BlocklyEditor extends React.Component {
     }
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (
+      (
+        this.props.toolboxBlocks &&
+        !Immutable.fromJS(this.props.toolboxBlocks).equals(Immutable.fromJS(prevProps.toolboxBlocks))
+      ) ||
+      (
+        this.props.toolboxCategories &&
+        !Immutable.fromJS(this.props.toolboxCategories).equals(Immutable.fromJS(prevProps.toolboxBlocks))
+      )
+    ) {
+      this.toolboxDidUpdate();
+    }
+  }
+
   toolboxDidUpdate = () => {
     const workspaceConfiguration = this.props.workspaceConfiguration || {};
     if (this.workspace && !workspaceConfiguration.readOnly) {
