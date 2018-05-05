@@ -75,7 +75,7 @@ class BlocklyEditor extends React.Component {
       ) ||
       (
         this.props.toolboxCategories &&
-        !Immutable.fromJS(this.props.toolboxCategories).equals(Immutable.fromJS(prevProps.toolboxBlocks))
+        !Immutable.fromJS(this.props.toolboxCategories).equals(Immutable.fromJS(prevProps.toolboxCategories))
       )
     ) {
       this.toolboxDidUpdate();
