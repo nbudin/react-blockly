@@ -1,3 +1,7 @@
+# Version 3.0.2 - May 5, 2018
+
+* Fix a logic error in BlocklyEditor's componentDidUpdate (thanks @prabak!)
+
 # Version 3.0.1 - January 22, 2018
 
 * If the toolbox props change, automatically update the toolbox in Blockly
