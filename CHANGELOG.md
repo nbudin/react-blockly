@@ -1,3 +1,7 @@
+# Version 3.0.3 - September 7, 2018
+
+* Make `type` an optional prop because categories don't always use it
+
 # Version 3.0.2 - May 5, 2018
 
 * Fix a logic error in BlocklyEditor's componentDidUpdate (thanks @prabak!)
