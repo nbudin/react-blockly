@@ -6,7 +6,7 @@ import BlocklyToolbox from './BlocklyToolbox';
 import BlocklyWorkspace from './BlocklyWorkspace';
 
 const BlockPropType = PropTypes.shape({
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   shadow: PropTypes.bool,
   fields: PropTypes.object,
   values: PropTypes.object,
@@ -19,7 +19,7 @@ const BlockPropType = PropTypes.shape({
 });
 
 const categoryPropsNonRecursive = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   name: PropTypes.string,
   custom: PropTypes.string,
   colour: PropTypes.string,
