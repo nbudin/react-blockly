@@ -8,6 +8,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import BlocklyToolboxCategory from './BlocklyToolboxCategory';
 import BlocklyToolboxBlock from './BlocklyToolboxBlock';
 
+
 class BlocklyToolbox extends React.Component {
   static propTypes = {
     categories: ImmutablePropTypes.list,
@@ -49,7 +50,7 @@ class BlocklyToolbox extends React.Component {
     }
 
     return processedCategory;
-  }
+  };
 
   renderCategories = categories => categories.map((category, i) => {
     if (category.get('type') === 'sep') {
@@ -65,7 +66,7 @@ class BlocklyToolbox extends React.Component {
       blocks={category.get('blocks')}
       categories={category.get('categories')}
     />);
-  })
+  });
 
   render = () => {
     if (this.props.categories) {

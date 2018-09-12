@@ -1,4 +1,11 @@
 /dist
 /dist-modules
 /node_modules
-npm-debug.log
+.idea/*
+
+.idea/codeStyles/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/react-blockly-component.iml
+.idea/vcs.xml
