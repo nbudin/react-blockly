@@ -1,3 +1,7 @@
+# Version 3.1.0 - September 13, 2018
+
+* Add a `parseWorkspaceXml` function that makes it easier to use XML-formatted toolboxes with react-blockly-component (thanks @Macilias!)
+
 # Version 3.0.3 - September 7, 2018
 
 * Make `type` an optional prop because categories don't always use it
