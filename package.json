@@ -10,7 +10,8 @@
     "start": "webpack-dev-server --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "babel ./src --out-dir ./dist-modules",
-    "prepublish:watch": "babel ./src --watch --out-dir ./dist-modules"
+    "prepublish:watch": "babel ./src --watch --out-dir ./dist-modules",
+    "prepare": "npm run build"
   },
   "author": "Nat Budin <nbudin@patientslikeme.com>",
   "license": "MIT",
