@@ -1,3 +1,8 @@
+# Version 3.1.1 - October 15, 2018
+
+* Bugfix: render single blocks in a category again (thanks @YuliyaBolbot!)
+* Add a `prepare` script to make it easier to test forks (thanks again @YuliyaBolbot!)
+
 # Version 3.1.0 - September 13, 2018
 
 * Add a `parseWorkspaceXml` function that makes it easier to use XML-formatted toolboxes with react-blockly-component (thanks @Macilias!)
