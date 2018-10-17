@@ -1,6 +1,6 @@
 {
   "name": "react-blockly-component",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A React wrapper for the Blockly visual programming editor",
   "main": "dist-modules",
   "scripts": {
