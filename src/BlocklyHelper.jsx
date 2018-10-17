@@ -80,6 +80,9 @@ function transformed(result) {
     cNew.blocks = [];
     const blocks = c.block;
     if (blocks) {
+      if(!(blocks instanceof Array)){
+        cNew.blocks[0] = blocks;
+      }
       for (let j = 0; j < blocks.length; j++) {
         const b = blocks[j];
         const bNew = {};
