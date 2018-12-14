@@ -2,7 +2,7 @@
  * @param {string} xml
  */
 export default function parseWorkspaceXml(xml) {
-  const arrayTags = ['name', 'custom', 'colour','categories', 'blocks'];
+  const arrayTags = ['name', 'custom', 'colour', 'categories', 'blocks'];
   let xmlDoc = null;
   if (window.DOMParser) {
     xmlDoc = (new DOMParser()).parseFromString(xml, 'text/xml');
@@ -77,28 +77,90 @@ function transformed(result) {
     cNew.name = c.name;
     cNew.colour = c.colour;
     cNew.custom = c.custom;
-    cNew.blocks = [];
-    const blocks = c.block;
-    if (blocks) {
-      if(!(blocks instanceof Array)){
-        cNew.blocks[0] = blocks;
-      }
-      for (let j = 0; j < blocks.length; j++) {
-        const b = blocks[j];
-        const bNew = {};
-        bNew.type = b.type;
-        bNew.fields = {};
-        const fields = b.field;
-        if (fields) {
-          for (let k = 0; k < fields.length; k++) {
-            const f = fields[k];
-            bNew.fields[k] = f;
-          }
-        }
-        cNew.blocks[j] = bNew;
-      }
+    if (c.block) {
+      cNew.blocks = parseBlocks(c.block);
     }
     filteredResult.push(cNew);
   }
+
   return filteredResult;
+}
+
+function parseBlocks(blocks) {
+  let arr = ensureArray(blocks);
+
+  const res = [];
+  arr.forEach(block => {
+    let obj = parseObject(block);
+    obj.type = block.type;
+    res.push(obj);
+  });
+
+  return res;
+}
+
+function parseFields(fields) {
+  let arr = ensureArray(fields);
+
+  const res = {};
+  arr.forEach(field => {
+    res[field.name] = field.value;
+  });
+
+  return res;
+}
+
+function parseValues(values) {
+  let arr = ensureArray(values);
+
+  const res = {};
+  arr.forEach(value => {
+    res[value.name] = parseObject(value);
+  });
+
+  return res;
+}
+
+function ensureArray(obj) {
+  if (obj instanceof Array) {
+    return obj;
+  }
+
+  return [obj];
+}
+
+function parseObject(obj) {
+  let res = {};
+  if (obj.shadow) {
+    res = parseObject(obj.shadow);
+    res.type = obj.shadow.type;
+    res.shadow = true;
+  } else if (obj.block) {
+    res = parseObject(obj.block);
+    res.type = obj.block.type;
+    res.shadow = false;
+  }
+
+  if (obj.mutation) {
+    res.mutation = {
+      attributes: obj.mutation,
+      innerContent: obj.mutation.value,
+    };
+  }
+  if (obj.field) {
+    res.fields = parseFields(obj.field);
+  }
+  if (obj.value) {
+    res.values = parseValues(obj.value);
+  }
+  if (obj.next) {
+    res.next = parseObject(obj.next);
+  }
+  if (obj.statement) {
+    res.statements = {
+      [obj.statement.name]: parseObject(obj.statement),
+    };
+  }
+
+  return res;
 }
