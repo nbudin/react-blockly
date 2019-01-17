@@ -1,3 +1,7 @@
+# Version 3.2.0 - January 17, 2019
+
+* Support parsing nested blocks (thanks @YuliyaBolbot!)
+
 # Version 3.1.1 - October 15, 2018
 
 * Bugfix: render single blocks in a category again (thanks @YuliyaBolbot!)
