@@ -9,6 +9,7 @@ class BlocklyToolboxCategory extends React.PureComponent {
     name: PropTypes.string,
     custom: PropTypes.string,
     colour: PropTypes.string,
+    expanded: PropTypes.string,
     categories: ImmutablePropTypes.list,
     blocks: ImmutablePropTypes.list,
   };
@@ -17,6 +18,7 @@ class BlocklyToolboxCategory extends React.PureComponent {
     name: null,
     custom: null,
     colour: null,
+    expanded: null,
     categories: null,
     blocks: null,
   };
@@ -31,6 +33,7 @@ class BlocklyToolboxCategory extends React.PureComponent {
       name={category.get('name')}
       custom={category.get('custom')}
       colour={category.get('colour')}
+      expanded={category.get('expanded')}
       key={key}
       blocks={category.get('blocks')}
       categories={category.get('categories')}
@@ -42,7 +45,7 @@ class BlocklyToolboxCategory extends React.PureComponent {
     const blocks = (this.props.blocks || []).map(BlocklyToolboxBlock.renderBlock);
 
     return (
-      <category name={this.props.name} custom={this.props.custom} colour={this.props.colour}>
+      <category name={this.props.name} custom={this.props.custom} colour={this.props.colour} expanded={this.props.expanded}>
         {blocks}
         {subcategories}
       </category>
