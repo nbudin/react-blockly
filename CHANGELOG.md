@@ -1,3 +1,7 @@
+# Version 3.3.0 - June 7, 2019
+
+* Support expanded property on category (thanks @doper1234)
+
 # Version 3.2.0 - January 17, 2019
 
 * Support parsing nested blocks (thanks @YuliyaBolbot!)
