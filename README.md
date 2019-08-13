@@ -50,7 +50,7 @@ All properties are optional except where otherwise specified.
 
 ## Example usage
 
-See `public/index.html` for a fairly full-fledged demo that shows off most of the features of this component.
+See `public/index.html` and `src/dev-index.jsx` for a fairly full-fledged demo that shows off most of the features of this component.
 
 ## Contributing
 
