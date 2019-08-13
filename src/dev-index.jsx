@@ -2,6 +2,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Blockly from 'blockly';
+
 import ReactBlocklyComponent from './index';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';

@@ -1,6 +1,8 @@
-# react-blockly-component
+# react-blockly
 
 A React component that embeds a [Blockly](https://developers.google.com/blockly/) visual programming editor.
+
+This is a continuation of PatientsLikeMe's [react-blockly-component](https://github.com/patientslikeme/react-blockly-component) project.  This new version utilizes Google's official Blockly npm packages in addition to other modernizations.
 
 Features:
 
@@ -56,4 +58,6 @@ Please note that this project is released with a Contributor Code of Conduct. By
 
 ## Licensing
 
-react-blockly-component is Copyright &copy; 2015 PatientsLikeMe, Inc.  Distributed under the terms and conditions of the MIT License.
+react-blockly is Copyright &copy; 2019 Nat Budin.  Distributed under the terms and conditions of the MIT License.
+
+react-blockly is based on react-blockly-component, which is Copyright &copy; 2015 PatientsLikeMe, Inc.  Distributed under the terms and conditions of the MIT License.

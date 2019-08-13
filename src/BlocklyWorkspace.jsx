@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Blockly from 'blockly';
 
 function debounce(func, wait) {
   let timeout;
