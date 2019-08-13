@@ -1,3 +1,11 @@
+# Version 4.0.0 - August 13, 2019
+
+* First release under the new package name react-blockly
+* Use the new official blockly npm package as a dependency
+* Update development dependencies
+
+# NOTE: Previous releases are under the package name react-blockly-component
+
 # Version 3.3.0 - June 7, 2019
 
 * Support expanded property on category (thanks @doper1234)
