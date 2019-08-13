@@ -1,5 +1,7 @@
 # react-blockly
 
+[![Built on Blockly](https://tinyurl.com/built-on-blockly)](https://github.com/google/blockly)
+
 A React component that embeds a [Blockly](https://developers.google.com/blockly/) visual programming editor.
 
 This is a continuation of PatientsLikeMe's [react-blockly-component](https://github.com/patientslikeme/react-blockly-component) project.  This new version utilizes Google's official Blockly npm packages in addition to other modernizations.
