@@ -41,7 +41,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "webpack": "^3.0",
-    "webpack-dev-server": "^2.9"
+    "webpack-dev-server": "^3.1"
   },
   "repository": {
     "type": "git",
