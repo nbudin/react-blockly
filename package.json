@@ -1,6 +1,6 @@
 {
-  "name": "react-blockly-component",
-  "version": "3.3.0",
+  "name": "react-blockly",
+  "version": "4.0.0",
   "description": "A React wrapper for the Blockly visual programming editor",
   "main": "dist-modules",
   "scripts": {
@@ -13,7 +13,7 @@
     "prepublish:watch": "babel ./src --watch --out-dir ./dist-modules",
     "prepare": "npm run prepublishOnly"
   },
-  "author": "Nat Budin <nbudin@patientslikeme.com>",
+  "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "blockly": "^2.20190722.1",
@@ -46,6 +46,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/patientslikeme/react-blockly-component/"
+    "url": "https://github.com/nbudin/react-blockly/"
   }
 }
