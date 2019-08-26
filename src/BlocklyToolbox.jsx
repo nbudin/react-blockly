@@ -28,7 +28,7 @@ class BlocklyToolbox extends React.Component {
     this.props.didUpdate();
   }
 
-  shouldComponentUpdate = nextProps => !(
+  shouldComponentUpdate = (nextProps) => !(
     is(nextProps.categories, this.props.categories) && is(nextProps.blocks, this.props.blocks)
   )
 
@@ -42,7 +42,7 @@ class BlocklyToolbox extends React.Component {
     let processedCategory = category;
 
     if (processedCategory.has('categories')) {
-      processedCategory = category.update('categories', subcategories => subcategories.map(this.processCategory));
+      processedCategory = category.update('categories', (subcategories) => subcategories.map(this.processCategory));
     }
 
     if (this.props.processCategory) {
@@ -52,21 +52,23 @@ class BlocklyToolbox extends React.Component {
     return processedCategory;
   };
 
-  renderCategories = categories => categories.map((category, i) => {
+  renderCategories = (categories) => categories.map((category, i) => {
     if (category.get('type') === 'sep') {
       return <sep key={`sep_${i}`} />;
-    } else if (category.get('type') === 'search') {
+    } if (category.get('type') === 'search') {
       return <search key={`search_${i}`} />;
     }
-    return (<BlocklyToolboxCategory
-      name={category.get('name')}
-      custom={category.get('custom')}
-      colour={category.get('colour')}
-      expanded={category.get('expanded')}
-      key={`category_${category.get('name')}_${i}`}
-      blocks={category.get('blocks')}
-      categories={category.get('categories')}
-    />);
+    return (
+      <BlocklyToolboxCategory
+        name={category.get('name')}
+        custom={category.get('custom')}
+        colour={category.get('colour')}
+        expanded={category.get('expanded')}
+        key={`category_${category.get('name')}_${i}`}
+        blocks={category.get('blocks')}
+        categories={category.get('categories')}
+      />
+    );
   });
 
   render = () => {

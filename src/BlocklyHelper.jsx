@@ -28,7 +28,7 @@ export default function parseWorkspaceXml(xml) {
     if (xmlNode.nodeName === '#text') {
       const v = xmlNode.nodeValue;
       if (v.trim()) {
-        result['value'] = v;
+        result.value = v;
       }
       return;
     }
@@ -69,8 +69,8 @@ export default function parseWorkspaceXml(xml) {
 
 function transformed(result) {
   const filteredResult = [];
-  const xml = result["xml"];
-  const categories = xml["category"];
+  const { xml } = result;
+  const categories = xml.category;
   for (let i = 0; i < categories.length; i++) {
     const c = categories[i];
     const cNew = {};
@@ -87,11 +87,11 @@ function transformed(result) {
 }
 
 function parseBlocks(blocks) {
-  let arr = ensureArray(blocks);
+  const arr = ensureArray(blocks);
 
   const res = [];
-  arr.forEach(block => {
-    let obj = parseObject(block);
+  arr.forEach((block) => {
+    const obj = parseObject(block);
     obj.type = block.type;
     res.push(obj);
   });
@@ -100,10 +100,10 @@ function parseBlocks(blocks) {
 }
 
 function parseFields(fields) {
-  let arr = ensureArray(fields);
+  const arr = ensureArray(fields);
 
   const res = {};
-  arr.forEach(field => {
+  arr.forEach((field) => {
     res[field.name] = field.value;
   });
 
@@ -111,10 +111,10 @@ function parseFields(fields) {
 }
 
 function parseValues(values) {
-  let arr = ensureArray(values);
+  const arr = ensureArray(values);
 
   const res = {};
-  arr.forEach(value => {
+  arr.forEach((value) => {
     res[value.name] = parseObject(value);
   });
 

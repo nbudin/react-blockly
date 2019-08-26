@@ -23,4 +23,8 @@ module.exports = {
       jsx: true,
     },
   },
+  "rules": {
+    "react/destructuring-assignment" : 0,
+    "no-plusplus" : 0
+  }
 };
