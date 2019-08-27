@@ -31,31 +31,32 @@ const CategoryPropType = PropTypes.shape({
   categories: PropTypes.arrayOf(PropTypes.shape(categoryPropsNonRecursive)),
 });
 
+
+const propTypes = {
+  initialXml: PropTypes.string,
+  workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  wrapperDivClassName: PropTypes.string,
+  toolboxCategories: PropTypes.arrayOf(CategoryPropType.isRequired),
+  toolboxBlocks: PropTypes.arrayOf(BlockPropType.isRequired),
+  xmlDidChange: PropTypes.func,
+  workspaceDidChange: PropTypes.func,
+  onImportXmlError: PropTypes.func,
+  processToolboxCategory: PropTypes.func,
+};
+
+const defaultProps = {
+  initialXml: null,
+  workspaceConfiguration: null,
+  wrapperDivClassName: null,
+  toolboxCategories: null,
+  toolboxBlocks: null,
+  xmlDidChange: null,
+  workspaceDidChange: null,
+  onImportXmlError: null,
+  processToolboxCategory: null,
+};
+
 class BlocklyEditor extends React.Component {
-  static propTypes = {
-    initialXml: PropTypes.string,
-    workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    wrapperDivClassName: PropTypes.string,
-    toolboxCategories: PropTypes.arrayOf(CategoryPropType.isRequired),
-    toolboxBlocks: PropTypes.arrayOf(BlockPropType.isRequired),
-    xmlDidChange: PropTypes.func,
-    workspaceDidChange: PropTypes.func,
-    onImportXmlError: PropTypes.func,
-    processToolboxCategory: PropTypes.func,
-  };
-
-  static defaultProps = {
-    initialXml: null,
-    workspaceConfiguration: null,
-    wrapperDivClassName: null,
-    toolboxCategories: null,
-    toolboxBlocks: null,
-    xmlDidChange: null,
-    workspaceDidChange: null,
-    onImportXmlError: null,
-    processToolboxCategory: null,
-  };
-
   componentDidMount = () => {
     this.toolboxDidUpdate();
 
@@ -70,12 +71,12 @@ class BlocklyEditor extends React.Component {
   componentDidUpdate = (prevProps) => {
     if (
       (
-        this.props.toolboxBlocks &&
-        !Immutable.fromJS(this.props.toolboxBlocks).equals(Immutable.fromJS(prevProps.toolboxBlocks))
-      ) ||
-      (
-        this.props.toolboxCategories &&
-        !Immutable.fromJS(this.props.toolboxCategories).equals(Immutable.fromJS(prevProps.toolboxCategories))
+        this.props.toolboxBlocks
+        && !Immutable.fromJS(this.props.toolboxBlocks).equals(Immutable.fromJS(prevProps.toolboxBlocks))
+      )
+      || (
+        this.props.toolboxCategories
+        && !Immutable.fromJS(this.props.toolboxCategories).equals(Immutable.fromJS(prevProps.toolboxCategories))
       )
     ) {
       this.toolboxDidUpdate();
@@ -101,7 +102,7 @@ class BlocklyEditor extends React.Component {
     }
   }
 
-  importFromXml = xml => this.workspace.importFromXml(xml)
+  importFromXml = (xml) => this.workspace.importFromXml(xml)
 
   resize = () => {
     this.workspace.resize();
@@ -138,5 +139,7 @@ class BlocklyEditor extends React.Component {
     );
   }
 }
+BlocklyEditor.propTypes = propTypes;
+BlocklyEditor.defaultProps = defaultProps;
 
 export default BlocklyEditor;
