@@ -1,3 +1,7 @@
+# Version 4.0.1 - August 26, 2019
+
+* Dev dependency updates and linter cleanups (thanks @abbychau!)
+
 # Version 4.0.0 - August 13, 2019
 
 * First release under the new package name react-blockly
