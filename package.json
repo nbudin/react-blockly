@@ -16,19 +16,18 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.5.5",
     "blockly": "^2.20190722.1",
     "immutable": "^3.8.2",
     "prop-types": "^15.7.2",
     "react-immutable-proptypes": "^2.1.0"
   },
   "peerDependencies": {
-    "react": "^16.9"
+    "react": "^15.0 || ^16.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
     "babel-cli": "^6.26",
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.5.5",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-object-assign": "^6.22.0",
@@ -45,7 +44,8 @@
     "react-dom": "^16.9.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8"
+    "webpack-dev-server": "^3.8",
+    "eslint-plugin-react-hooks": "^1.7.0"
   },
   "repository": {
     "type": "git",

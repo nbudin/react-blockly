@@ -3,13 +3,13 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/dev-index.jsx'
+    './src/dev-index.jsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: "react-blockly-component.js",
-    libraryTarget: "var",
-    library: "ReactBlocklyComponent"
+    filename: 'react-blockly-component.js',
+    libraryTarget: 'var',
+    library: 'ReactBlocklyComponent',
   },
   devtool: 'source-map',
   module: {
@@ -17,9 +17,9 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader'
-      }
-    ]
+        loader: 'babel-loader',
+      },
+    ],
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -28,10 +28,10 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   devServer: {
     contentBase: './public',
-    filename: 'react-blockly-component.js'
-  }
+    filename: 'react-blockly-component.js',
+  },
 };

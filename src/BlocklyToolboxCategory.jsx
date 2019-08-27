@@ -26,7 +26,8 @@ class BlocklyToolboxCategory extends React.PureComponent {
   static renderCategory = (category, key) => {
     if (category.get('type') === 'sep') {
       return <sep key={key} />;
-    } if (category.get('type') === 'search') {
+    }
+    if (category.get('type') === 'search') {
       return <search key={key} />;
     }
     return (

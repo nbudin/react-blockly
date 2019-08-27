@@ -25,6 +25,7 @@ module.exports = {
   },
   "rules": {
     "react/destructuring-assignment" : 0,
+    "react/static-property-placement" : 0,
     "no-plusplus" : 0
   }
 };
