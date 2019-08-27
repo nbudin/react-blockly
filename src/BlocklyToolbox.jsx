@@ -55,7 +55,8 @@ class BlocklyToolbox extends React.Component {
   renderCategories = (categories) => categories.map((category, i) => {
     if (category.get('type') === 'sep') {
       return <sep key={`sep_${i}`} />;
-    } if (category.get('type') === 'search') {
+    }
+    if (category.get('type') === 'search') {
       return <search key={`search_${i}`} />;
     }
     return (
