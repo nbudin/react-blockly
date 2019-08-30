@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Blockly from 'blockly';
+import Blockly, { alert } from 'blockly';
 
 import ReactBlocklyComponent from './index';
 import ConfigFiles from './initContent/content';
@@ -44,6 +44,9 @@ class TestEditor extends React.Component {
   }
 
   workspaceDidChange = (workspace) => {
+    workspace.registerButtonCallback('myFirstButtonPressed', () => {
+      alert('button is pressed');
+    });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
     document.getElementById('generated-xml').innerText = newXml;
 
