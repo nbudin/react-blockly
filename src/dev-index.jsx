@@ -44,6 +44,9 @@ class TestEditor extends React.Component {
   }
 
   workspaceDidChange = (workspace) => {
+    workspace.registerButtonCallback('myFirstButtonPressed', () => {
+      alert('button is pressed');
+    });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
     document.getElementById('generated-xml').innerText = newXml;
 
