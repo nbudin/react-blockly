@@ -2,7 +2,7 @@
  * @param {string} xml
  */
 export default function parseWorkspaceXml(xml) {
-  const arrayTags = ['name', 'custom', 'colour', 'categories', 'blocks'];
+  const arrayTags = ['name', 'custom', 'colour', 'categories', 'blocks', 'button'];
   let xmlDoc = null;
   if (window.DOMParser) {
     xmlDoc = (new DOMParser()).parseFromString(xml, 'text/xml');
@@ -77,6 +77,7 @@ function transformed(result) {
     cNew.name = c.name;
     cNew.colour = c.colour;
     cNew.custom = c.custom;
+    cNew.button = c.button;
     if (c.block) {
       cNew.blocks = parseBlocks(c.block);
     }
