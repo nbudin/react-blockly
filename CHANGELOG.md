@@ -1,3 +1,7 @@
+# Version 4.1.0 - August 30, 2019
+
+* Add the ability to use buttons in the toolbox (thanks @GAUTAMRAJU15!)
+
 # Version 4.0.1 - August 26, 2019
 
 * Dev dependency updates and linter cleanups (thanks @abbychau!)
