@@ -28,10 +28,10 @@ class BlocklyToolboxCategory extends React.PureComponent {
 
   static renderCategory = (category, key) => {
     if (category.get('type') === 'sep') {
-      return <sep key={key} />;
+      return <div datatype='sep' key={key} />;
     }
     if (category.get('type') === 'search') {
-      return <search key={key} />;
+      return <div datatype='search' key={key} />;
     }
     return (
       <BlocklyToolboxCategory
@@ -53,11 +53,11 @@ class BlocklyToolboxCategory extends React.PureComponent {
     const buttons = (this.props.button || []).map(BlocklyToolboxButton.renderButton);
 
     return (
-      <category name={this.props.name} custom={this.props.custom} colour={this.props.colour} expanded={this.props.expanded}>
+      <div datatype='category' name={this.props.name} custom={this.props.custom} colour={this.props.colour} expanded={this.props.expanded}>
         {buttons}
         {blocks}
         {subcategories}
-      </category>
+      </div>
     );
   }
 }

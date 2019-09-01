@@ -58,31 +58,31 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.fields) {
       fields = this.props.fields.map((fieldValue, fieldName, i) => (
-        <field name={fieldName} key={`field_${fieldName}_${i}`}>
+        <div datatype='field' name={fieldName} key={`field_${fieldName}_${i}`}>
           {fieldValue}
-        </field>
+        </div>
       )).valueSeq();
     }
 
     if (this.props.values) {
       values = this.props.values.map((valueBlock, valueName, i) => (
-        <value name={valueName} key={`value_${valueName}_${i}`}>
+        <div datatype='values' name={valueName} key={`value_${valueName}_${i}`}>
           {BlocklyToolboxBlock.renderBlock(valueBlock)}
-        </value>
+        </div>
       )).valueSeq();
     }
 
     if (this.props.statements) {
       statements = this.props.statements.map((statementBlock, statementName, i) => (
-        <statement name={statementName} key={`statement_${statementName}_${i}`}>
+        <div datatype='statement' name={statementName} key={`statement_${statementName}_${i}`}>
           {BlocklyToolboxBlock.renderBlock(statementBlock)}
-        </statement>
+        </div>
       )).valueSeq();
     }
 
     if (this.props.mutation) {
       mutation = ((
-        <mutation
+        <div datatype='mutation'
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: this.props.mutation.get('innerContent') }}
           ref={(mutationElement) => { this.mutationElement = mutationElement; }}
@@ -92,32 +92,32 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.next) {
       nextBlock = ((
-        <next>
+        <div datatype='next'>
           {BlocklyToolboxBlock.renderBlock(this.props.next)}
-        </next>
+        </div>
       ));
     }
 
     if (this.props.shadow) {
       return (
-        <shadow type={this.props.type}>
+        <div datatype='shadow' type={this.props.type}>
           {mutation}
           {fields}
           {values}
           {statements}
           {nextBlock}
-        </shadow>
+        </div>
       );
     }
 
     return (
-      <block type={this.props.type}>
+      <div datatype='xml' type={this.props.type}>
         {mutation}
         {fields}
         {values}
         {statements}
         {nextBlock}
-      </block>
+      </div>
     );
   }
 }
