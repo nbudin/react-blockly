@@ -1,3 +1,7 @@
+# Version 5.0.0 - January 13, 2020
+
+* Update to Blockly version 3.0! (thanks @samelhusseini!)
+
 # Version 4.1.0 - August 30, 2019
 
 * Add the ability to use buttons in the toolbox (thanks @GAUTAMRAJU15!)
