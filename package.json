@@ -1,6 +1,6 @@
 {
   "name": "react-blockly",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A React wrapper for the Blockly visual programming editor",
   "main": "dist-modules",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": "^3.20200625.1",
+    "blockly": "^3.20200625.2",
     "immutable": "^3.8.2",
     "prop-types": "^15.7.2",
     "react-immutable-proptypes": "^2.1.0"
