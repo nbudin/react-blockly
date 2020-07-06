@@ -16,7 +16,7 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": "^3.20191014.4",
+    "blockly": "^3.20200625.1",
     "immutable": "^3.8.2",
     "prop-types": "^15.7.2",
     "react-immutable-proptypes": "^2.1.0"
@@ -45,7 +45,7 @@
     "react-dom": "^16.9.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8"
+    "webpack-dev-server": "^3.11.0"
   },
   "repository": {
     "type": "git",
