@@ -1,3 +1,7 @@
+# Version 5.1.1 - July 6, 2020
+
+* Update to Blockly version v3.20200625.2 (fixes a regression)
+
 # Version 5.1.0 - July 6, 2020
 
 * Update to Blockly version v3.20200625.1 (thanks @mastanca!)
