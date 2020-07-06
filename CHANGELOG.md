@@ -1,3 +1,7 @@
+# Version 5.1.0 - July 6, 2020
+
+* Update to Blockly version v3.20200625.1 (thanks @mastanca!)
+
 # Version 5.0.0 - January 13, 2020
 
 * Update to Blockly version 3.0! (thanks @samelhusseini!)
