@@ -32,8 +32,8 @@ Once you've done either of these, you should be able to `import ReactBlockly fro
 Clone this repository, and then inside it, do:
 
 ```bash
-npm install
-npm run start
+yarn install
+yarn run start
 ```
 
 webpack-dev-server will start and will be serving a demo of react-blockly, which should automatically refresh if you change the code locally.
@@ -43,8 +43,8 @@ webpack-dev-server will start and will be serving a demo of react-blockly, which
 Clone this repository, and then inside it, do:
 
 ```bash
-npm install
-npm run build
+yarn install
+yarn run build
 ```
 
 You'll get a `dist` directory containing the compiled JS file and a source map.

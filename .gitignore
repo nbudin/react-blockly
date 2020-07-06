@@ -1,6 +1,7 @@
 /dist
 /dist-modules
 /node_modules
+/package-lock.json
 .idea/*
 
 .idea/codeStyles/
