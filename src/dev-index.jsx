@@ -41,6 +41,26 @@ class TestEditor extends React.Component {
         ]),
       });
     }, 2000);
+
+    window.setTimeout(() => {
+      this.setState({
+        toolboxCategories: [
+          ...this.state.toolboxCategories.slice(0, this.state.toolboxCategories.length - 1),
+          {
+            ...this.state.toolboxCategories[this.state.toolboxCategories.length - 1],
+            blocks: [
+              { type: 'text' },
+            ],
+          },
+        ],
+      });
+    }, 4000);
+
+    window.setTimeout(() => {
+      this.setState({
+        toolboxCategories: this.state.toolboxCategories.slice(0, this.state.toolboxCategories.length - 1),
+      });
+    }, 10000);
   }
 
   workspaceDidChange = (workspace) => {
