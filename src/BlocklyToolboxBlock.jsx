@@ -58,7 +58,7 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.fields) {
       fields = this.props.fields.map((fieldValue, fieldName, i) => (
-        <field name={fieldName} key={`field_${fieldName}_${i}`}>
+        <field name={fieldName} key={`field_${fieldName}_${i}`} is="div">
           {fieldValue}
         </field>
       )).valueSeq();
@@ -66,7 +66,7 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.values) {
       values = this.props.values.map((valueBlock, valueName, i) => (
-        <value name={valueName} key={`value_${valueName}_${i}`}>
+        <value name={valueName} key={`value_${valueName}_${i}`} is="div">
           {BlocklyToolboxBlock.renderBlock(valueBlock)}
         </value>
       )).valueSeq();
@@ -74,7 +74,8 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.statements) {
       statements = this.props.statements.map((statementBlock, statementName, i) => (
-        <statement name={statementName} key={`statement_${statementName}_${i}`}>
+        <statement name={statementName} key={`statement_${statementName}_${i}`}
+          is="div">
           {BlocklyToolboxBlock.renderBlock(statementBlock)}
         </statement>
       )).valueSeq();
@@ -86,13 +87,14 @@ class BlocklyToolboxBlock extends React.PureComponent {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: this.props.mutation.get('innerContent') }}
           ref={(mutationElement) => { this.mutationElement = mutationElement; }}
+          is="div"
         />
       ));
     }
 
     if (this.props.next) {
       nextBlock = ((
-        <next>
+        <next is="div">
           {BlocklyToolboxBlock.renderBlock(this.props.next)}
         </next>
       ));
@@ -100,7 +102,7 @@ class BlocklyToolboxBlock extends React.PureComponent {
 
     if (this.props.shadow) {
       return (
-        <shadow type={this.props.type}>
+        <shadow type={this.props.type} is="div">
           {mutation}
           {fields}
           {values}
@@ -111,7 +113,7 @@ class BlocklyToolboxBlock extends React.PureComponent {
     }
 
     return (
-      <block type={this.props.type}>
+      <block type={this.props.type} is="div">
         {mutation}
         {fields}
         {values}

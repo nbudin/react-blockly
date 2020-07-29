@@ -53,7 +53,8 @@ class BlocklyToolboxCategory extends React.PureComponent {
     const buttons = (this.props.button || []).map(BlocklyToolboxButton.renderButton);
 
     return (
-      <category name={this.props.name} custom={this.props.custom} colour={this.props.colour} expanded={this.props.expanded}>
+      <category name={this.props.name} custom={this.props.custom}
+        colour={this.props.colour} expanded={this.props.expanded} is="div">
         {buttons}
         {blocks}
         {subcategories}
