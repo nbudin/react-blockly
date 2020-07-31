@@ -1,3 +1,7 @@
+# Version 5.2.0 - July 31, 2020
+
+* Suppress a lot of console warnings in development mode (thanks @DarkMetroid!)
+
 # Version 5.1.1 - July 6, 2020
 
 * Update to Blockly version v3.20200625.2 (fixes a regression)
