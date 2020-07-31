@@ -23,7 +23,7 @@ class BlocklyToolboxButton extends React.PureComponent {
   render = () => (
     <button
       text={this.props.text}
-      callbackKey={this.props.callbackKey}
+      callbackkey={this.props.callbackKey}
     />
   );
 }

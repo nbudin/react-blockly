@@ -130,7 +130,7 @@ class BlocklyWorkspace extends React.Component {
     let dummyToolboxContent;
     if (this.props.toolboxMode === 'CATEGORIES') {
       dummyToolboxContent = (
-        <category name="Dummy toolbox" colour=''/>
+        <category name="Dummy toolbox" colour='' is="div"/>
       );
     }
 
