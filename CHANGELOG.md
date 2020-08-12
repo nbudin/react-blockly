@@ -1,4 +1,4 @@
-# Version 5.3.0 - August 11, 2020
+# Version 5.3.0 - August 12, 2020
 
 * Upgrade to Babel 7, fix configuration to actually transpile to ES5
 
