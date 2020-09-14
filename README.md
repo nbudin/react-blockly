@@ -25,7 +25,19 @@ To add react-blockly to a React app that uses yarn, run:
 yarn add react-blockly
 ```
 
-Once you've done either of these, you should be able to `import ReactBlockly from 'react-blockly';` in your code and use ReactBlockly as a component.
+## How to use
+
+write `import ReactBlockly from 'react-blockly';` in your code and use ReactBlockly as a component.
+
+You could also import one of these component:
+  ```
+  BlocklyEditor,
+  BlocklyToolbox,
+  BlocklyToolboxBlock,
+  BlocklyToolboxCategory,
+  BlocklyWorkspace```
+using `import 'BlocklyToolbox' from 'react-blockly'`(or another component name)
+
 
 ## Developer setup for working on this package
 
