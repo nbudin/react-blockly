@@ -35,8 +35,9 @@ You could also import one of these component:
   BlocklyToolbox,
   BlocklyToolboxBlock,
   BlocklyToolboxCategory,
-  BlocklyWorkspace```
-using `import 'BlocklyToolbox' from 'react-blockly'`(or another component name)
+  BlocklyWorkspace
+  ```
+using `import { BlocklyToolbox } from 'react-blockly'`(or another component name)
 
 
 ## Developer setup for working on this package
