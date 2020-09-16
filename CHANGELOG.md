@@ -1,3 +1,6 @@
+# Version 6.0.0 - September 15, 2020
+* Update webpack files to support default export of the component , seperate the dev example from the package
+
 # Version 5.3.0 - August 12, 2020
 
 * Upgrade to Babel 7, fix configuration to actually transpile to ES5

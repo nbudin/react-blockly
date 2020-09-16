@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Blockly from 'blockly';
 
-import ReactBlocklyComponent from './index';
+import ReactBlockly from './index';
 import ConfigFiles from './initContent/content';
 import parseWorkspaceXml from './BlocklyHelper';
 
@@ -21,7 +21,6 @@ class TestEditor extends React.Component {
       this.setState({
         toolboxCategories: this.state.toolboxCategories.concat([
           {
-            name: 'Text2',
             blocks: [
               { type: 'text' },
               {
@@ -75,7 +74,7 @@ class TestEditor extends React.Component {
   }
 
   render = () => (
-    <ReactBlocklyComponent.BlocklyEditor
+    <ReactBlockly
       toolboxCategories={this.state.toolboxCategories}
       workspaceConfiguration={{
         grid: {

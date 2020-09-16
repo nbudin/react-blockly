@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './src/index.js',
+    './src/dev-index.jsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,5 +29,9 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  devServer: {
+    contentBase: './public',
+    filename: 'react-blockly.js',
   },
 };
