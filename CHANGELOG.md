@@ -1,5 +1,9 @@
 # Version 6.0.0 - September 15, 2020
-* Update webpack files to support default export of the component , seperate the dev example from the package
+
+* BREAKING CHANGE: BlocklyEditor is now the default export of this package.  If you are using a default import, you'll need to change
+  that.  You can still import individual components using named imports (see the updated README for how), and if you only need
+  BlocklyEditor, it should be more straightforward to use that.
+* Update webpack files to support default export of the component, separate the dev example from the package (thanks @OriAmir!)
 
 # Version 5.3.0 - August 12, 2020
 
