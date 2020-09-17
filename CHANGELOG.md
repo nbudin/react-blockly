@@ -1,5 +1,10 @@
+# Version 6.0.1 - September 17, 2020
+
+* Fix broken entrypoint in package.json; clean up build a bit.
+
 # Version 6.0.0 - September 15, 2020
 
+* **VERSION 6.0.0 IS BROKEN.  PLEASE DO NOT USE.  USE 6.0.1 INSTEAD.**
 * BREAKING CHANGE: BlocklyEditor is now the default export of this package.  If you are using a default import, you'll need to change
   that.  You can still import individual components using named imports (see the updated README for how), and if you only need
   BlocklyEditor, it should be more straightforward to use that.
