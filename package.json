@@ -2,9 +2,8 @@
   "name": "react-blockly",
   "version": "6.0.0",
   "description": "A React wrapper for the Blockly visual programming editor",
-  "main": "dist/react-blockly.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
     "lint": "eslint --ext .js,.jsx src",
     "lint:fix": "eslint --fix --ext .js,.jsx src",
     "start": "webpack-dev-server --config webpack.config.test.js",
