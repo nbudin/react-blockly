@@ -165,3 +165,15 @@ function parseObject(obj) {
 
   return res;
 }
+
+export function importFromXml(xml, workspace, onImportXmlError) {
+  try {
+      Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
+      return true;
+    } catch (e) {
+      if (onImportXmlError) {
+        onImportXmlError(e);
+      }
+      return false;
+    }
+};
