@@ -77,6 +77,7 @@ function BlocklyWorkspace(props) {
       },
     );
     setWorkspace(newWorkspace);
+    handleWorkspaceChanged(newWorkspace, props.workspaceDidChange);
 
     if (xml) {
       if (importFromXml(xml, newWorkspace, props.onImportXmlError)) {

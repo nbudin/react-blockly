@@ -98,7 +98,14 @@ class BlocklyEditor extends React.Component {
   }
 
   workspaceDidChange = (workspace) => {
+    const previousWorkspace = this.workspace;
     this.workspace = workspace;
+
+    if (previousWorkspace !== workspace) {
+      // Make sure the new Blockly's workspace has it's toolbox updated.
+      this.toolboxDidUpdate();
+    }
+
     if (this.props.workspaceDidChange) {
       this.props.workspaceDidChange(workspace);
     }
