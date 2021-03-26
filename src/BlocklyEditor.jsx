@@ -102,7 +102,7 @@ class BlocklyEditor extends React.Component {
     this.workspace = workspace;
 
     if (previousWorkspace !== workspace) {
-      // Make sure the new Blockly's workspace has it's toolbox updated.
+      // Make sure the new Blockly workspace has it's toolbox updated.
       this.toolboxDidUpdate();
     }
 
