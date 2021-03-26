@@ -1,3 +1,5 @@
+import Blockly from 'blockly';
+
 /**
  * @param {string} xml
  */
