@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 
 import BlocklyToolbox from './BlocklyToolbox';
 import BlocklyWorkspace from './BlocklyWorkspace';
+import {importFromXml} from './BlocklyHelper'
 
 const BlockPropType = PropTypes.shape({
   type: PropTypes.string,
@@ -85,8 +86,8 @@ class BlocklyEditor extends React.Component {
 
   toolboxDidUpdate = () => {
     const workspaceConfiguration = this.props.workspaceConfiguration || {};
-    if (this.workspace && !workspaceConfiguration.readOnly) {
-      this.workspace.toolboxDidUpdate(this.toolbox.getRootNode());
+    if (this.workspace && this.toolbox && !workspaceConfiguration.readOnly) {
+      this.workspace.updateToolbox(this.toolbox.getRootNode())
     }
   }
 
@@ -97,15 +98,25 @@ class BlocklyEditor extends React.Component {
   }
 
   workspaceDidChange = (workspace) => {
+    const previousWorkspace = this.workspace;
+    this.workspace = workspace;
+
+    if (previousWorkspace !== workspace) {
+      // Make sure the new Blockly workspace has it's toolbox updated.
+      this.toolboxDidUpdate();
+    }
+
     if (this.props.workspaceDidChange) {
       this.props.workspaceDidChange(workspace);
     }
   }
 
-  importFromXml = (xml) => this.workspace.importFromXml(xml)
+  importFromXml = (xml) => {
+    return importFromXml(xml, this.workspace, this.props.onImportXmlError);
+  }
 
   resize = () => {
-    this.workspace.resize();
+    Blockly.svgResize(this.workspace);
   }
 
   render = () => {
@@ -126,7 +137,6 @@ class BlocklyEditor extends React.Component {
           ref={(toolbox) => { this.toolbox = toolbox; }}
         />
         <BlocklyWorkspace
-          ref={(workspace) => { this.workspace = workspace; }}
           initialXml={this.props.initialXml}
           onImportXmlError={this.props.onImportXmlError}
           toolboxMode={toolboxMode}
