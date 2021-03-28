@@ -27,18 +27,6 @@ function debounce(func, wait) {
   return [debouncedFunction, cancel];
 }
 
-function handleXmlChanged(xml, xmlDidChange) {
-  if (xmlDidChange) {
-    xmlDidChange(xml);
-  }
-}
-
-function handleWorkspaceChanged(workspace, workspaceDidChange) {
-  if (workspaceDidChange) {
-    workspaceDidChange(workspace);
-  }
-}
-
 const propTypes = {
   initialXml: PropTypes.string,
   workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -59,57 +47,69 @@ const defaultProps = {
   toolboxMode: "BLOCKS",
 };
 
-function BlocklyWorkspace(props) {
+function BlocklyWorkspace({
+  initialXml,
+  workspaceConfiguration,
+  wrapperDivClassName,
+  xmlDidChange,
+  workspaceDidChange,
+  onImportXmlError,
+  toolboxMode,
+}) {
   const [workspace, setWorkspace] = React.useState(null);
-  const [xml, setXml] = React.useState(props.initialXml);
+  const [xml, setXml] = React.useState(initialXml);
+  const [didInitialImport, setDidInitialImport] = React.useState(false);
 
   const editorDiv = React.useRef(null);
   const dummyToolbox = React.useRef(null);
 
+  // we explicitly don't want to recreate the workspace when the configuration changes
+  // so, we'll keep it in a ref and update as necessary in an effect hook
+  const workspaceConfigurationRef = React.useRef(workspaceConfiguration);
+  React.useEffect(() => {
+    workspaceConfigurationRef.current = workspaceConfiguration;
+  }, [workspaceConfiguration]);
+
+  const handleXmlChanged = React.useCallback(
+    (newXml) => {
+      if (xmlDidChange) {
+        xmlDidChange(newXml);
+      }
+    },
+    [xmlDidChange]
+  );
+
+  const handleWorkspaceChanged = React.useCallback(
+    (newWorkspace) => {
+      if (workspaceDidChange) {
+        workspaceDidChange(newWorkspace);
+      }
+    },
+    [workspaceDidChange]
+  );
+
   // Initial mount
   React.useEffect(() => {
     const newWorkspace = Blockly.inject(editorDiv.current, {
-      ...props.workspaceConfiguration,
+      ...workspaceConfigurationRef.current,
       toolbox: dummyToolbox.current,
     });
     setWorkspace(newWorkspace);
-    handleWorkspaceChanged(newWorkspace, props.workspaceDidChange);
-
-    if (xml) {
-      if (importFromXml(xml, newWorkspace, props.onImportXmlError)) {
-        handleXmlChanged(xml, props.xmlDidChange);
-      } else {
-        setXml(null);
-        handleXmlChanged(null, props.xmlDidChange);
-      }
-    }
+    setDidInitialImport(false); // force a re-import if we recreate the workspace
+    handleWorkspaceChanged(newWorkspace);
+    newWorkspace.addChangeListener(() => {
+      handleWorkspaceChanged(newWorkspace);
+    });
 
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
     return () => {
       newWorkspace.dispose();
     };
-  }, [editorDiv]);
-
-  // workspaceDidChange callback
-  React.useEffect(() => {
-    if (workspace === null) {
-      return undefined;
-    }
-
-    const callback = () => {
-      handleWorkspaceChanged(workspace, props.workspaceDidChange);
-    };
-
-    workspace.addChangeListener(callback);
-
-    return () => {
-      workspace.removeChangeListener(callback);
-    };
-  }, [workspace, props.workspaceDidChange]);
+  }, [handleWorkspaceChanged]);
 
   // xmlDidChange callback
   React.useEffect(() => {
-    if (workspace === null) {
+    if (workspace == null) {
       return undefined;
     }
 
@@ -122,7 +122,7 @@ function BlocklyWorkspace(props) {
       }
 
       setXml(newXml);
-      handleXmlChanged(newXml, props.xmlDidChange);
+      handleXmlChanged(newXml);
     }, 200);
 
     workspace.addChangeListener(callback);
@@ -131,26 +131,34 @@ function BlocklyWorkspace(props) {
       workspace.removeChangeListener(callback);
       cancel();
     };
-  }, [workspace, xml, props.xmlDidChange]);
+  }, [workspace, xml, handleXmlChanged]);
 
   // Initial Xml Changes
   React.useEffect(() => {
-    setXml(props.initialXml);
-  }, [props.initialXml]);
+    if (xml && workspace && !didInitialImport) {
+      if (importFromXml(xml, workspace, onImportXmlError)) {
+        handleXmlChanged(xml);
+      } else {
+        setXml(null);
+        handleXmlChanged(null);
+      }
+      setDidInitialImport(true);
+    }
+  }, [xml, workspace, didInitialImport, handleXmlChanged, onImportXmlError]);
 
   // We have to fool Blockly into setting up a toolbox with categories initially;
   // otherwise it will refuse to do so after we inject the real categories into it.
   let dummyToolboxContent;
-  if (props.toolboxMode === "CATEGORIES") {
+  if (toolboxMode === "CATEGORIES") {
     dummyToolboxContent = <category name="Dummy toolbox" colour="" is="div" />;
   }
 
   return (
-    <div className={props.wrapperDivClassName}>
+    <div className={wrapperDivClassName}>
       <xml style={{ display: "none" }} ref={dummyToolbox} is="div">
         {dummyToolboxContent}
       </xml>
-      <div className={props.wrapperDivClassName} ref={editorDiv} />
+      <div className={wrapperDivClassName} ref={editorDiv} />
     </div>
   );
 }
