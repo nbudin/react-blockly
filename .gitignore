@@ -2,8 +2,10 @@
 /dist-modules
 /node_modules
 /package-lock.json
-.idea/*
 
+yarn-error.log
+
+.idea/*
 .idea/codeStyles/
 .idea/inspectionProfiles/
 .idea/misc.xml

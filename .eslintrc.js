@@ -8,24 +8,25 @@ module.exports = {
   },
 
   globals: {
-    'Blockly': true,
+    Blockly: true,
   },
 
-  extends: [
-    "airbnb",
-  ],
+  extends: ["airbnb", "prettier"],
 
   parser: "babel-eslint",
   parserOptions: {
-    sourceType: 'module',
+    sourceType: "module",
     ecmaVersion: 6,
     ecmaFeatures: {
       jsx: true,
     },
   },
-  "rules": {
-    "react/destructuring-assignment" : 0,
-    "react/static-property-placement" : 0,
-    "no-plusplus" : 0
-  }
+  plugins: ["react-hooks"],
+  rules: {
+    "react/destructuring-assignment": 0,
+    "react/static-property-placement": 0,
+    "no-plusplus": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+  },
 };
