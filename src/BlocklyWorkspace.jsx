@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Blockly from 'blockly';
+import React from "react";
+import PropTypes from "prop-types";
+import Blockly from "blockly";
 
-import {importFromXml} from './BlocklyHelper'
+import { importFromXml } from "./BlocklyHelper";
 
 function debounce(func, wait) {
   let timeout = null;
   let later = null;
 
-  const debouncedFunction = function(...args) {
-    later = function later() {
+  const debouncedFunction = (...args) => {
+    later = () => {
       timeout = null;
       func(...args);
     };
@@ -17,10 +17,10 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 
-  const cancel = function() {
+  const cancel = () => {
     if (timeout !== null) {
-      clearTimeout(timeout) 
-      later();   
+      clearTimeout(timeout);
+      later();
     }
   };
 
@@ -46,8 +46,8 @@ const propTypes = {
   xmlDidChange: PropTypes.func,
   workspaceDidChange: PropTypes.func,
   onImportXmlError: PropTypes.func,
-  toolboxMode: PropTypes.oneOf(['CATEGORIES', 'BLOCKS']),
-}
+  toolboxMode: PropTypes.oneOf(["CATEGORIES", "BLOCKS"]),
+};
 
 const defaultProps = {
   initialXml: null,
@@ -56,9 +56,8 @@ const defaultProps = {
   xmlDidChange: null,
   workspaceDidChange: null,
   onImportXmlError: null,
-  toolboxMode: 'BLOCKS',
-}
-
+  toolboxMode: "BLOCKS",
+};
 
 function BlocklyWorkspace(props) {
   const [workspace, setWorkspace] = React.useState(null);
@@ -69,13 +68,10 @@ function BlocklyWorkspace(props) {
 
   // Initial mount
   React.useEffect(() => {
-    const newWorkspace = Blockly.inject(
-      editorDiv.current,
-      {
-        ...props.workspaceConfiguration,
-        toolbox: dummyToolbox.current
-      },
-    );
+    const newWorkspace = Blockly.inject(editorDiv.current, {
+      ...props.workspaceConfiguration,
+      toolbox: dummyToolbox.current,
+    });
     setWorkspace(newWorkspace);
     handleWorkspaceChanged(newWorkspace, props.workspaceDidChange);
 
@@ -94,11 +90,10 @@ function BlocklyWorkspace(props) {
     };
   }, [editorDiv]);
 
-
   // workspaceDidChange callback
   React.useEffect(() => {
     if (workspace === null) {
-      return;
+      return undefined;
     }
 
     const callback = () => {
@@ -107,18 +102,21 @@ function BlocklyWorkspace(props) {
 
     workspace.addChangeListener(callback);
 
-    return () => { workspace.removeChangeListener(callback); };
+    return () => {
+      workspace.removeChangeListener(callback);
+    };
   }, [workspace, props.workspaceDidChange]);
-
 
   // xmlDidChange callback
   React.useEffect(() => {
     if (workspace === null) {
-      return;
+      return undefined;
     }
 
     const [callback, cancel] = debounce(() => {
-      const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
+      const newXml = Blockly.Xml.domToText(
+        Blockly.Xml.workspaceToDom(workspace)
+      );
       if (newXml === xml) {
         return;
       }
@@ -129,8 +127,8 @@ function BlocklyWorkspace(props) {
 
     workspace.addChangeListener(callback);
 
-    return () => { 
-      workspace.removeChangeListener(callback); 
+    return () => {
+      workspace.removeChangeListener(callback);
       cancel();
     };
   }, [workspace, xml, props.xmlDidChange]);
@@ -143,23 +141,16 @@ function BlocklyWorkspace(props) {
   // We have to fool Blockly into setting up a toolbox with categories initially;
   // otherwise it will refuse to do so after we inject the real categories into it.
   let dummyToolboxContent;
-  if (props.toolboxMode === 'CATEGORIES') {
-    dummyToolboxContent = (
-      <category name="Dummy toolbox" colour='' is="div"/>
-    );
+  if (props.toolboxMode === "CATEGORIES") {
+    dummyToolboxContent = <category name="Dummy toolbox" colour="" is="div" />;
   }
 
   return (
     <div className={props.wrapperDivClassName}>
-      <xml style={{ display: 'none' }}
-        ref={dummyToolbox}
-        is="div">
+      <xml style={{ display: "none" }} ref={dummyToolbox} is="div">
         {dummyToolboxContent}
       </xml>
-      <div
-        className={props.wrapperDivClassName}
-        ref={editorDiv}
-      />
+      <div className={props.wrapperDivClassName} ref={editorDiv} />
     </div>
   );
 }
