@@ -29,39 +29,35 @@ function debounce(func, wait) {
 
 const propTypes = {
   initialXml: PropTypes.string,
+  toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  wrapperDivClassName: PropTypes.string,
-  xmlDidChange: PropTypes.func,
+  className: PropTypes.string,
   workspaceDidChange: PropTypes.func,
   onImportXmlError: PropTypes.func,
-  toolboxMode: PropTypes.oneOf(["CATEGORIES", "BLOCKS"]),
 };
 
 const defaultProps = {
   initialXml: null,
+  toolboxConfiguration: null,
   workspaceConfiguration: null,
-  wrapperDivClassName: null,
-  xmlDidChange: null,
+  className: null,
   workspaceDidChange: null,
   onImportXmlError: null,
-  toolboxMode: "BLOCKS",
 };
 
 function BlocklyWorkspace({
   initialXml,
+  toolboxConfiguration,
   workspaceConfiguration,
-  wrapperDivClassName,
-  xmlDidChange,
+  className,
   workspaceDidChange,
   onImportXmlError,
-  toolboxMode,
 }) {
   const [workspace, setWorkspace] = React.useState(null);
   const [xml, setXml] = React.useState(initialXml);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
 
   const editorDiv = React.useRef(null);
-  const dummyToolbox = React.useRef(null);
 
   // we explicitly don't want to recreate the workspace when the configuration changes
   // so, we'll keep it in a ref and update as necessary in an effect hook
@@ -70,14 +66,13 @@ function BlocklyWorkspace({
     workspaceConfigurationRef.current = workspaceConfiguration;
   }, [workspaceConfiguration]);
 
-  const handleXmlChanged = React.useCallback(
-    (newXml) => {
-      if (xmlDidChange) {
-        xmlDidChange(newXml);
-      }
-    },
-    [xmlDidChange]
-  );
+  const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
+  React.useEffect(() => {
+    toolboxConfigurationRef.current = toolboxConfiguration;
+    if (toolboxConfiguration && workspace) {
+      workspace.updateToolbox(toolboxConfiguration);
+    }
+  }, [toolboxConfiguration, workspace]);
 
   const handleWorkspaceChanged = React.useCallback(
     (newWorkspace) => {
@@ -92,7 +87,7 @@ function BlocklyWorkspace({
   React.useEffect(() => {
     const newWorkspace = Blockly.inject(editorDiv.current, {
       ...workspaceConfigurationRef.current,
-      toolbox: dummyToolbox.current,
+      toolbox: toolboxConfigurationRef.current,
     });
     setWorkspace(newWorkspace);
     setDidInitialImport(false); // force a re-import if we recreate the workspace
@@ -122,7 +117,6 @@ function BlocklyWorkspace({
       }
 
       setXml(newXml);
-      handleXmlChanged(newXml);
     }, 200);
 
     workspace.addChangeListener(callback);
@@ -131,36 +125,20 @@ function BlocklyWorkspace({
       workspace.removeChangeListener(callback);
       cancel();
     };
-  }, [workspace, xml, handleXmlChanged]);
+  }, [workspace, xml]);
 
   // Initial Xml Changes
   React.useEffect(() => {
     if (xml && workspace && !didInitialImport) {
-      if (importFromXml(xml, workspace, onImportXmlError)) {
-        handleXmlChanged(xml);
-      } else {
+      const success = importFromXml(xml, workspace, onImportXmlError);
+      if (!success) {
         setXml(null);
-        handleXmlChanged(null);
       }
       setDidInitialImport(true);
     }
-  }, [xml, workspace, didInitialImport, handleXmlChanged, onImportXmlError]);
+  }, [xml, workspace, didInitialImport, onImportXmlError]);
 
-  // We have to fool Blockly into setting up a toolbox with categories initially;
-  // otherwise it will refuse to do so after we inject the real categories into it.
-  let dummyToolboxContent;
-  if (toolboxMode === "CATEGORIES") {
-    dummyToolboxContent = <category name="Dummy toolbox" colour="" is="div" />;
-  }
-
-  return (
-    <div className={wrapperDivClassName}>
-      <xml style={{ display: "none" }} ref={dummyToolbox} is="div">
-        {dummyToolboxContent}
-      </xml>
-      <div className={wrapperDivClassName} ref={editorDiv} />
-    </div>
-  );
+  return <div className={className} ref={editorDiv} />;
 }
 
 BlocklyWorkspace.propTypes = propTypes;

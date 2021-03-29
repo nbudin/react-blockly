@@ -15,10 +15,8 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": "^3.20200625.2",
-    "immutable": "^3.8.2",
-    "prop-types": "^15.7.2",
-    "react-immutable-proptypes": "^2.1.0"
+    "blockly": ">= 3.20200024.0",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^15.0 || ^16.0"
