@@ -57,7 +57,7 @@ const TestEditor = () => {
     }, 10000);
   }, []);
 
-  const workspaceDidChange = React.useCallback((workspace) => {
+  const onWorkspaceChange = React.useCallback((workspace) => {
     workspace.registerButtonCallback("myFirstButtonPressed", () => {
       alert("button is pressed");
     });
@@ -69,22 +69,20 @@ const TestEditor = () => {
   }, []);
 
   return (
-    <div className="fill-height">
-      <BlocklyWorkspace
-        toolboxConfiguration={toolboxConfiguration}
-        workspaceConfiguration={{
-          grid: {
-            spacing: 20,
-            length: 3,
-            colour: "#ccc",
-            snap: true,
-          },
-        }}
-        initialXml={ConfigFiles.INITIAL_XML}
-        wrapperDivClassName="fill-height"
-        workspaceDidChange={workspaceDidChange}
-      />
-    </div>
+    <BlocklyWorkspace
+      toolboxConfiguration={toolboxConfiguration}
+      workspaceConfiguration={{
+        grid: {
+          spacing: 20,
+          length: 3,
+          colour: "#ccc",
+          snap: true,
+        },
+      }}
+      initialXml={ConfigFiles.INITIAL_XML}
+      className="fill-height"
+      onWorkspaceChange={onWorkspaceChange}
+    />
   );
 };
 
