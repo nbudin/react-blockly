@@ -51,7 +51,7 @@ const useBlocklyWorkspace = ({
     [onWorkspaceChange]
   );
 
-  // Initial mount
+  // Workspace creation
   React.useEffect(() => {
     const newWorkspace = Blockly.inject(ref.current, {
       ...workspaceConfigurationRef.current,
@@ -59,16 +59,25 @@ const useBlocklyWorkspace = ({
     });
     setWorkspace(newWorkspace);
     setDidInitialImport(false); // force a re-import if we recreate the workspace
-    handleWorkspaceChanged(newWorkspace);
-    newWorkspace.addChangeListener(() => {
-      handleWorkspaceChanged(newWorkspace);
-    });
 
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
     return () => {
       newWorkspace.dispose();
     };
-  }, [handleWorkspaceChanged, ref]);
+  }, [ref]);
+
+  // Workspace change listener
+  React.useEffect(() => {
+    if (workspace == null) {
+      return undefined;
+    }
+    
+    const listener = () => { handleWorkspaceChanged(workspace); };
+    workspace.addChangeListener(listener);
+    return () => {
+      workspace.removeChangeListener(listener);
+    };
+  }, [workspace, handleWorkspaceChanged]);
 
   // xmlDidChange callback
   React.useEffect(() => {
@@ -105,6 +114,8 @@ const useBlocklyWorkspace = ({
       setDidInitialImport(true);
     }
   }, [xml, workspace, didInitialImport, onImportXmlError]);
+
+  return workspace;
 };
 
 export default useBlocklyWorkspace;
