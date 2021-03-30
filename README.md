@@ -65,6 +65,7 @@ using `import { BlocklyToolbox } from 'react-blockly'`(or another component name
 Clone this repository, and then inside it, do:
 
 ```bash
+npm install --global yarn
 yarn install
 yarn run start
 ```
