@@ -26,6 +26,7 @@ const useBlocklyWorkspace = ({
   const [workspace, setWorkspace] = React.useState(null);
   const [xml, setXml] = React.useState(initialXml);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
+  const [didHandleNewWorkspace, setDidHandleNewWorkspace] = React.useState(false);
 
   // we explicitly don't want to recreate the workspace when the configuration changes
   // so, we'll keep it in a ref and update as necessary in an effect hook
@@ -59,12 +60,20 @@ const useBlocklyWorkspace = ({
     });
     setWorkspace(newWorkspace);
     setDidInitialImport(false); // force a re-import if we recreate the workspace
+    setDidHandleNewWorkspace(false); // Singal that a workspace change event needs to be sent.
 
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
     return () => {
       newWorkspace.dispose();
     };
   }, [ref]);
+
+  // Send a workspace change event when the workspace is created
+  React.useEffect(() => {
+    if (workspace && !didHandleNewWorkspace) {
+      handleWorkspaceChanged(workspace);
+    }
+  }, [handleWorkspaceChanged, didHandleNewWorkspace, workspace]);
 
   // Workspace change listener
   React.useEffect(() => {
