@@ -28,6 +28,8 @@ The breaking changes in react-blockly 7 are:
 
 ## Example usage
 
+**NOTE: The pre-release react-blockly 7 breaks this example; I'm working on updating it.  Stay tuned!**
+
 [FernandoVazZ](https://github.com/FernandoVazZ) has made an example React app that shows how to set up react-blockly as well as how to create custom blocks for use in it: https://github.com/FernandoVazZ/reactblockly-customblocks/
 
 Thanks so much Fernando!
