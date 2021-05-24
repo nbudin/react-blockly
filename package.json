@@ -8,10 +8,13 @@
     "lint:fix": "eslint --fix --ext .js,.jsx src",
     "start": "webpack-dev-server --config webpack.config.test.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "babel ./src --out-dir ./dist",
-    "prepublish:watch": "babel ./src --watch --out-dir ./dist",
-    "prepare": "npm run prepublishOnly"
+    "build": "babel ./src --out-dir ./dist",
+    "watch": "babel ./src --watch --out-dir ./dist",
+    "prepublishOnly": "yarn run build"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
