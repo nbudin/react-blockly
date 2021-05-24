@@ -23,6 +23,7 @@ class BlocklyWorkspace extends React.Component {
     wrapperDivClassName: PropTypes.string,
     xmlDidChange: PropTypes.func,
     workspaceDidChange: PropTypes.func,
+    onInject: PropTypes.func,
     onImportXmlError: PropTypes.func,
     toolboxMode: PropTypes.oneOf(['CATEGORIES', 'BLOCKS']),
   };
@@ -33,6 +34,7 @@ class BlocklyWorkspace extends React.Component {
     wrapperDivClassName: null,
     xmlDidChange: null,
     workspaceDidChange: null,
+    onInject: null,
     onImportXmlError: null,
     toolboxMode: 'BLOCKS',
   };
@@ -55,6 +57,8 @@ class BlocklyWorkspace extends React.Component {
         toolbox: this.dummyToolbox,
       },
     );
+
+    if (this.props.onInject) this.props.onInject(this.state.workspace)
 
     if (this.state.xml) {
       if (this.importFromXml(this.state.xml)) {
