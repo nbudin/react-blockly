@@ -100,6 +100,7 @@ import { useBlocklyWorkspace } from 'react-blockly';
 function MyBlocklyHookEmbed() {
   const blocklyRef = useRef(null);
   const { workspace, xml } = useBlocklyWorkspace({
+    ref: blocklyRef,
     toolboxConfiguration: MY_TOOLBOX, // this must be a JSON toolbox definition
     initialXml: xml,
   });
