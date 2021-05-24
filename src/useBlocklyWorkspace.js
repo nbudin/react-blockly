@@ -22,11 +22,14 @@ const useBlocklyWorkspace = ({
   workspaceConfiguration,
   onWorkspaceChange,
   onImportXmlError,
+  onInject,
+  onDispose,
 }) => {
   const [workspace, setWorkspace] = React.useState(null);
   const [xml, setXml] = React.useState(initialXml);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
-  const [didHandleNewWorkspace, setDidHandleNewWorkspace] = React.useState(false);
+  const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
+    React.useState(false);
 
   // we explicitly don't want to recreate the workspace when the configuration changes
   // so, we'll keep it in a ref and update as necessary in an effect hook
@@ -42,6 +45,15 @@ const useBlocklyWorkspace = ({
       workspace.updateToolbox(toolboxConfiguration);
     }
   }, [toolboxConfiguration, workspace]);
+
+  const onInjectRef = React.useRef(onInject);
+  const onDisposeRef = React.useRef(onDispose);
+  React.useEffect(() => {
+    onInjectRef.current = onInject;
+  }, [onInject]);
+  React.useEffect(() => {
+    onDisposeRef.current = onDispose;
+  }, [onDispose]);
 
   const handleWorkspaceChanged = React.useCallback(
     (newWorkspace) => {
@@ -62,9 +74,19 @@ const useBlocklyWorkspace = ({
     setDidInitialImport(false); // force a re-import if we recreate the workspace
     setDidHandleNewWorkspace(false); // Singal that a workspace change event needs to be sent.
 
+    if (onInjectRef.current) {
+      onInjectRef.current(newWorkspace);
+    }
+
+    const onDisposeFunction = onDisposeRef.current;
+
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
     return () => {
       newWorkspace.dispose();
+
+      if (onDisposeFunction) {
+        onDisposeFunction(newWorkspace);
+      }
     };
   }, [ref]);
 
@@ -80,8 +102,10 @@ const useBlocklyWorkspace = ({
     if (workspace == null) {
       return undefined;
     }
-    
-    const listener = () => { handleWorkspaceChanged(workspace); };
+
+    const listener = () => {
+      handleWorkspaceChanged(workspace);
+    };
     workspace.addChangeListener(listener);
     return () => {
       workspace.removeChangeListener(listener);
@@ -124,7 +148,7 @@ const useBlocklyWorkspace = ({
     }
   }, [xml, workspace, didInitialImport, onImportXmlError]);
 
-  return workspace;
+  return { workspace, xml };
 };
 
 export default useBlocklyWorkspace;

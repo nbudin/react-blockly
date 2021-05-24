@@ -9,6 +9,9 @@ const propTypes = {
   className: PropTypes.string,
   onWorkspaceChange: PropTypes.func,
   onImportXmlError: PropTypes.func,
+  onXmlChange: PropTypes.func,
+  onInject: PropTypes.func,
+  onDispose: PropTypes.func,
 };
 
 const defaultProps = {
@@ -18,6 +21,9 @@ const defaultProps = {
   className: null,
   onWorkspaceChange: null,
   onImportXmlError: null,
+  onXmlChange: null,
+  onInject: null,
+  onDispose: null,
 };
 
 function BlocklyWorkspace({
@@ -26,17 +32,31 @@ function BlocklyWorkspace({
   workspaceConfiguration,
   className,
   onWorkspaceChange,
+  onXmlChange,
   onImportXmlError,
+  onInject,
+  onDispose,
 }) {
   const editorDiv = React.useRef(null);
-  useBlocklyWorkspace({
+  const { xml } = useBlocklyWorkspace({
     ref: editorDiv,
     initialXml,
     toolboxConfiguration,
     workspaceConfiguration,
     onWorkspaceChange,
     onImportXmlError,
+    onInject,
+    onDispose,
   });
+  const onXmlChangeRef = React.useRef(onXmlChange);
+  React.useEffect(() => {
+    onXmlChangeRef.current = onXmlChange;
+  }, [onXmlChange]);
+  React.useEffect(() => {
+    if (onXmlChangeRef.current && xml) {
+      onXmlChangeRef.current(xml);
+    }
+  }, [xml]);
 
   return <div className={className} ref={editorDiv} />;
 }

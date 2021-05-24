@@ -68,6 +68,10 @@ const TestEditor = () => {
     document.getElementById("code").value = code;
   }, []);
 
+  const onXmlChange = React.useCallback((newXml) => {
+    document.getElementById("generated-xml").innerText = newXml;
+  }, []);
+
   return (
     <BlocklyWorkspace
       toolboxConfiguration={toolboxConfiguration}
@@ -82,6 +86,7 @@ const TestEditor = () => {
       initialXml={ConfigFiles.INITIAL_XML}
       className="fill-height"
       onWorkspaceChange={onWorkspaceChange}
+      onXmlChange={onXmlChange}
     />
   );
 };
