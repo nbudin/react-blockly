@@ -71,17 +71,6 @@ yarn run start
 
 webpack-dev-server will start and will be serving a demo of react-blockly, which should automatically refresh if you change the code locally.
 
-## Building the source locally
-
-Clone this repository, and then inside it, do:
-
-```bash
-yarn install
-yarn run build
-```
-
-You'll get a `dist` directory containing the compiled JS file and a source map.
-
 ## Properties
 
 All properties are optional except where otherwise specified.
