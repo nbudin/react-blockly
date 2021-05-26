@@ -9,9 +9,6 @@
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
-    "start": "cd demo && react-scripts start",
-    "test": "cd demo && react-scripts test",
-    "eject": "cd demo && react-scripts eject",
     "prepublishOnly": "yarn build"
   },
   "files": [
@@ -27,8 +24,6 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "react-scripts": "4.0.3",
-    "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "typescript": "^4.2.4",

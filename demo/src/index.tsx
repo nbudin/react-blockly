@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Blockly from "blockly";
 
 import useBlocklyWorkspace from "../../src/useBlocklyWorkspace";
-import { INITIAL_TOOLBOX_JSON } from "./content";
+import { INITIAL_TOOLBOX_JSON, INITIAL_XML } from "./content";
 
 export function TestEditor() {
     const ref = useRef<HTMLDivElement>(null)
@@ -72,7 +72,7 @@ export function TestEditor() {
                 snap: true,
             },
         },
-        initialXml: ConfigFiles.INITIAL_XML,
+        initialXml: INITIAL_XML,
         onWorkspaceChange
     })
 
