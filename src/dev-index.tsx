@@ -94,17 +94,16 @@ const TestEditor = () => {
 
   // build the DOM you want!
   return (<>
+    <p>react-blockly demo</p>
     <div style={({ width: "800px", height: "100%" })} ref={ref} />
     <pre>{xml}</pre>
     <pre>{code}</pre>
   </>);
 };
 
-window.addEventListener("load", () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <TestEditor />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <TestEditor />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
