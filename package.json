@@ -16,9 +16,11 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "react": "^17.0",
-    "react-dom": "^17.0.2",
     "blockly": ">=5.20210325.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "react-scripts": "4.0.3",
