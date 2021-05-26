@@ -1,9 +1,8 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import Blockly from "blockly";
-
 import debounce from "./debounce";
 
-function importFromXml(xml, workspace, onImportXmlError) {
+function importFromXml(xml: string, workspace: Blockly.Workspace, onImportXmlError: (e: any) => void) {
   try {
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
@@ -25,37 +24,37 @@ const useBlocklyWorkspace = ({
   onInject,
   onDispose,
 }) => {
-  const [workspace, setWorkspace] = React.useState(null);
-  const [xml, setXml] = React.useState(initialXml);
-  const [didInitialImport, setDidInitialImport] = React.useState(false);
+  const [workspace, setWorkspace] = useState(null);
+  const [xml, setXml] = useState(initialXml);
+  const [didInitialImport, setDidInitialImport] = useState(false);
   const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
-    React.useState(false);
+    useState(false);
 
   // we explicitly don't want to recreate the workspace when the configuration changes
   // so, we'll keep it in a ref and update as necessary in an effect hook
-  const workspaceConfigurationRef = React.useRef(workspaceConfiguration);
-  React.useEffect(() => {
+  const workspaceConfigurationRef = useRef(workspaceConfiguration);
+  useEffect(() => {
     workspaceConfigurationRef.current = workspaceConfiguration;
   }, [workspaceConfiguration]);
 
-  const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
-  React.useEffect(() => {
+  const toolboxConfigurationRef = useRef(toolboxConfiguration);
+  useEffect(() => {
     toolboxConfigurationRef.current = toolboxConfiguration;
     if (toolboxConfiguration && workspace) {
       workspace.updateToolbox(toolboxConfiguration);
     }
   }, [toolboxConfiguration, workspace]);
 
-  const onInjectRef = React.useRef(onInject);
-  const onDisposeRef = React.useRef(onDispose);
-  React.useEffect(() => {
+  const onInjectRef = useRef(onInject);
+  const onDisposeRef = useRef(onDispose);
+  useEffect(() => {
     onInjectRef.current = onInject;
   }, [onInject]);
-  React.useEffect(() => {
+  useEffect(() => {
     onDisposeRef.current = onDispose;
   }, [onDispose]);
 
-  const handleWorkspaceChanged = React.useCallback(
+  const handleWorkspaceChanged = useCallback(
     (newWorkspace) => {
       if (onWorkspaceChange) {
         onWorkspaceChange(newWorkspace);
@@ -65,7 +64,7 @@ const useBlocklyWorkspace = ({
   );
 
   // Workspace creation
-  React.useEffect(() => {
+  useEffect(() => {
     const newWorkspace = Blockly.inject(ref.current, {
       ...workspaceConfigurationRef.current,
       toolbox: toolboxConfigurationRef.current,
@@ -91,14 +90,14 @@ const useBlocklyWorkspace = ({
   }, [ref]);
 
   // Send a workspace change event when the workspace is created
-  React.useEffect(() => {
+  useEffect(() => {
     if (workspace && !didHandleNewWorkspace) {
       handleWorkspaceChanged(workspace);
     }
   }, [handleWorkspaceChanged, didHandleNewWorkspace, workspace]);
 
   // Workspace change listener
-  React.useEffect(() => {
+  useEffect(() => {
     if (workspace == null) {
       return undefined;
     }
@@ -113,12 +112,12 @@ const useBlocklyWorkspace = ({
   }, [workspace, handleWorkspaceChanged]);
 
   // xmlDidChange callback
-  React.useEffect(() => {
+  useEffect(() => {
     if (workspace == null) {
       return undefined;
     }
 
-    const [callback, cancel] = debounce(() => {
+    const { debounced: callback, cancel } = debounce(() => {
       const newXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
       );
@@ -138,7 +137,7 @@ const useBlocklyWorkspace = ({
   }, [workspace, xml]);
 
   // Initial Xml Changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (xml && workspace && !didInitialImport) {
       const success = importFromXml(xml, workspace, onImportXmlError);
       if (!success) {

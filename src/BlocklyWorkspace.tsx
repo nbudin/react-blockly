@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useBlocklyWorkspace from "./useBlocklyWorkspace";
+import useBlocklyWorkspace from "./useBlocklyWorkspace.tx";
 
 const propTypes = {
   initialXml: PropTypes.string,
@@ -26,7 +26,7 @@ const defaultProps = {
   onDispose: null,
 };
 
-function BlocklyWorkspace({
+function BlocklyWorkspace(props: {
   initialXml,
   toolboxConfiguration,
   workspaceConfiguration,
