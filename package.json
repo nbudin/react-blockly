@@ -2,16 +2,20 @@
   "name": "react-blockly",
   "version": "7.0.0-alpha.1",
   "description": "A React wrapper for the Blockly visual programming editor",
-  "main": "dist/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "prepublishOnly": "yarn run build"
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "start": "cd demo && react-scripts start",
+    "test": "cd demo && react-scripts test",
+    "eject": "cd demo && react-scripts eject",
+    "prepublishOnly": "yarn build"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",

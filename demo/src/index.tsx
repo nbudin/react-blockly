@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import Blockly from "blockly";
 
-import ConfigFiles from "./initContent/content";
-import useBlocklyWorkspace from "./useBlocklyWorkspace";
+import useBlocklyWorkspace from "../../src/useBlocklyWorkspace";
+import { INITIAL_TOOLBOX_JSON } from "./content";
 
 export function TestEditor() {
     const ref = useRef<HTMLDivElement>(null)
     const [code, setCode] = useState("")
     const [toolboxConfiguration, setToolboxConfiguration] = useState<any>(
-        ConfigFiles.INITIAL_TOOLBOX_JSON
+        INITIAL_TOOLBOX_JSON
     );
 
     useEffect(() => {

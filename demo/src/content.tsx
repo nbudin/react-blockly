@@ -1,7 +1,7 @@
-const INITIAL_XML =
+export const INITIAL_XML =
   '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT"></field></block></xml>';
 
-const INITIAL_TOOLBOX_JSON = {
+export const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
   contents: [
     {
@@ -605,7 +605,7 @@ const INITIAL_TOOLBOX_JSON = {
   ],
 };
 
-const INITIAL_TOOLBOX_XML =
+export const INITIAL_TOOLBOX_XML =
   '<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">\n' +
   '  <category name="Logic" colour="#5C81A6">\n' +
   '    <block type="controls_if"></block>\n' +
@@ -968,7 +968,7 @@ const INITIAL_TOOLBOX_XML =
   '  <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>\n' +
   "</xml>";
 
-const INITIAL_TOOLBOX_CATEGORIES = [
+export const INITIAL_TOOLBOX_CATEGORIES = [
   {
     name: "Controls",
     blocks: [
@@ -1021,12 +1021,3 @@ const INITIAL_TOOLBOX_CATEGORIES = [
     ],
   },
 ];
-
-const ConfigFiles = {
-  INITIAL_XML,
-  INITIAL_TOOLBOX_XML,
-  INITIAL_TOOLBOX_JSON,
-  INITIAL_TOOLBOX_CATEGORIES,
-};
-
-export default ConfigFiles;

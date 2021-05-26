@@ -4,6 +4,9 @@
 /package-lock.json
 /build
 
+
+node_modules/
+demo/node_modules/
 yarn-error.log
 
 .idea/*
