@@ -5,7 +5,7 @@ import {
   useCallback,
   MutableRefObject,
 } from "react";
-import Blockly, { Block } from "blockly";
+import Blockly from "blockly";
 import debounce from "./debounce";
 
 function importFromXml(
@@ -17,9 +17,7 @@ function importFromXml(
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
   } catch (e) {
-    if (onImportXmlError) {
-      onImportXmlError(e);
-    }
+    onImportXmlError?.(e);
     return false;
   }
 }

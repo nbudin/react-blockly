@@ -1,18 +1,18 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import Blockly from "blockly";
 
-import { BlocklyWorkspace } from "./index";
 import ConfigFiles from "./initContent/content";
+import useBlocklyWorkspace from "./useBlocklyWorkspace";
 
 const TestEditor = () => {
-  const [toolboxConfiguration, setToolboxConfiguration] = React.useState(
+  const ref = useRef()
+  const [code, setCode] = useState("")
+  const [toolboxConfiguration, setToolboxConfiguration] = useState<any>(
     ConfigFiles.INITIAL_TOOLBOX_JSON
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.setTimeout(() => {
       setToolboxConfiguration((prevConfig) => ({
         ...prevConfig,
@@ -57,41 +57,54 @@ const TestEditor = () => {
     }, 10000);
   }, []);
 
-  const onWorkspaceChange = React.useCallback((workspace) => {
-    workspace.registerButtonCallback("myFirstButtonPressed", () => {
-      alert("button is pressed");
-    });
-    const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
-    document.getElementById("generated-xml").innerText = newXml;
+  const onWorkspaceChange = (workspace: Blockly.WorkspaceSvg) => {
+    console.log(`called immediately, no debouncing`)
+  }
 
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
-    document.getElementById("code").value = code;
-  }, []);
+  const { workspace, xml } = useBlocklyWorkspace({
+    ref,
+    toolboxConfiguration,
+    workspaceConfiguration: {
+      grid: {
+        spacing: 20,
+        length: 3,
+        colour: "#ccc",
+        snap: true,
+      },
+    },
+    initialXml: ConfigFiles.INITIAL_XML,
+    onWorkspaceChange
+  })
 
-  const onXmlChange = React.useCallback((newXml) => {
-    document.getElementById("generated-xml").innerText = newXml;
-  }, []);
+  // one time initializations
+  useEffect(() => {
+    if (workspace)
+      workspace.registerButtonCallback("myFirstButtonPressed", () => {
+        alert("button is pressed");
+      });
 
-  return (
-    <BlocklyWorkspace
-      toolboxConfiguration={toolboxConfiguration}
-      workspaceConfiguration={{
-        grid: {
-          spacing: 20,
-          length: 3,
-          colour: "#ccc",
-          snap: true,
-        },
-      }}
-      initialXml={ConfigFiles.INITIAL_XML}
-      className="fill-height"
-      onWorkspaceChange={onWorkspaceChange}
-      onXmlChange={onXmlChange}
-    />
-  );
+  }, [workspace])
+
+  // debounced serializations
+  useEffect(() => {
+    const newCode = workspace ? (Blockly as any).JavaScript.workspaceToCode(workspace) : ""
+    setCode(newCode)
+  }, [xml])
+
+
+  // build the DOM you want!
+  return (<>
+    <div style={({ width: "800px", height: "100%" })} ref={ref} />
+    <pre>{xml}</pre>
+    <pre>{code}</pre>
+  </>);
 };
 
 window.addEventListener("load", () => {
-  const editor = React.createElement(TestEditor);
-  ReactDOM.render(editor, document.getElementById("blockly"));
+  ReactDOM.render(
+    <React.StrictMode>
+      <TestEditor />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 });
