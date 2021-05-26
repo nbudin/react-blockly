@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import Blockly from "blockly";
 
@@ -58,7 +58,7 @@ export function TestEditor() {
     }, []);
 
     const onWorkspaceChange = (workspace: Blockly.WorkspaceSvg) => {
-        console.log(`called immediately, no debouncing`)
+        console.log(`called immediately, no debouncing`, workspace)
     }
 
     const { workspace, xml } = useBlocklyWorkspace({
