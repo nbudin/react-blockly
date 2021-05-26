@@ -1,8 +1,18 @@
-import { useState, useEffect, useRef } from "react";
-import Blockly from "blockly";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  MutableRefObject,
+} from "react";
+import Blockly, { Block } from "blockly";
 import debounce from "./debounce";
 
-function importFromXml(xml: string, workspace: Blockly.Workspace, onImportXmlError: (e: any) => void) {
+function importFromXml(
+  xml: string,
+  workspace: Blockly.Workspace,
+  onImportXmlError: (e: any) => void
+) {
   try {
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
@@ -14,21 +24,31 @@ function importFromXml(xml: string, workspace: Blockly.Workspace, onImportXmlErr
   }
 }
 
-const useBlocklyWorkspace = ({
-  ref,
-  initialXml,
-  toolboxConfiguration,
-  workspaceConfiguration,
-  onWorkspaceChange,
-  onImportXmlError,
-  onInject,
-  onDispose,
-}) => {
-  const [workspace, setWorkspace] = useState(null);
+export interface BlocklyWorkspaceProps {
+  initialXml?: string;
+  toolboxConfiguration?: any;
+  workspaceConfiguration?: any;
+  onWorkspaceChange?: (workspace: Blockly.WorkspaceSvg) => void;
+  onImportXmlError?: (error: any) => void;
+}
+
+export default function useBlocklyWorkspace(
+  props: {
+    ref: MutableRefObject<HTMLElement>;
+  } & BlocklyWorkspaceProps
+) {
+  const {
+    ref,
+    initialXml,
+    toolboxConfiguration,
+    workspaceConfiguration,
+    onWorkspaceChange,
+    onImportXmlError,
+  } = props;
+  const [workspace, setWorkspace] = useState<Blockly.WorkspaceSvg>();
   const [xml, setXml] = useState(initialXml);
   const [didInitialImport, setDidInitialImport] = useState(false);
-  const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
-    useState(false);
+  const [didHandleNewWorkspace, setDidHandleNewWorkspace] = useState(false);
 
   // we explicitly don't want to recreate the workspace when the configuration changes
   // so, we'll keep it in a ref and update as necessary in an effect hook
@@ -45,17 +65,8 @@ const useBlocklyWorkspace = ({
     }
   }, [toolboxConfiguration, workspace]);
 
-  const onInjectRef = useRef(onInject);
-  const onDisposeRef = useRef(onDispose);
-  useEffect(() => {
-    onInjectRef.current = onInject;
-  }, [onInject]);
-  useEffect(() => {
-    onDisposeRef.current = onDispose;
-  }, [onDispose]);
-
   const handleWorkspaceChanged = useCallback(
-    (newWorkspace) => {
+    (newWorkspace: Blockly.WorkspaceSvg) => {
       if (onWorkspaceChange) {
         onWorkspaceChange(newWorkspace);
       }
@@ -73,20 +84,8 @@ const useBlocklyWorkspace = ({
     setDidInitialImport(false); // force a re-import if we recreate the workspace
     setDidHandleNewWorkspace(false); // Singal that a workspace change event needs to be sent.
 
-    if (onInjectRef.current) {
-      onInjectRef.current(newWorkspace);
-    }
-
-    const onDisposeFunction = onDisposeRef.current;
-
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
-    return () => {
-      newWorkspace.dispose();
-
-      if (onDisposeFunction) {
-        onDisposeFunction(newWorkspace);
-      }
-    };
+    return () => newWorkspace.dispose();
   }, [ref]);
 
   // Send a workspace change event when the workspace is created
@@ -98,40 +97,28 @@ const useBlocklyWorkspace = ({
 
   // Workspace change listener
   useEffect(() => {
-    if (workspace == null) {
-      return undefined;
-    }
-
-    const listener = () => {
-      handleWorkspaceChanged(workspace);
-    };
+    if (!workspace) return undefined;
+    const listener = () => handleWorkspaceChanged(workspace);
     workspace.addChangeListener(listener);
-    return () => {
-      workspace.removeChangeListener(listener);
-    };
+    return () => workspace.removeChangeListener(listener);
   }, [workspace, handleWorkspaceChanged]);
 
   // xmlDidChange callback
   useEffect(() => {
-    if (workspace == null) {
-      return undefined;
-    }
+    if (!workspace) return undefined;
 
-    const { debounced: callback, cancel } = debounce(() => {
+    const { debounced, cancel } = debounce(() => {
       const newXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
       );
-      if (newXml === xml) {
-        return;
-      }
+      if (newXml === xml) return;
 
       setXml(newXml);
     }, 200);
 
-    workspace.addChangeListener(callback);
-
+    workspace.addChangeListener(debounced);
     return () => {
-      workspace.removeChangeListener(callback);
+      workspace.removeChangeListener(debounced);
       cancel();
     };
   }, [workspace, xml]);
@@ -148,6 +135,4 @@ const useBlocklyWorkspace = ({
   }, [xml, workspace, didInitialImport, onImportXmlError]);
 
   return { workspace, xml };
-};
-
-export default useBlocklyWorkspace;
+}

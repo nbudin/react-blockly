@@ -1,52 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import useBlocklyWorkspace from "./useBlocklyWorkspace.tx";
+import useBlocklyWorkspace, { BlocklyWorkspaceProps } from "./useBlocklyWorkspace";
 
-const propTypes = {
-  initialXml: PropTypes.string,
-  toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  className: PropTypes.string,
-  onWorkspaceChange: PropTypes.func,
-  onImportXmlError: PropTypes.func,
-  onXmlChange: PropTypes.func,
-  onInject: PropTypes.func,
-  onDispose: PropTypes.func,
-};
-
-const defaultProps = {
-  initialXml: null,
-  toolboxConfiguration: null,
-  workspaceConfiguration: null,
-  className: null,
-  onWorkspaceChange: null,
-  onImportXmlError: null,
-  onXmlChange: null,
-  onInject: null,
-  onDispose: null,
-};
-
-function BlocklyWorkspace(props: {
-  initialXml,
-  toolboxConfiguration,
-  workspaceConfiguration,
-  className,
-  onWorkspaceChange,
-  onXmlChange,
-  onImportXmlError,
-  onInject,
-  onDispose,
-}) {
+export default function BlocklyWorkspace(props: {
+  className?: string,
+  onXmlChange: (xml: string) => void,
+} & BlocklyWorkspaceProps) {
+  const { className, onXmlChange, ...rest } = props
   const editorDiv = React.useRef(null);
   const { xml } = useBlocklyWorkspace({
     ref: editorDiv,
-    initialXml,
-    toolboxConfiguration,
-    workspaceConfiguration,
-    onWorkspaceChange,
-    onImportXmlError,
-    onInject,
-    onDispose,
+    ...rest,
   });
   const onXmlChangeRef = React.useRef(onXmlChange);
   React.useEffect(() => {
@@ -60,8 +23,3 @@ function BlocklyWorkspace(props: {
 
   return <div className={className} ref={editorDiv} />;
 }
-
-BlocklyWorkspace.propTypes = propTypes;
-BlocklyWorkspace.defaultProps = defaultProps;
-
-export default BlocklyWorkspace;
