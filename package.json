@@ -18,35 +18,26 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": ">= 3.20200024.0",
-    "prop-types": "^15.7.2",
-    "typescript": "^4.2.4"
+    "blockly": ">=5.20210325.1"
   },
   "peerDependencies": {
-    "react": "^16.8 || ^17.0"
+    "react": "^17.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "eslint": "^6.2.2",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
+    "typescript": "^4.2.4",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "expose-loader": "^0.7.5",
+    "expose-loader": "^3.0.0",
     "react": "^17.0.2",
-    "react-dom": "^16.9.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.11.0"
+    "react-dom": "^17.0.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
   },
   "repository": {
     "type": "git",
