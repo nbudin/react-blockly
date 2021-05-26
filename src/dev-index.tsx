@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import Blockly from "blockly";
 
 import ConfigFiles from "./initContent/content";
 import useBlocklyWorkspace from "./useBlocklyWorkspace";
 
-const TestEditor = () => {
-  const ref = useRef()
+function TestEditor() {
+  const ref = useRef<HTMLDivElement>(null)
   const [code, setCode] = useState("")
   const [toolboxConfiguration, setToolboxConfiguration] = useState<any>(
     ConfigFiles.INITIAL_TOOLBOX_JSON
@@ -14,7 +14,7 @@ const TestEditor = () => {
 
   useEffect(() => {
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents,
@@ -35,7 +35,7 @@ const TestEditor = () => {
     }, 2000);
 
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents.slice(0, prevConfig.contents.length - 1),
@@ -48,7 +48,7 @@ const TestEditor = () => {
     }, 4000);
 
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents.slice(0, prevConfig.contents.length - 1),
@@ -89,7 +89,7 @@ const TestEditor = () => {
   useEffect(() => {
     const newCode = workspace ? (Blockly as any).JavaScript.workspaceToCode(workspace) : ""
     setCode(newCode)
-  }, [xml])
+  }, [workspace, xml])
 
 
   // build the DOM you want!
@@ -102,8 +102,6 @@ const TestEditor = () => {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
-    <TestEditor />
-  </React.StrictMode>,
+  <TestEditor />,
   document.getElementById('root')
 );

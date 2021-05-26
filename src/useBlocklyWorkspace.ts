@@ -32,7 +32,7 @@ export interface BlocklyWorkspaceProps {
 
 export default function useBlocklyWorkspace(
   props: {
-    ref: MutableRefObject<HTMLElement>;
+    ref: MutableRefObject<Element | null>;
   } & BlocklyWorkspaceProps
 ) {
   const {
@@ -74,7 +74,7 @@ export default function useBlocklyWorkspace(
 
   // Workspace creation
   useEffect(() => {
-    const newWorkspace = Blockly.inject(ref.current, {
+    const newWorkspace = Blockly.inject(ref.current as Element, {
       ...workspaceConfigurationRef.current,
       toolbox: toolboxConfigurationRef.current,
     });
