@@ -65,36 +65,13 @@ You can use react-blockly as either a component or a hook.  Embedding a componen
 straightforward and plugs into your app easily.  On the other hand, using the hook can give you
 more control over exactly how Blockly is rendered.
 
-### Embedding a component
-
-Write `import { BlocklyWorkspace } from 'react-blockly';` in your code and use BlocklyWorkspace as a component.
-
-Example:
-
-```jsx
-import { BlocklyWorkspace } from 'react-blockly';
-
-function MyBlocklyEditor() {
-  const [xml, setXml] = useState();
-
-  return (
-    <BlocklyWorkspace
-      className="width-100" // you can use whatever classes are appropriate for your app's CSS
-      toolboxConfiguration={MY_TOOLBOX} // this must be a JSON toolbox definition
-      initialXml={xml}
-      onXmlChange={setXml}
-    />
-  )
-}
-```
-
 ### Using the hook
 
 Write `import { useBlocklyWorkspace } from 'react-blockly';` in your code and use this hook to inject a Blockly workspace into your rendered components.
 
 Example:
 
-```jsx
+```tsx
 import { useBlocklyWorkspace } from 'react-blockly';
 
 function MyBlocklyHookEmbed() {
@@ -164,7 +141,7 @@ webpack-dev-server will start and will be serving a demo of react-blockly, which
 
 ## Example usage
 
-See `public/index.html` and `src/dev-index.jsx` for a fairly full-fledged demo that shows off most of the features of this component.
+See `public/index.html` and `src/dev-index.tsx` for a fairly full-fledged demo that shows off most of the features of this component.
 
 ## Contributing
 

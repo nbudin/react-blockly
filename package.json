@@ -2,53 +2,58 @@
   "name": "react-blockly",
   "version": "7.0.0-alpha.1",
   "description": "A React wrapper for the Blockly visual programming editor",
-  "main": "dist/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
   "scripts": {
-    "lint": "eslint --ext .js,.jsx src",
-    "lint:fix": "eslint --fix --ext .js,.jsx src",
-    "start": "webpack-dev-server --config webpack.config.test.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src --out-dir ./dist",
-    "watch": "babel ./src --watch --out-dir ./dist",
-    "prepublishOnly": "yarn run build"
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "prepublishOnly": "yarn build"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": ">= 3.20200024.0",
-    "prop-types": "^15.7.2"
+    "blockly": ">=5.20210325.1"
   },
   "peerDependencies": {
-    "react": "^16.8 || ^17.0"
+    "react": "^17.0",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-react": "^7.10.4",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-object-assign": "^6.22.0",
-    "eslint": "^6.2.2",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "expose-loader": "^0.7.5",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.11.0"
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "typescript": "^4.2.4",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/nbudin/react-blockly/"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
