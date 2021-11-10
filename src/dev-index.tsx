@@ -8,13 +8,13 @@ import { BlocklyWorkspace } from "./index";
 import ConfigFiles from "./initContent/content";
 
 const TestEditor = () => {
-  const [toolboxConfiguration, setToolboxConfiguration] = React.useState(
+  const [toolboxConfiguration, setToolboxConfiguration] = React.useState<any>(
     ConfigFiles.INITIAL_TOOLBOX_JSON
   );
 
   React.useEffect(() => {
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents,
@@ -35,7 +35,7 @@ const TestEditor = () => {
     }, 2000);
 
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents.slice(0, prevConfig.contents.length - 1),
@@ -48,7 +48,7 @@ const TestEditor = () => {
     }, 4000);
 
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig) => ({
+      setToolboxConfiguration((prevConfig: any) => ({
         ...prevConfig,
         contents: [
           ...prevConfig.contents.slice(0, prevConfig.contents.length - 1),
@@ -62,14 +62,16 @@ const TestEditor = () => {
       alert("button is pressed");
     });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
-    document.getElementById("generated-xml").innerText = newXml;
+    document.getElementById("generated-xml")!.innerText = newXml;
 
+    //@ts-ignore
     const code = Blockly.JavaScript.workspaceToCode(workspace);
+    //@ts-ignore
     document.getElementById("code").value = code;
   }, []);
 
   const onXmlChange = React.useCallback((newXml) => {
-    document.getElementById("generated-xml").innerText = newXml;
+    document.getElementById("generated-xml")!.innerText = newXml;
   }, []);
 
   return (
