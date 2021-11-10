@@ -1,37 +1,32 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
-  entry: [
-    './src/dev-index.jsx',
-  ],
+  entry: ["./src/dev-index.tsx"],
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'react-blockly.js',
-    libraryTarget: 'umd',
-    library: 'ReactBlockly',
+    path: path.resolve(__dirname, "dist"),
+    filename: "react-blockly.js",
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+        test: /\.tsx?$/,
+        use: {
+          loader: "ts-loader",
+        },
+        exclude: /node_modules/,
       },
     ],
   },
   plugins: [
     new webpack.ProvidePlugin({
-      React: 'react',
-      ReactDOM: 'react-dom',
+      React: "react",
+      ReactDOM: "react-dom",
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".tsx", ".ts", ".js"],
   },
-  devServer: {
-    contentBase: './public',
-    filename: 'react-blockly.js',
-  },
+  devServer: {},
 };

@@ -36,7 +36,7 @@ function BlocklyWorkspace({
   onImportXmlError,
   onInject,
   onDispose,
-}) {
+}: any) {
   const editorDiv = React.useRef(null);
   const { xml } = useBlocklyWorkspace({
     ref: editorDiv,

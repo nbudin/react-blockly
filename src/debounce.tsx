@@ -1,8 +1,8 @@
-export default function debounce(func, wait) {
-  let timeout = null;
-  let later = null;
+export default function debounce(func: any, wait: any) {
+  let timeout: any = null;
+  let later: any = null;
 
-  const debouncedFunction = (...args) => {
+  const debouncedFunction = (...args: any) => {
     later = () => {
       timeout = null;
       func(...args);
