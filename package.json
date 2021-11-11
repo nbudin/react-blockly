@@ -8,7 +8,7 @@
     "lint:fix": "eslint --fix --ext .js,.jsx src",
     "start": "webpack-dev-server --config webpack.config.test.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src --out-dir ./dist",
+    "build": "babel ./src --extensions \".ts,.tsx\" --out-dir ./dist",
     "watch": "babel ./src --watch --out-dir ./dist",
     "prepublishOnly": "yarn run build"
   },
@@ -18,12 +18,14 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/cli": "^7.16.0",
     "blockly": ">= 3.20200024.0"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.0",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
