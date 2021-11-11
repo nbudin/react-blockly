@@ -1,30 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import useBlocklyWorkspace from "./useBlocklyWorkspace";
-
-const propTypes = {
-  initialXml: PropTypes.string,
-  toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  className: PropTypes.string,
-  onWorkspaceChange: PropTypes.func,
-  onImportXmlError: PropTypes.func,
-  onXmlChange: PropTypes.func,
-  onInject: PropTypes.func,
-  onDispose: PropTypes.func,
-};
-
-const defaultProps = {
-  initialXml: null,
-  toolboxConfiguration: null,
-  workspaceConfiguration: null,
-  className: null,
-  onWorkspaceChange: null,
-  onImportXmlError: null,
-  onXmlChange: null,
-  onInject: null,
-  onDispose: null,
-};
 
 interface IProps {
   initialXml: string;
@@ -38,6 +13,7 @@ interface IProps {
   onDispose?: any;
 }
 
+// the default value will be undefined if the prop is not passed
 function BlocklyWorkspace({
   initialXml,
   toolboxConfiguration,
@@ -72,8 +48,5 @@ function BlocklyWorkspace({
 
   return <div className={className} ref={editorDiv} />;
 }
-
-BlocklyWorkspace.propTypes = propTypes;
-BlocklyWorkspace.defaultProps = defaultProps;
 
 export default BlocklyWorkspace;
