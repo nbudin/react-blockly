@@ -26,6 +26,18 @@ const defaultProps = {
   onDispose: null,
 };
 
+interface IProps {
+  initialXml: string;
+  toolboxConfiguration?: any;
+  workspaceConfiguration?: any;
+  className?: string;
+  onWorkspaceChange?: any;
+  onImportXmlError?: any;
+  onXmlChange?: any;
+  onInject?: any;
+  onDispose?: any;
+}
+
 function BlocklyWorkspace({
   initialXml,
   toolboxConfiguration,
@@ -36,7 +48,7 @@ function BlocklyWorkspace({
   onImportXmlError,
   onInject,
   onDispose,
-}: any) {
+}: IProps) {
   const editorDiv = React.useRef(null);
   const { xml } = useBlocklyWorkspace({
     ref: editorDiv,
