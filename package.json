@@ -18,13 +18,13 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.16.0",
     "blockly": ">= 3.20200024.0"
   },
   "peerDependencies": {
     "react": "^16.8 || ^17.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
