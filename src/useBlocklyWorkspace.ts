@@ -67,8 +67,10 @@ const useBlocklyWorkspace = ({
 
   // Workspace creation
   React.useEffect(() => {
-    // TODO why can we be sure that ref.current is not null ?
-    const newWorkspace = Blockly.inject(ref.current!, {
+    if (!ref.current){
+      return;
+    }
+    const newWorkspace = Blockly.inject(ref.current, {
       ...workspaceConfigurationRef.current,
       toolbox: toolboxConfigurationRef.current,
     });
