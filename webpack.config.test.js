@@ -8,6 +8,7 @@ module.exports = {
     filename: "react-blockly.js",
   },
   devtool: "source-map",
+  mode: "development",
   module: {
     rules: [
       {

@@ -1,4 +1,4 @@
-export default function debounce(func: any, wait: any) {
+export default function debounce(func: any, wait: number) {
   let timeout: any = null;
   let later: any = null;
 

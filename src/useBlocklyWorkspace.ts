@@ -1,9 +1,10 @@
 import React from "react";
-import Blockly from "blockly";
+import Blockly, {Workspace, WorkspaceSvg} from "blockly";
+import {UseBlocklyProps} from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
 
-function importFromXml(xml, workspace, onImportXmlError) {
+function importFromXml(xml: string, workspace: Workspace, onImportXmlError: (error: any) => void) {
   try {
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
@@ -24,9 +25,9 @@ const useBlocklyWorkspace = ({
   onImportXmlError,
   onInject,
   onDispose,
-}) => {
-  const [workspace, setWorkspace] = React.useState(null);
-  const [xml, setXml] = React.useState(initialXml);
+}: UseBlocklyProps): {workspace: WorkspaceSvg|null, xml: string|null} => {
+  const [workspace, setWorkspace] = React.useState<WorkspaceSvg|null>(null);
+  const [xml, setXml] = React.useState<string|null>(initialXml);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
   const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
     React.useState(false);
@@ -66,13 +67,16 @@ const useBlocklyWorkspace = ({
 
   // Workspace creation
   React.useEffect(() => {
+    if (!ref.current){
+      return;
+    }
     const newWorkspace = Blockly.inject(ref.current, {
       ...workspaceConfigurationRef.current,
       toolbox: toolboxConfigurationRef.current,
     });
     setWorkspace(newWorkspace);
     setDidInitialImport(false); // force a re-import if we recreate the workspace
-    setDidHandleNewWorkspace(false); // Singal that a workspace change event needs to be sent.
+    setDidHandleNewWorkspace(false); // Signal that a workspace change event needs to be sent.
 
     if (onInjectRef.current) {
       onInjectRef.current(newWorkspace);

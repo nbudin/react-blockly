@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useBlocklyWorkspace from "./useBlocklyWorkspace";
+import {BlocklyWorkspaceProps} from "./BlocklyWorkspaceProps";
 
 const propTypes = {
   initialXml: PropTypes.string,
@@ -36,7 +37,7 @@ function BlocklyWorkspace({
   onImportXmlError,
   onInject,
   onDispose,
-}: any) {
+}: BlocklyWorkspaceProps) {
   const editorDiv = React.useRef(null);
   const { xml } = useBlocklyWorkspace({
     ref: editorDiv,
