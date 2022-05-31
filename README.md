@@ -16,7 +16,7 @@ Features:
 
 ## VERSION 7 IS A COMPLETE REWRITE
 
-This is the README for react-blockly version 7 (currently in pre-release).  If you're using the old class-based components, you will want to look at the version 6 readme instead: https://github.com/nbudin/react-blockly/blob/v6-stable/README.md
+This is the README for react-blockly version 7.  If you're using the old class-based components, you will want to look at the version 6 readme instead: https://github.com/nbudin/react-blockly/blob/v6-stable/README.md
 
 The breaking changes in react-blockly 7 are:
 
@@ -27,8 +27,6 @@ The breaking changes in react-blockly 7 are:
 * immutable.js has been removed
 
 ## Example usage
-
-**NOTE: The pre-release react-blockly 7 breaks this example; I'm working on updating it.  Stay tuned!**
 
 [FernandoVazZ](https://github.com/FernandoVazZ) has made an example React app that shows how to set up react-blockly as well as how to create custom blocks for use in it: https://github.com/FernandoVazZ/reactblockly-customblocks/
 
