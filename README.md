@@ -39,7 +39,8 @@ I wrote react-blockly for an internal tool when I worked at PatientsLikeMe, Inc.
 I'd love to find maintainers for this package who actually use it.  In particular, some things I would love to have help with are:
 
 * A test suite
-* TypeScript typings
+* Better documentation
+* More examples
 
 If you are interested in working on any of those things, please [let me know](mailto:natbudin@gmail.com)!  Additionally, if you're interested in taking over maintainership of this package entirely, I'd be happy to talk to you about that.
 
