@@ -16,13 +16,13 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: {
-          loader: "ts-loader",
+          loader: require.resolve("ts-loader"),
         },
         exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, require.resolve("css-loader")],
       },
     ],
   },

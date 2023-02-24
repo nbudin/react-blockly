@@ -2785,6 +2785,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/prop-types@npm:^15.7.5":
+  version: 15.7.5
+  resolution: "@types/prop-types@npm:15.7.5"
+  checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
+  languageName: node
+  linkType: hard
+
 "@types/q@npm:^1.5.1":
   version: 1.5.5
   resolution: "@types/q@npm:1.5.5"
@@ -11007,7 +11014,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:>= 15.6.0, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -11147,6 +11154,7 @@ __metadata:
   resolution: "react-blockly@workspace:."
   dependencies:
     "@types/node": ^12.0.0
+    "@types/prop-types": ^15.7.5
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     "@typescript-eslint/eslint-plugin": ^5.53.0
@@ -11160,7 +11168,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     html-webpack-plugin: ^5.5.0
     mini-css-extract-plugin: ^2.7.2
-    prop-types: ">= 15.6.0"
+    prop-types: ^15.8.1
     react: ^17.0.2
     react-dom: ^17.0.2
     react-scripts: 5.0.0
