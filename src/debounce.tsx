@@ -1,20 +1,27 @@
-export default function debounce(func: any, wait: number) {
-  let timeout: any = null;
-  let later: any = null;
+export default function debounce<Args extends unknown[]>(
+  func: (...args: Args) => unknown,
+  wait: number
+) {
+  let timeout: number | null = null;
+  let later: (() => void) | null = null;
 
-  const debouncedFunction = (...args: any) => {
+  const debouncedFunction = (...args: Args) => {
     later = () => {
       timeout = null;
       func(...args);
     };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    if (timeout != null) {
+      clearTimeout(timeout);
+    }
+    timeout = window.setTimeout(later, wait);
   };
 
   const cancel = () => {
-    if (timeout !== null) {
+    if (timeout != null) {
       clearTimeout(timeout);
-      later();
+      if (later) {
+        later();
+      }
     }
   };
 

@@ -1,4 +1,13 @@
 module.exports = {
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "react", "react-hooks"],
+  root: true,
+
   env: {
     amd: true,
     browser: true,
@@ -11,9 +20,6 @@ module.exports = {
     Blockly: true,
   },
 
-  extends: ["airbnb", "prettier"],
-
-  parser: "babel-eslint",
   parserOptions: {
     sourceType: "module",
     ecmaVersion: 6,
@@ -21,7 +27,6 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ["react-hooks"],
   rules: {
     "react/destructuring-assignment": 0,
     "react/static-property-placement": 0,

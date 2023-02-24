@@ -1,5 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: ["./src/dev-index.tsx"],
@@ -18,6 +20,10 @@ module.exports = {
         },
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ],
   },
   plugins: [
@@ -25,6 +31,8 @@ module.exports = {
       React: "react",
       ReactDOM: "react-dom",
     }),
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin(),
   ],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],

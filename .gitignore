@@ -12,3 +12,11 @@ yarn-error.log
 .idea/modules.xml
 .idea/react-blockly-component.iml
 .idea/vcs.xml
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
