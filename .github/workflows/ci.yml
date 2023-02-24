@@ -1,0 +1,43 @@
+name: Continuous integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+jobs:
+  eslint:
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Read .node-version
+      id: node-version
+      run: echo "node-version=$(cat .node-version)" >> $GITHUB_OUTPUT
+    - name: install node
+      uses: actions/setup-node@v3
+      with:
+        cache: yarn
+        node-version: ${{ steps.node-version.outputs.node-version }}
+    - name: yarn install
+      run: yarn install
+    - name: tsc on resulting generated files
+      run: yarn run tsc --noEmit
+  typescript:
+    name: typescript
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Read .node-version
+      id: node-version
+      run: echo "node-version=$(cat .node-version)" >> $GITHUB_OUTPUT
+    - name: install node
+      uses: actions/setup-node@v3
+      with:
+        cache: yarn
+        node-version: ${{ steps.node-version.outputs.node-version }}
+    - name: yarn install
+      run: yarn install
+    - name: tsc on resulting generated files
+      run: yarn run tsc --noEmit
