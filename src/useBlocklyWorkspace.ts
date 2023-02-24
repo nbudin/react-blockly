@@ -4,7 +4,7 @@ import {UseBlocklyProps} from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
 
-function importFromXml(xml: string, workspace: Workspace, onImportXmlError: (error: any) => void) {
+function importFromXml(xml: string, workspace: Workspace, onImportXmlError?: (error: any) => void) {
   try {
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
