@@ -1,10 +1,15 @@
 import React from "react";
-import Blockly, {Workspace, WorkspaceSvg} from "blockly";
-import {UseBlocklyProps} from "./BlocklyWorkspaceProps";
+import Blockly, { Workspace, WorkspaceSvg } from "blockly";
+import { UseBlocklyProps } from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
 
-function importFromXml(xml: string, workspace: Workspace, onImportXmlError?: (error: any) => void) {
+function importFromXml(
+  xml: string,
+  workspace: Workspace,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onImportXmlError?: (error: any) => void
+) {
   try {
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
     return true;
@@ -25,9 +30,9 @@ const useBlocklyWorkspace = ({
   onImportXmlError,
   onInject,
   onDispose,
-}: UseBlocklyProps): {workspace: WorkspaceSvg|null, xml: string|null} => {
-  const [workspace, setWorkspace] = React.useState<WorkspaceSvg|null>(null);
-  const [xml, setXml] = React.useState<string|null>(initialXml);
+}: UseBlocklyProps): { workspace: WorkspaceSvg | null; xml: string | null } => {
+  const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
+  const [xml, setXml] = React.useState<string | null>(initialXml);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
   const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
     React.useState(false);
@@ -67,7 +72,7 @@ const useBlocklyWorkspace = ({
 
   // Workspace creation
   React.useEffect(() => {
-    if (!ref.current){
+    if (!ref.current) {
       return;
     }
     const newWorkspace = Blockly.inject(ref.current, {
