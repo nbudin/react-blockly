@@ -22,8 +22,8 @@ jobs:
         node-version: ${{ steps.node-version.outputs.node-version }}
     - name: yarn install
       run: yarn install
-    - name: tsc on resulting generated files
-      run: yarn run tsc --noEmit
+    - name: yarn run lint
+      run: yarn run lint
   typescript:
     name: typescript
     runs-on: ubuntu-latest
