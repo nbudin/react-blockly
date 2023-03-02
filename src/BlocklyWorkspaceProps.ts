@@ -8,6 +8,8 @@ export interface CommonBlocklyProps {
   workspaceConfiguration: Blockly.BlocklyOptions;
   onWorkspaceChange: (workspace: WorkspaceSvg) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onImportXmlError?: (error: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImportError?: (error: any) => void;
   onInject?: (newWorkspace: WorkspaceSvg) => void;
   onDispose?: (workspace: WorkspaceSvg) => void;

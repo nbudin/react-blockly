@@ -45,10 +45,15 @@ const useBlocklyWorkspace = ({
   toolboxConfiguration,
   workspaceConfiguration,
   onWorkspaceChange,
+  onImportXmlError,
   onImportError,
   onInject,
   onDispose,
 }: UseBlocklyProps): { workspace: WorkspaceSvg | null; xml: string | null, json: object | null } => {
+  // onImportError replaces onImportXmlError 
+  // This is done for not breaking the signature until depreaction
+  onImportError = onImportError ?? onImportXmlError
+
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
   const [xml, setXml] = React.useState<string | null>(initialXml);
   const [json, setJson] = React.useState<object | null>(initialJson);
