@@ -13,6 +13,7 @@ const TestEditor = () => {
   const [toolboxConfiguration, setToolboxConfiguration] =
     React.useState<ToolboxInfo>(ConfigFiles.INITIAL_TOOLBOX_JSON);
   const [generatedXml, setGeneratedXml] = useState("");
+  const [generatedJson, setGeneratedJson] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
 
   React.useEffect(() => {
@@ -66,13 +67,18 @@ const TestEditor = () => {
     });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
     setGeneratedXml(newXml);
-
+    const newJson = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
+    setGeneratedJson(newJson);
     const code = javascriptGenerator.workspaceToCode(workspace);
     setGeneratedCode(code);
   }, []);
 
   const onXmlChange = React.useCallback((newXml) => {
     setGeneratedXml(newXml);
+  }, []);
+
+  const onJsonChange = React.useCallback((newJson) => {
+    setGeneratedJson(JSON.stringify(newJson));
   }, []);
 
   return (
@@ -92,9 +98,11 @@ const TestEditor = () => {
           className="fill-height"
           onWorkspaceChange={onWorkspaceChange}
           onXmlChange={onXmlChange}
+          onJsonChange={onJsonChange}
         />
       </div>
       <pre>{generatedXml}</pre>
+      <p>{generatedJson}</p>
       <textarea
         style={{ height: "200px", width: "400px" }}
         value={generatedCode}
