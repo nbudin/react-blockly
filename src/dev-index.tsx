@@ -80,11 +80,13 @@ const TestEditor = () => {
   const onJsonChange = React.useCallback((newJson) => {
     setGeneratedJson(JSON.stringify(newJson));
   }, []);
-
+  const [ serialState, setSerialState ] = useState<"XML" | "JSON">("XML")
   return (
     <>
       <div style={{ height: "600px", width: "800px" }}>
+        <button onClick={(e)=>setSerialState((e.target as HTMLElement).innerText == "XML" ? "XML" : "JSON")}>{serialState == "XML" ? "JSON" : "XML"} </button>
         <BlocklyWorkspace
+          key={serialState}
           toolboxConfiguration={toolboxConfiguration}
           workspaceConfiguration={{
             grid: {
@@ -94,7 +96,8 @@ const TestEditor = () => {
               snap: true,
             },
           }}
-          initialXml={ConfigFiles.INITIAL_XML}
+          initialXml={serialState === "XML" ? ConfigFiles.INITIAL_XML : undefined}
+          initialJson={serialState === "JSON" ? ConfigFiles.INITIAL_JSON : undefined}
           className="fill-height"
           onWorkspaceChange={onWorkspaceChange}
           onXmlChange={onXmlChange}

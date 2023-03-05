@@ -1,5 +1,7 @@
 const INITIAL_XML =
-  '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT"></field></block></xml>';
+  '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT">XML</field></block></xml>';
+
+const INITIAL_JSON = {"blocks":{"languageVersion":0,"blocks":[{"type":"text","id":"Y|Ad[E=)p$+Lu41MXB!o","x":70,"y":30,"fields":{"TEXT":"JSON"}}]}}
 
 const INITIAL_TOOLBOX_JSON = {
   kind: "categoryToolbox",
@@ -1024,6 +1026,7 @@ const INITIAL_TOOLBOX_CATEGORIES = [
 
 const ConfigFiles = {
   INITIAL_XML,
+  INITIAL_JSON,
   INITIAL_TOOLBOX_XML,
   INITIAL_TOOLBOX_JSON,
   INITIAL_TOOLBOX_CATEGORIES,
