@@ -13,6 +13,7 @@ const TestEditor = () => {
   const [toolboxConfiguration, setToolboxConfiguration] =
     React.useState<ToolboxInfo>(ConfigFiles.INITIAL_TOOLBOX_JSON);
   const [generatedXml, setGeneratedXml] = useState("");
+  const [generatedJson, setGeneratedJson] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
 
   React.useEffect(() => {
@@ -66,7 +67,8 @@ const TestEditor = () => {
     });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
     setGeneratedXml(newXml);
-
+    const newJson = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
+    setGeneratedJson(newJson);
     const code = javascriptGenerator.workspaceToCode(workspace);
     setGeneratedCode(code);
   }, []);
@@ -75,10 +77,16 @@ const TestEditor = () => {
     setGeneratedXml(newXml);
   }, []);
 
+  const onJsonChange = React.useCallback((newJson) => {
+    setGeneratedJson(JSON.stringify(newJson));
+  }, []);
+  const [ serialState, setSerialState ] = useState<"XML" | "JSON">("XML")
   return (
     <>
       <div style={{ height: "600px", width: "800px" }}>
+        <button onClick={(e)=>setSerialState((e.target as HTMLElement).innerText == "XML" ? "XML" : "JSON")}>{serialState == "XML" ? "JSON" : "XML"} </button>
         <BlocklyWorkspace
+          key={serialState}
           toolboxConfiguration={toolboxConfiguration}
           workspaceConfiguration={{
             grid: {
@@ -88,13 +96,16 @@ const TestEditor = () => {
               snap: true,
             },
           }}
-          initialXml={ConfigFiles.INITIAL_XML}
+          initialXml={serialState === "XML" ? ConfigFiles.INITIAL_XML : undefined}
+          initialJson={serialState === "JSON" ? ConfigFiles.INITIAL_JSON : undefined}
           className="fill-height"
           onWorkspaceChange={onWorkspaceChange}
           onXmlChange={onXmlChange}
+          onJsonChange={onJsonChange}
         />
       </div>
       <pre>{generatedXml}</pre>
+      <p>{generatedJson}</p>
       <textarea
         style={{ height: "200px", width: "400px" }}
         value={generatedCode}
