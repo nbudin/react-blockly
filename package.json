@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "watch": "tsc --watch",
-    "prepublishOnly": "yarn run build"
+    "prepack": "yarn run build"
   },
   "files": [
     "dist"
