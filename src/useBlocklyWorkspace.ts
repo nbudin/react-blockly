@@ -56,8 +56,8 @@ const useBlocklyWorkspace = ({
   onImportError = onImportError ?? onImportXmlError
 
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
-  const [xml, setXml] = React.useState<string | null>(initialXml);
-  const [json, setJson] = React.useState<object | null>(initialJson);
+  const [xml, setXml] = React.useState<string | null>(initialXml || null);
+  const [json, setJson] = React.useState<object | null>(initialJson || null);
   const [didInitialImport, setDidInitialImport] = React.useState(false);
   const [didHandleNewWorkspace, setDidHandleNewWorkspace] =
     React.useState(false);

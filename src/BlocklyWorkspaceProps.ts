@@ -2,8 +2,8 @@ import Blockly, { WorkspaceSvg } from "blockly";
 import { RefObject } from "react";
 
 export interface CommonBlocklyProps {
-  initialXml: string;
-  initialJson: object;
+  initialXml?: string;
+  initialJson?: object;
   toolboxConfiguration: Blockly.utils.toolbox.ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
   onWorkspaceChange: (workspace: WorkspaceSvg) => void;
