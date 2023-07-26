@@ -1,6 +1,6 @@
 {
   "name": "react-blockly",
-  "version": "7.2.2",
+  "version": "7.3.0",
   "description": "A React wrapper for the Blockly visual programming editor",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
