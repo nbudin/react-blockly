@@ -72,10 +72,10 @@ const useBlocklyWorkspace = ({
   const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
   React.useEffect(() => {
     toolboxConfigurationRef.current = toolboxConfiguration;
-    if (toolboxConfiguration && workspace) {
+    if (toolboxConfiguration && workspace && !workspaceConfiguration?.readOnly) {
       workspace.updateToolbox(toolboxConfiguration);
     }
-  }, [toolboxConfiguration, workspace]);
+  }, [toolboxConfiguration, workspace, workspaceConfiguration]);
 
   const onInjectRef = React.useRef(onInject);
   const onDisposeRef = React.useRef(onDispose);
