@@ -19,7 +19,7 @@
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": ">= 3.20200024.0",
+    "blockly": ">= 10.0.0",
     "prop-types": "^15.8.1"
   },
   "peerDependencies": {
