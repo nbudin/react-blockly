@@ -12,7 +12,7 @@ function importFromXml(
 ) {
   try {
     if (workspace.getAllBlocks(false).length > 0) return; // we won't load blocks again if they are already loaded
-    Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
+    Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), workspace);
     return true;
   } catch (e) {
     if (onImportError) {
