@@ -4,9 +4,9 @@ import { RefObject } from "react";
 export interface CommonBlocklyProps {
   initialXml?: string;
   initialJson?: object;
-  toolboxConfiguration: Blockly.utils.toolbox.ToolboxDefinition;
+  toolboxConfiguration?: Blockly.utils.toolbox.ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
-  onWorkspaceChange: (workspace: WorkspaceSvg) => void;
+  onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImportXmlError?: (error: any) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
