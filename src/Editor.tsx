@@ -9,8 +9,8 @@ function EditorComponent(props: EditorProps) {
 }
 
 function propsAreEqual(
-  prevProps: Readonly<PropsWithChildren<any>>,
-  nextProps: Readonly<PropsWithChildren<any>>
+  prevProps: Readonly<PropsWithChildren<EditorProps>>,
+  nextProps: Readonly<PropsWithChildren<EditorProps>>
 ) {
   return prevProps.className === nextProps.className;
 }
