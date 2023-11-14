@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useBlocklyWorkspace from "./useBlocklyWorkspace";
-import {BlocklyWorkspaceProps} from "./BlocklyWorkspaceProps";
+import { useBlocklyWorkspace } from "./useBlocklyWorkspace";
+import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
+import { Editor } from "./Editor";
 
 const propTypes = {
   initialXml: PropTypes.string,
@@ -18,69 +19,15 @@ const propTypes = {
   onDispose: PropTypes.func,
 };
 
-const defaultProps = {
-  initialXml: null,
-  initialJson: null,
-  toolboxConfiguration: null,
-  workspaceConfiguration: null,
-  className: null,
-  onWorkspaceChange: null,
-  onImportXmlError: null,
-  onImportError: null,
-  onXmlChange: null,
-  onJsonChange: null,
-  onInject: null,
-  onDispose: null,
-};
+function BlocklyWorkspaceComponent(props: BlocklyWorkspaceProps) {
+  const { className, ...otherProps } = props;
+  const { editorDivRef } = useBlocklyWorkspace(otherProps);
 
-function BlocklyWorkspace({
-  initialXml,
-  initialJson,
-  toolboxConfiguration,
-  workspaceConfiguration,
-  className,
-  onWorkspaceChange,
-  onXmlChange,
-  onJsonChange,
-  onImportXmlError,
-  onImportError,
-  onInject,
-  onDispose,
-}: BlocklyWorkspaceProps) {
-  const editorDiv = React.useRef(null);
-  const { xml, json } = useBlocklyWorkspace({
-    ref: editorDiv,
-    initialXml,
-    initialJson,
-    toolboxConfiguration,
-    workspaceConfiguration,
-    onWorkspaceChange,
-    onImportXmlError,
-    onImportError,
-    onInject,
-    onDispose,
-  });
-  const onXmlChangeRef = React.useRef(onXmlChange);
-  React.useEffect(() => {
-    onXmlChangeRef.current = onXmlChange;
-  }, [onXmlChange]);
-  const onJsonChangeRef = React.useRef(onJsonChange);
-  React.useEffect(() => {
-    onJsonChangeRef.current = onJsonChange;
-  }, [onJsonChange]);
-  React.useEffect(() => {
-    if (onXmlChangeRef.current && xml) {
-      onXmlChangeRef.current(xml);
-    }
-    if (onJsonChangeRef.current && json) {
-      onJsonChangeRef.current(json);
-    }
-  }, [xml, json]);
-
-  return <div className={className} ref={editorDiv} />;
+  return <Editor className={className} editorDivRef={editorDivRef} />;
 }
 
-BlocklyWorkspace.propTypes = propTypes;
-BlocklyWorkspace.defaultProps = defaultProps;
+export const BlocklyWorkspace = React.memo(
+  BlocklyWorkspaceComponent
+) as React.ComponentType<BlocklyWorkspaceProps>;
 
-export default BlocklyWorkspace;
+BlocklyWorkspace.propTypes = propTypes;
