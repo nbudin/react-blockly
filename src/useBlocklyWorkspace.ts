@@ -1,6 +1,6 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
 import Blockly, { Workspace, WorkspaceSvg } from "blockly";
-import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
+import { UseBlocklyProps } from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
 
@@ -40,6 +40,7 @@ function importFromJson(
 }
 
 const useBlocklyWorkspace = ({
+  ref,
   onXmlChange,
   onJsonChange,
   initialXml,
@@ -51,7 +52,7 @@ const useBlocklyWorkspace = ({
   onImportError,
   onInject,
   onDispose,
-}: BlocklyWorkspaceProps): {
+}: UseBlocklyProps): {
   editorDivRef: React.MutableRefObject<HTMLDivElement | null>;
   workspace: WorkspaceSvg | null;
   xml: string | null;
@@ -108,13 +109,16 @@ const useBlocklyWorkspace = ({
 
   // Workspace creation
   React.useEffect(() => {
-    if (!editorDivRef.current) {
+    if (!_getEditorRef().current) {
       return;
     }
-    const newWorkspace = Blockly.inject(editorDivRef.current, {
-      ...workspaceConfigurationRef.current,
-      toolbox: toolboxConfigurationRef.current,
-    });
+    const newWorkspace = Blockly.inject(
+      _getEditorRef().current as HTMLDivElement,
+      {
+        ...workspaceConfigurationRef.current,
+        toolbox: toolboxConfigurationRef.current,
+      }
+    );
     setWorkspace(newWorkspace);
     setDidInitialImport(false); // force a re-import if we recreate the workspace
     setDidHandleNewWorkspace(false); // Signal that a workspace change event needs to be sent.
@@ -207,6 +211,13 @@ const useBlocklyWorkspace = ({
     }
   }, [json, xml, workspace, didInitialImport, onImportError]);
 
+  function _getEditorRef(): MutableRefObject<HTMLDivElement | null> {
+    if (ref) {
+      return ref;
+    }
+    return editorDivRef;
+  }
+
   function _onXmlChange(xml: string) {
     if (onXmlChange) {
       onXmlChange(xml);
@@ -219,7 +230,7 @@ const useBlocklyWorkspace = ({
     }
   }
 
-  return { workspace, xml, json, editorDivRef };
+  return { workspace, xml, json, editorDivRef: _getEditorRef() };
 };
 
 export { useBlocklyWorkspace };

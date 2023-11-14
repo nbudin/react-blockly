@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useBlocklyWorkspace } from "./useBlocklyWorkspace";
-import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
+import {
+  BlocklyWorkspaceProps,
+  UseBlocklyProps,
+} from "./BlocklyWorkspaceProps";
 import { Editor } from "./Editor";
 
 const propTypes = {
@@ -21,7 +24,7 @@ const propTypes = {
 
 function BlocklyWorkspaceComponent(props: BlocklyWorkspaceProps) {
   const { className, ...otherProps } = props;
-  const { editorDivRef } = useBlocklyWorkspace(otherProps);
+  const { editorDivRef } = useBlocklyWorkspace(otherProps as UseBlocklyProps);
 
   return <Editor className={className} editorDivRef={editorDivRef} />;
 }

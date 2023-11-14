@@ -19,8 +19,8 @@ export interface BlocklyWorkspaceProps extends CommonBlocklyProps {
   onXmlChange?: (xml: string) => void;
   onJsonChange?: (worksapceJson: object) => void;
 }
-export interface UseBlocklyProps extends CommonBlocklyProps {
-  ref: RefObject<Element>;
+export interface UseBlocklyProps extends BlocklyWorkspaceProps {
+  ref: RefObject<HTMLDivElement | null>;
 }
 export interface EditorProps {
   className?: string;
