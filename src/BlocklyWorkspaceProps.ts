@@ -1,5 +1,5 @@
 import Blockly, { WorkspaceSvg } from "blockly";
-import { RefObject } from "react";
+import { MutableRefObject, RefObject } from "react";
 
 export interface CommonBlocklyProps {
   initialXml?: string;
@@ -21,4 +21,8 @@ export interface BlocklyWorkspaceProps extends CommonBlocklyProps {
 }
 export interface UseBlocklyProps extends CommonBlocklyProps {
   ref: RefObject<Element>;
+}
+export interface EditorProps {
+  className?: string;
+  editorDivRef: MutableRefObject<HTMLDivElement | null>;
 }
