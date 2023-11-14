@@ -1,6 +1,6 @@
 import React from "react";
 import Blockly, { Workspace, WorkspaceSvg } from "blockly";
-import { UseBlocklyProps } from "./BlocklyWorkspaceProps";
+import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
 
@@ -40,7 +40,8 @@ function importFromJson(
 }
 
 const useBlocklyWorkspace = ({
-  ref,
+  onXmlChange,
+  onJsonChange,
   initialXml,
   initialJson,
   toolboxConfiguration,
@@ -50,11 +51,17 @@ const useBlocklyWorkspace = ({
   onImportError,
   onInject,
   onDispose,
-}: UseBlocklyProps): { workspace: WorkspaceSvg | null; xml: string | null, json: object | null } => {
-  // onImportError replaces onImportXmlError 
+}: BlocklyWorkspaceProps): {
+  editorDivRef: React.MutableRefObject<HTMLDivElement | null>;
+  workspace: WorkspaceSvg | null;
+  xml: string | null;
+  json: object | null;
+} => {
+  // onImportError replaces onImportXmlError
   // This is done for not breaking the signature until depreaction
-  onImportError = onImportError ?? onImportXmlError
+  onImportError = onImportError ?? onImportXmlError;
 
+  const editorDivRef = React.useRef<HTMLDivElement | null>(null);
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
   const [xml, setXml] = React.useState<string | null>(initialXml || null);
   const [json, setJson] = React.useState<object | null>(initialJson || null);
@@ -72,7 +79,11 @@ const useBlocklyWorkspace = ({
   const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
   React.useEffect(() => {
     toolboxConfigurationRef.current = toolboxConfiguration;
-    if (toolboxConfiguration && workspace && !workspaceConfiguration?.readOnly) {
+    if (
+      toolboxConfiguration &&
+      workspace &&
+      !workspaceConfiguration?.readOnly
+    ) {
       workspace.updateToolbox(toolboxConfiguration);
     }
   }, [toolboxConfiguration, workspace, workspaceConfiguration]);
@@ -97,10 +108,10 @@ const useBlocklyWorkspace = ({
 
   // Workspace creation
   React.useEffect(() => {
-    if (!ref.current) {
+    if (!editorDivRef.current) {
       return;
     }
-    const newWorkspace = Blockly.inject(ref.current, {
+    const newWorkspace = Blockly.inject(editorDivRef.current, {
       ...workspaceConfigurationRef.current,
       toolbox: toolboxConfigurationRef.current,
     });
@@ -122,7 +133,7 @@ const useBlocklyWorkspace = ({
         onDisposeFunction(newWorkspace);
       }
     };
-  }, [ref]);
+  }, []);
 
   // Send a workspace change event when the workspace is created
   React.useEffect(() => {
@@ -162,6 +173,8 @@ const useBlocklyWorkspace = ({
       const newJson = Blockly.serialization.workspaces.save(workspace);
       setJson(newJson);
       setXml(newXml);
+      _onXmlChange(newXml);
+      _onJsonChange(newJson);
     }, 200);
 
     workspace.addChangeListener(callback);
@@ -180,21 +193,33 @@ const useBlocklyWorkspace = ({
         setXml(null);
       }
       setDidInitialImport(true);
-    }
-    else if (json && workspace && !didInitialImport) {
+    } else if (json && workspace && !didInitialImport) {
       const success = importFromJson(json, workspace, onImportError);
       if (!success) {
         setJson(null);
       }
       const jsonToXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
-      )
+      );
       setXml(jsonToXml);
       setDidInitialImport(true);
+      _onXmlChange(jsonToXml);
     }
   }, [json, xml, workspace, didInitialImport, onImportError]);
 
-  return { workspace, xml, json };
+  function _onXmlChange(xml: string) {
+    if (onXmlChange) {
+      onXmlChange(xml);
+    }
+  }
+
+  function _onJsonChange(json: object) {
+    if (onJsonChange) {
+      onJsonChange(json);
+    }
+  }
+
+  return { workspace, xml, json, editorDivRef };
 };
 
-export default useBlocklyWorkspace;
+export { useBlocklyWorkspace };
