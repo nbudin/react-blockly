@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useBlocklyWorkspace from "./useBlocklyWorkspace";
-import {BlocklyWorkspaceProps} from "./BlocklyWorkspaceProps";
+import { useBlocklyWorkspace } from "./useBlocklyWorkspace";
+import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
 
 const propTypes = {
   initialXml: PropTypes.string,
@@ -83,4 +83,4 @@ function BlocklyWorkspace({
 BlocklyWorkspace.propTypes = propTypes;
 BlocklyWorkspace.defaultProps = defaultProps;
 
-export default BlocklyWorkspace;
+export { BlocklyWorkspace };
