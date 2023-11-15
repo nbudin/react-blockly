@@ -4,5 +4,6 @@ export { BlocklyWorkspace } from "./BlocklyWorkspace";
 export type ToolboxDefinition = Blockly.utils.toolbox.ToolboxDefinition;
 export { WorkspaceSvg, Workspace };
 export { useBlocklyEditor } from "./useBlocklyEditor";
+export { BlocklyEditor } from "./BlocklyEditor";
 export { importFromJson } from "./importFromJson";
 export { importFromXml } from "./importFromXml";
