@@ -1,7 +1,8 @@
-import useBlocklyWorkspace from "./useBlocklyWorkspace";
-import BlocklyWorkspace from "./BlocklyWorkspace";
-import Blockly, {WorkspaceSvg, Workspace} from "blockly";
-import ToolboxDefinition1 = Blockly.utils.toolbox.ToolboxDefinition;
-export type ToolboxDefinition = ToolboxDefinition1;
-export { BlocklyWorkspace, useBlocklyWorkspace };
-export {WorkspaceSvg, Workspace};
+import Blockly, { WorkspaceSvg, Workspace } from "blockly";
+export { useBlocklyWorkspace } from "./useBlocklyWorkspace";
+export { BlocklyWorkspace } from "./BlocklyWorkspace";
+export type ToolboxDefinition = Blockly.utils.toolbox.ToolboxDefinition;
+export { WorkspaceSvg, Workspace };
+export { useBlocklyEditor } from "./useBlocklyEditor";
+export { importFromJson } from "./importFromJson";
+export { importFromXml } from "./importFromXml";
