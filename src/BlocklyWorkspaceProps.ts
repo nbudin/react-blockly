@@ -1,10 +1,11 @@
 import Blockly, { WorkspaceSvg } from "blockly";
-import { RefObject } from "react";
+import { ToolboxDefinition } from "blockly/core/utils/toolbox";
+import { MutableRefObject, RefObject } from "react";
 
 export interface CommonBlocklyProps {
   initialXml?: string;
   initialJson?: object;
-  toolboxConfiguration?: Blockly.utils.toolbox.ToolboxDefinition;
+  toolboxConfiguration?: ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
   onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,8 +18,27 @@ export interface CommonBlocklyProps {
 export interface BlocklyWorkspaceProps extends CommonBlocklyProps {
   className?: string;
   onXmlChange?: (xml: string) => void;
-  onJsonChange?: (worksapceJson: object) => void;
+  onJsonChange?: (workspaceJson: object) => void;
 }
 export interface UseBlocklyProps extends CommonBlocklyProps {
   ref: RefObject<Element>;
+}
+export interface BlocklyEditorProps {
+  editorRef?: MutableRefObject<HTMLDivElement | null>;
+  className?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  forceData?: any;
+}
+export interface UseBlocklyEditorProps extends CommonBlocklyProps {
+  initialXml?: string;
+  initialJson?: object;
+  toolboxConfiguration?: ToolboxDefinition;
+  workspaceConfiguration: Blockly.BlocklyOptions;
+  onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onError?: (error: any) => void;
+  onInject?: (newWorkspace: WorkspaceSvg) => void;
+  onDispose?: (workspace: WorkspaceSvg) => void;
+  onXmlChange?: (xml: string) => void;
+  onJsonChange?: (workspaceJson: object) => void;
 }
