@@ -1,43 +1,10 @@
 import React from "react";
-import Blockly, { Workspace, WorkspaceSvg } from "blockly";
+import Blockly, { WorkspaceSvg } from "blockly";
 import { UseBlocklyProps } from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
-
-function importFromXml(
-  xml: string,
-  workspace: Workspace,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportError?: (error: any) => void
-) {
-  try {
-    if (workspace.getAllBlocks(false).length > 0) return; // we won't load blocks again if they are already loaded
-    Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), workspace);
-    return true;
-  } catch (e) {
-    if (onImportError) {
-      onImportError(e);
-    }
-    return false;
-  }
-}
-
-function importFromJson(
-  json: object,
-  workspace: Workspace,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportError?: (error: any) => void
-) {
-  try {
-    Blockly.serialization.workspaces.load(json, workspace);
-    return true;
-  } catch (e) {
-    if (onImportError) {
-      onImportError(e);
-    }
-    return false;
-  }
-}
+import { importFromXml } from "./importFromXml";
+import { importFromJson } from "./importFromJson";
 
 const useBlocklyWorkspace = ({
   ref,
@@ -50,10 +17,14 @@ const useBlocklyWorkspace = ({
   onImportError,
   onInject,
   onDispose,
-}: UseBlocklyProps): { workspace: WorkspaceSvg | null; xml: string | null, json: object | null } => {
-  // onImportError replaces onImportXmlError 
-  // This is done for not breaking the signature until depreaction
-  onImportError = onImportError ?? onImportXmlError
+}: UseBlocklyProps): {
+  workspace: WorkspaceSvg | null;
+  xml: string | null;
+  json: object | null;
+} => {
+  // onImportError replaces onImportXmlError
+  // This is done for not breaking the signature until deprecation
+  onImportError = onImportError ?? onImportXmlError;
 
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
   const [xml, setXml] = React.useState<string | null>(initialXml || null);
@@ -72,7 +43,11 @@ const useBlocklyWorkspace = ({
   const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
   React.useEffect(() => {
     toolboxConfigurationRef.current = toolboxConfiguration;
-    if (toolboxConfiguration && workspace && !workspaceConfiguration?.readOnly) {
+    if (
+      toolboxConfiguration &&
+      workspace &&
+      !workspaceConfiguration?.readOnly
+    ) {
       workspace.updateToolbox(toolboxConfiguration);
     }
   }, [toolboxConfiguration, workspace, workspaceConfiguration]);
@@ -180,15 +155,14 @@ const useBlocklyWorkspace = ({
         setXml(null);
       }
       setDidInitialImport(true);
-    }
-    else if (json && workspace && !didInitialImport) {
+    } else if (json && workspace && !didInitialImport) {
       const success = importFromJson(json, workspace, onImportError);
       if (!success) {
         setJson(null);
       }
       const jsonToXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
-      )
+      );
       setXml(jsonToXml);
       setDidInitialImport(true);
     }
@@ -197,4 +171,4 @@ const useBlocklyWorkspace = ({
   return { workspace, xml, json };
 };
 
-export default useBlocklyWorkspace;
+export { useBlocklyWorkspace };
