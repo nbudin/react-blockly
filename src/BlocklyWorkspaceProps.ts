@@ -8,9 +8,7 @@ export interface CommonBlocklyProps {
   toolboxConfiguration?: ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
   onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImportXmlError?: (error: any) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onImportError?: (error: any) => void;
   onInject?: (newWorkspace: WorkspaceSvg) => void;
   onDispose?: (workspace: WorkspaceSvg) => void;
@@ -26,16 +24,14 @@ export interface UseBlocklyProps extends CommonBlocklyProps {
 export interface BlocklyEditorProps {
   editorRef?: MutableRefObject<HTMLDivElement | null>;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   forceData?: any;
 }
-export interface UseBlocklyEditorProps extends CommonBlocklyProps {
+export interface UseBlocklyEditorProps {
   workspaceConfiguration: Blockly.BlocklyOptions;
   toolboxConfiguration: ToolboxDefinition;
   initialXml?: string;
   initialJson?: object;
   onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onError?: (error: any) => void;
   onInject?: (workspace: WorkspaceSvg) => void;
   onDispose?: (workspace: WorkspaceSvg) => void;
