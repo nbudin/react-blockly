@@ -25,7 +25,7 @@ const useBlocklyEditor = ({
   editorRef: MutableRefObject<HTMLDivElement | null>;
   toolboxConfig: ToolboxDefinition;
   updateToolboxConfig: (
-    cb?: ((configuration?: ToolboxDefinition) => ToolboxDefinition) | undefined
+    cb?: (configuration?: ToolboxDefinition) => ToolboxDefinition
   ) => void;
 } => {
   const editorRef = useRef<HTMLDivElement | null>(null);
