@@ -23,6 +23,7 @@ const useBlocklyEditor = ({
   updateToolboxConfig: (
     cb?: (configuration?: ToolboxDefinition) => ToolboxDefinition
   ) => void;
+  updateData: (data?: string | object) => void;
 } => {
   const editorRef = useRef<HTMLDivElement | null>(null);
   const workspaceRef = useRef<WorkspaceSvg | null>(null);
@@ -44,16 +45,7 @@ const useBlocklyEditor = ({
     });
     workspaceRef.current = workspace;
     _onCallback(onInject, workspace);
-
-    if (initial) {
-      if (initial as string) {
-        importFromXml(initial as string, workspace, onError);
-      } else if (initial as object) {
-        importFromJson(initial as object, workspace, onError);
-      }
-      _saveData(workspace);
-    }
-
+    updateData(initial);
     workspace.addChangeListener(listener);
 
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
@@ -117,6 +109,17 @@ const useBlocklyEditor = ({
     }
   }
 
+  function updateData(data?: string | object) {
+    if (data && workspaceRef.current) {
+      if (initial as string) {
+        importFromXml(initial as string, workspaceRef.current, onError);
+      } else if (initial as object) {
+        importFromJson(initial as object, workspaceRef.current, onError);
+      }
+      _saveData(workspaceRef.current);
+    }
+  }
+
   return {
     workspace: workspaceRef.current,
     xml: xmlRef.current,
@@ -124,6 +127,7 @@ const useBlocklyEditor = ({
     editorRef,
     toolboxConfig: toolboxConfigurationRef.current as ToolboxDefinition,
     updateToolboxConfig,
+    updateData,
   };
 };
 
