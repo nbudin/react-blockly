@@ -45,11 +45,10 @@ const useBlocklyEditor = ({
       toolbox: toolboxConfigurationRef.current,
     });
     workspaceRef.current = workspace;
+    _onCallback(onInject, workspace);
     _saveData(workspace, initialXml, initialJson);
     const [callback, cancel] = debounce(listener, 200);
     workspace.addChangeListener(callback);
-
-    _onCallback(onInject, workspace);
 
     // Dispose of the workspace when our div ref goes away (Equivalent to didComponentUnmount)
     return () => {
