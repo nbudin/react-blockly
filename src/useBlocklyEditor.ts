@@ -101,7 +101,7 @@ const useBlocklyEditor = ({
       if (
         configuration &&
         workspaceRef.current &&
-        !workspaceConfiguration?.readOnly
+        !workspaceConfigurationRef.current.readOnly
       ) {
         toolboxConfigurationRef.current = configuration;
         workspaceRef.current.updateToolbox(configuration);
