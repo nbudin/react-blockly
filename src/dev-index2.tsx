@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Blockly, { Workspace } from "blockly";
+import { Workspace } from "blockly";
 import { javascriptGenerator } from "blockly/javascript";
 
 import { useBlocklyEditor } from "./index";
@@ -22,23 +22,11 @@ const TestEditor = () => {
     },
   };
 
-  const onWorkspaceChange = React.useCallback((workspace) => {
-    workspace.registerButtonCallback("myFirstButtonPressed", () => {
-      alert("button is pressed");
-    });
-    const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
-    setGeneratedXml(newXml);
-    const newJson = JSON.stringify(
-      Blockly.serialization.workspaces.save(workspace)
-    );
-    setGeneratedJson(newJson);
+  const onChange = React.useCallback(({ workspace, json, xml }) => {
     const code = javascriptGenerator.workspaceToCode(workspace);
-    setGeneratedCode(code);
-  }, []);
-
-  const onChange = React.useCallback(({ json, xml }) => {
     setGeneratedXml(xml);
     setGeneratedJson(JSON.stringify(json));
+    setGeneratedCode(code);
   }, []);
 
   const { editorRef, updateToolboxConfig } = useBlocklyEditor({
@@ -125,6 +113,7 @@ const TestEditor = () => {
         }
       });
     }, 6000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
