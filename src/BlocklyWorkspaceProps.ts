@@ -29,8 +29,7 @@ export interface BlocklyEditorProps {
 export interface UseBlocklyEditorProps {
   workspaceConfiguration: Blockly.BlocklyOptions;
   toolboxConfiguration: ToolboxDefinition;
-  initialXml?: string;
-  initialJson?: object;
+  initial?: string | object;
   onError?: (error: any) => void;
   onInject?: (workspace: WorkspaceSvg) => void;
   onDispose?: (workspace: WorkspaceSvg) => void;

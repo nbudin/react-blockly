@@ -10,8 +10,7 @@ import { importFromJson } from "./importFromJson";
 const useBlocklyEditor = ({
   workspaceConfiguration,
   toolboxConfiguration,
-  initialXml,
-  initialJson,
+  initial,
   onError,
   onInject,
   onChange,
@@ -46,7 +45,7 @@ const useBlocklyEditor = ({
     });
     workspaceRef.current = workspace;
     _onCallback(onInject, workspace);
-    _saveData(workspace, initialXml, initialJson);
+    _saveData(workspace, initial);
     const [callback, cancel] = debounce(listener, 200);
     workspace.addChangeListener(callback);
 
@@ -79,23 +78,19 @@ const useBlocklyEditor = ({
     }
   }
 
-  function _saveData(
-    workspace: Workspace,
-    xml?: string,
-    json?: object
-  ): boolean {
-    if (!xml && !json) {
+  function _saveData(workspace: Workspace, data?: string | object): boolean {
+    if (!data) {
       return false;
     }
     let isUpdate = false;
-    if (xml && xml !== xmlRef.current) {
-      xmlRef.current = xml;
-      importFromXml(xml, workspace, onError);
+    if ((data as string) && data !== xmlRef.current) {
+      xmlRef.current = data as string;
+      importFromXml(data as string, workspace, onError);
       jsonRef.current = Blockly.serialization.workspaces.save(workspace);
       isUpdate = true;
-    } else if (json) {
-      jsonRef.current = json;
-      importFromJson(json, workspace, onError);
+    } else if (data as object) {
+      jsonRef.current = data as object;
+      importFromJson(data as object, workspace, onError);
       const newXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
       );
