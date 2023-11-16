@@ -30,10 +30,9 @@ const TestEditor = () => {
   }, []);
 
   const { editorRef, updateToolboxConfig } = useBlocklyEditor({
-    initialXml: ConfigFiles.INITIAL_XML,
-    initialJson: ConfigFiles.INITIAL_JSON,
-    toolboxConfiguration: ConfigFiles.INITIAL_TOOLBOX_JSON,
     workspaceConfiguration,
+    toolboxConfiguration: ConfigFiles.INITIAL_TOOLBOX_JSON,
+    initial: ConfigFiles.INITIAL_XML,
     onError,
     onInject,
     onDispose,
