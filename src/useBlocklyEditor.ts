@@ -8,15 +8,13 @@ import { importFromXml } from "./importFromXml";
 import { importFromJson } from "./importFromJson";
 
 const useBlocklyEditor = ({
-  onXmlChange,
-  onJsonChange,
+  workspaceConfiguration,
+  toolboxConfiguration,
   initialXml,
   initialJson,
-  toolboxConfiguration,
-  workspaceConfiguration,
-  onWorkspaceChange,
   onError,
   onInject,
+  onChange,
   onDispose,
 }: UseBlocklyEditorProps): {
   workspace: WorkspaceSvg | null;
@@ -69,15 +67,13 @@ const useBlocklyEditor = ({
         const newXml = Blockly.Xml.domToText(
           Blockly.Xml.workspaceToDom(workspaceRef.current)
         );
-        const isUpdate = _saveData(workspaceRef.current, newXml);
-        isUpdate && _onCallback(onWorkspaceChange, workspaceRef.current);
+        _saveData(workspaceRef.current, newXml);
       }
     } catch (e) {
       _onCallback(onError, e);
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function _onCallback(cb?: (arg?: any) => void, arg?: any) {
     if (cb) {
       cb(arg);
@@ -110,8 +106,11 @@ const useBlocklyEditor = ({
       }
     }
     if (isUpdate) {
-      _onCallback(onXmlChange, xmlRef.current);
-      _onCallback(onJsonChange, jsonRef.current);
+      _onCallback(onChange, {
+        workspace,
+        xml: xmlRef.current,
+        json: jsonRef.current,
+      });
     }
     return isUpdate;
   }

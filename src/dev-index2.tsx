@@ -36,12 +36,9 @@ const TestEditor = () => {
     setGeneratedCode(code);
   }, []);
 
-  const onXmlChange = React.useCallback((newXml) => {
-    setGeneratedXml(newXml);
-  }, []);
-
-  const onJsonChange = React.useCallback((newJson) => {
-    setGeneratedJson(JSON.stringify(newJson));
+  const onChange = React.useCallback(({ json, xml }) => {
+    setGeneratedXml(xml);
+    setGeneratedJson(JSON.stringify(json));
   }, []);
 
   const { editorRef, updateToolboxConfig } = useBlocklyEditor({
@@ -49,12 +46,10 @@ const TestEditor = () => {
     initialJson: ConfigFiles.INITIAL_JSON,
     toolboxConfiguration: ConfigFiles.INITIAL_TOOLBOX_JSON,
     workspaceConfiguration,
-    onWorkspaceChange,
     onError,
     onInject,
     onDispose,
-    onXmlChange,
-    onJsonChange,
+    onChange,
   });
 
   React.useEffect(() => {

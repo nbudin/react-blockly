@@ -31,10 +31,12 @@ export interface UseBlocklyEditorProps {
   toolboxConfiguration: ToolboxDefinition;
   initialXml?: string;
   initialJson?: object;
-  onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
   onError?: (error: any) => void;
   onInject?: (workspace: WorkspaceSvg) => void;
   onDispose?: (workspace: WorkspaceSvg) => void;
-  onXmlChange?: (xml: string) => void;
-  onJsonChange?: (json: object) => void;
+  onChange?: (state: {
+    workspace: WorkspaceSvg;
+    xml: string;
+    json: object;
+  }) => void;
 }
