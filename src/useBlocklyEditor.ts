@@ -111,9 +111,9 @@ const useBlocklyEditor = ({
 
   function updateState(data?: string | object) {
     if (data && workspaceRef.current) {
-      if (data as string) {
+      if (typeof data === "string") {
         importFromXml(data as string, workspaceRef.current, onError);
-      } else if (data as object) {
+      } else if (typeof data === "object") {
         importFromJson(data as object, workspaceRef.current, onError);
       }
       _saveData(workspaceRef.current);
