@@ -111,10 +111,10 @@ const useBlocklyEditor = ({
 
   function updateData(data?: string | object) {
     if (data && workspaceRef.current) {
-      if (initial as string) {
-        importFromXml(initial as string, workspaceRef.current, onError);
-      } else if (initial as object) {
-        importFromJson(initial as object, workspaceRef.current, onError);
+      if (data as string) {
+        importFromXml(data as string, workspaceRef.current, onError);
+      } else if (data as object) {
+        importFromJson(data as object, workspaceRef.current, onError);
       }
       _saveData(workspaceRef.current);
     }
