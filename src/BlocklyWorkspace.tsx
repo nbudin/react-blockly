@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useBlocklyWorkspace from "./useBlocklyWorkspace";
-import {BlocklyWorkspaceProps} from "./BlocklyWorkspaceProps";
+import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
 
 const propTypes = {
   initialXml: PropTypes.string,
@@ -16,21 +16,6 @@ const propTypes = {
   onJsonChange: PropTypes.func,
   onInject: PropTypes.func,
   onDispose: PropTypes.func,
-};
-
-const defaultProps = {
-  initialXml: null,
-  initialJson: null,
-  toolboxConfiguration: null,
-  workspaceConfiguration: null,
-  className: null,
-  onWorkspaceChange: null,
-  onImportXmlError: null,
-  onImportError: null,
-  onXmlChange: null,
-  onJsonChange: null,
-  onInject: null,
-  onDispose: null,
 };
 
 function BlocklyWorkspace({
@@ -81,6 +66,5 @@ function BlocklyWorkspace({
 }
 
 BlocklyWorkspace.propTypes = propTypes;
-BlocklyWorkspace.defaultProps = defaultProps;
 
 export default BlocklyWorkspace;
