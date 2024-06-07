@@ -4110,12 +4110,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"blockly@npm:>= 10.0.0":
-  version: 10.0.2
-  resolution: "blockly@npm:10.0.2"
+"blockly@npm:>= 10.0.0 < 11.0.0":
+  version: 10.4.3
+  resolution: "blockly@npm:10.4.3"
   dependencies:
     jsdom: 22.1.0
-  checksum: 26541bff203cd8c4bd84a7c081a104d442745ea74f1dafd3f4b0fefb99272e070573ef5873624dcb86a8521c3366ba7453f604c277da62fd9bda8d2a79f84bb9
+  checksum: 1d01db87f31e23c3c1297457a54de887cf932c283d6db60c0ca478ed893f727a595908f86155c233ee93caea67c713b2657fe3966d655b8a35aaa0b5f5c50e0e
   languageName: node
   linkType: hard
 
@@ -11136,7 +11136,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.53.0
     "@typescript-eslint/parser": ^5.53.0
     babel-eslint: ^10.1.0
-    blockly: ">= 10.0.0"
+    blockly: ">= 10.0.0 < 11.0.0"
     css-loader: ^6.7.3
     eslint: ^8.34.0
     eslint-config-prettier: ^8.6.0
