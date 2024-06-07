@@ -1,4 +1,5 @@
-import Blockly, { WorkspaceSvg } from "blockly";
+import * as Blockly from "blockly/core";
+import { WorkspaceSvg } from "blockly";
 import { RefObject } from "react";
 
 export interface CommonBlocklyProps {

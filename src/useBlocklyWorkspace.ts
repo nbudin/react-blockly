@@ -1,5 +1,6 @@
 import React from "react";
-import Blockly, { Workspace, WorkspaceSvg } from "blockly";
+import * as Blockly from "blockly/core";
+import { Workspace, WorkspaceSvg } from "blockly";
 import { UseBlocklyProps } from "./BlocklyWorkspaceProps";
 
 import debounce from "./debounce";
@@ -50,10 +51,14 @@ const useBlocklyWorkspace = ({
   onImportError,
   onInject,
   onDispose,
-}: UseBlocklyProps): { workspace: WorkspaceSvg | null; xml: string | null, json: object | null } => {
-  // onImportError replaces onImportXmlError 
+}: UseBlocklyProps): {
+  workspace: WorkspaceSvg | null;
+  xml: string | null;
+  json: object | null;
+} => {
+  // onImportError replaces onImportXmlError
   // This is done for not breaking the signature until depreaction
-  onImportError = onImportError ?? onImportXmlError
+  onImportError = onImportError ?? onImportXmlError;
 
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
   const [xml, setXml] = React.useState<string | null>(initialXml || null);
@@ -72,7 +77,11 @@ const useBlocklyWorkspace = ({
   const toolboxConfigurationRef = React.useRef(toolboxConfiguration);
   React.useEffect(() => {
     toolboxConfigurationRef.current = toolboxConfiguration;
-    if (toolboxConfiguration && workspace && !workspaceConfiguration?.readOnly) {
+    if (
+      toolboxConfiguration &&
+      workspace &&
+      !workspaceConfiguration?.readOnly
+    ) {
       workspace.updateToolbox(toolboxConfiguration);
     }
   }, [toolboxConfiguration, workspace, workspaceConfiguration]);
@@ -180,15 +189,14 @@ const useBlocklyWorkspace = ({
         setXml(null);
       }
       setDidInitialImport(true);
-    }
-    else if (json && workspace && !didInitialImport) {
+    } else if (json && workspace && !didInitialImport) {
       const success = importFromJson(json, workspace, onImportError);
       if (!success) {
         setJson(null);
       }
       const jsonToXml = Blockly.Xml.domToText(
         Blockly.Xml.workspaceToDom(workspace)
-      )
+      );
       setXml(jsonToXml);
       setDidInitialImport(true);
     }

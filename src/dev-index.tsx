@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import Blockly from "blockly";
+import * as Blockly from "blockly/core";
 import { javascriptGenerator } from "blockly/javascript";
 
 import { BlocklyWorkspace } from "./index";
@@ -67,7 +67,9 @@ const TestEditor = () => {
     });
     const newXml = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace));
     setGeneratedXml(newXml);
-    const newJson = JSON.stringify(Blockly.serialization.workspaces.save(workspace));
+    const newJson = JSON.stringify(
+      Blockly.serialization.workspaces.save(workspace)
+    );
     setGeneratedJson(newJson);
     const code = javascriptGenerator.workspaceToCode(workspace);
     setGeneratedCode(code);
@@ -80,11 +82,19 @@ const TestEditor = () => {
   const onJsonChange = React.useCallback((newJson) => {
     setGeneratedJson(JSON.stringify(newJson));
   }, []);
-  const [ serialState, setSerialState ] = useState<"XML" | "JSON">("XML")
+  const [serialState, setSerialState] = useState<"XML" | "JSON">("XML");
   return (
     <>
       <div style={{ height: "600px", width: "800px" }}>
-        <button onClick={(e)=>setSerialState((e.target as HTMLElement).innerText == "XML" ? "XML" : "JSON")}>{serialState == "XML" ? "JSON" : "XML"} </button>
+        <button
+          onClick={(e) =>
+            setSerialState(
+              (e.target as HTMLElement).innerText == "XML" ? "XML" : "JSON"
+            )
+          }
+        >
+          {serialState == "XML" ? "JSON" : "XML"}{" "}
+        </button>
         <BlocklyWorkspace
           key={serialState}
           toolboxConfiguration={toolboxConfiguration}
@@ -96,8 +106,12 @@ const TestEditor = () => {
               snap: true,
             },
           }}
-          initialXml={serialState === "XML" ? ConfigFiles.INITIAL_XML : undefined}
-          initialJson={serialState === "JSON" ? ConfigFiles.INITIAL_JSON : undefined}
+          initialXml={
+            serialState === "XML" ? ConfigFiles.INITIAL_XML : undefined
+          }
+          initialJson={
+            serialState === "JSON" ? ConfigFiles.INITIAL_JSON : undefined
+          }
           className="fill-height"
           onWorkspaceChange={onWorkspaceChange}
           onXmlChange={onXmlChange}
