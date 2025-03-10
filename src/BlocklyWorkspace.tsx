@@ -6,6 +6,8 @@ import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
 const propTypes = {
   initialXml: PropTypes.string,
   initialJson: PropTypes.object,
+  updateXml: PropTypes.string,
+  updateJson: PropTypes.object,
   toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   className: PropTypes.string,
@@ -21,6 +23,8 @@ const propTypes = {
 function BlocklyWorkspace({
   initialXml,
   initialJson,
+  updateXml,
+  updateJson,
   toolboxConfiguration,
   workspaceConfiguration,
   className,
@@ -37,6 +41,8 @@ function BlocklyWorkspace({
     ref: editorDiv,
     initialXml,
     initialJson,
+    updateXml,
+    updateJson,
     toolboxConfiguration,
     workspaceConfiguration,
     onWorkspaceChange,
@@ -44,6 +50,7 @@ function BlocklyWorkspace({
     onImportError,
     onInject,
     onDispose,
+
   });
   const onXmlChangeRef = React.useRef(onXmlChange);
   React.useEffect(() => {

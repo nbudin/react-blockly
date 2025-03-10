@@ -15,6 +15,8 @@ const TestEditor = () => {
   const [generatedXml, setGeneratedXml] = useState("");
   const [generatedJson, setGeneratedJson] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
+  const [updateXml, setUpdateXml] = useState("");
+  const [updateJson, setUpdateJson] = useState({});
 
   React.useEffect(() => {
     window.setTimeout(() => {
@@ -85,7 +87,7 @@ const TestEditor = () => {
   const [serialState, setSerialState] = useState<"XML" | "JSON">("XML");
   return (
     <>
-      <div style={{ height: "600px", width: "800px" }}>
+      <div style={{ height: "600px", width: "800px", marginBlockEnd: "2rem" }}>
         <button
           onClick={(e) =>
             setSerialState(
@@ -116,10 +118,28 @@ const TestEditor = () => {
           onWorkspaceChange={onWorkspaceChange}
           onXmlChange={onXmlChange}
           onJsonChange={onJsonChange}
+          updateXml={updateXml}
+          updateJson={updateJson}
         />
       </div>
-      <pre>{generatedXml}</pre>
-      <p>{generatedJson}</p>
+      <textarea
+        style={{ height: "200px", width: "400px" }}
+        value={generatedXml}
+        onChange={(ev)=>{
+          console.log('onChange generated xml', ev)
+          console.log(ev.target.value)
+          setUpdateXml(ev.target.value)
+        }}
+      />
+      <textarea
+        style={{ height: "200px", width: "400px" }}
+        value={generatedJson}
+        onChange={(ev)=>{
+          console.log('onChange generated json', ev)
+          console.log(ev.target.value)
+          setUpdateJson(JSON.parse(ev.target.value))
+        }}
+      />
       <textarea
         style={{ height: "200px", width: "400px" }}
         value={generatedCode}
