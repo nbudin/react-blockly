@@ -5,6 +5,8 @@ import { RefObject } from "react";
 export interface CommonBlocklyProps {
   initialXml?: string;
   initialJson?: object;
+  updateXml?: string;
+  updateJson?: object;
   toolboxConfiguration?: Blockly.utils.toolbox.ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
   onWorkspaceChange?: (workspace: WorkspaceSvg) => void;

@@ -23,6 +23,24 @@ function importFromXml(
   }
 }
 
+function repeatableImportFromXml(
+  xml: string,
+  workspace: Workspace,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onImportError?: (error: any) => void
+) {
+  try {
+    workspace.clear();
+    Blockly.Xml.domToWorkspace(Blockly.utils.xml.textToDom(xml), workspace);
+    return true;
+  } catch (e) {
+    if (onImportError) {
+      onImportError(e);
+    }
+    return false;
+  }
+}
+
 function importFromJson(
   json: object,
   workspace: Workspace,
@@ -30,6 +48,7 @@ function importFromJson(
   onImportError?: (error: any) => void
 ) {
   try {
+    workspace.clear();
     Blockly.serialization.workspaces.load(json, workspace);
     return true;
   } catch (e) {
@@ -44,6 +63,8 @@ const useBlocklyWorkspace = ({
   ref,
   initialXml,
   initialJson,
+  updateXml,
+  updateJson,
   toolboxConfiguration,
   workspaceConfiguration,
   onWorkspaceChange,
@@ -57,7 +78,7 @@ const useBlocklyWorkspace = ({
   json: object | null;
 } => {
   // onImportError replaces onImportXmlError
-  // This is done for not breaking the signature until depreaction
+  // This is done for not breaking the signature until deprecation
   onImportError = onImportError ?? onImportXmlError;
 
   const [workspace, setWorkspace] = React.useState<WorkspaceSvg | null>(null);
@@ -181,7 +202,7 @@ const useBlocklyWorkspace = ({
     };
   }, [workspace, xml]);
 
-  // Initial Xml Changes
+  // Initial Xml/Json Changes
   React.useEffect(() => {
     if (xml && workspace && !didInitialImport) {
       const success = importFromXml(xml, workspace, onImportError);
@@ -201,6 +222,28 @@ const useBlocklyWorkspace = ({
       setDidInitialImport(true);
     }
   }, [json, xml, workspace, didInitialImport, onImportError]);
+
+  // update xml/json
+  React.useEffect(() => {
+    console.log('update xml/json', updateXml, updateJson)
+
+    if (updateXml && workspace) {
+      const success = repeatableImportFromXml(updateXml, workspace, onImportError);
+      if (!success) {
+        setXml(null);
+      }
+    } else if (updateJson && workspace) {
+      const success = importFromJson(updateJson, workspace, onImportError);
+      if (!success) {
+        setJson(null);
+      }
+    }
+
+  }, [updateXml, updateJson, workspace, onImportError]);
+
+  React.useEffect(() => {
+
+  }, [updateJson, workspace, onImportError]);
 
   return { workspace, xml, json };
 };
