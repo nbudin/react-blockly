@@ -1,10 +1,30 @@
+# Build outputs
 /dist
 /dist-modules
+*.tsbuildinfo
+
+# Dependencies
 /node_modules
 /package-lock.json
 
+# Logs
 yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# IDE files
 .idea/*
 .idea/codeStyles/
 .idea/inspectionProfiles/
@@ -12,11 +32,28 @@ yarn-error.log
 .idea/modules.xml
 .idea/react-blockly-component.iml
 .idea/vcs.xml
+.vscode/
+*.swp
+*.swo
 
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Package managers
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
+
+# Temporary folders
+tmp/
+temp/
 !.yarn/sdks
 !.yarn/versions

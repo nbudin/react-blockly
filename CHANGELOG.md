@@ -2,6 +2,38 @@
 
 We've switched to keeping our changelog in Github releases. [Please go here to view the latest release notes.](https://github.com/nbudin/react-blockly/releases)
 
+# Version 10.0.0 - June 15, 2025
+
+## Major React 19 Modernization & Tooling Update
+
+### BREAKING CHANGES:
+- React 19 Support: Updated peer dependencies to support React 19.x
+- Node.js Requirements: Now requires Node.js >=18.0.0 and npm >=8.0.0
+- Removed react-scripts dependency to eliminate peer dependency conflicts
+- Package now uses ES modules (`"type": "module"`)
+
+### New Features:
+- Full React 19 compatibility while maintaining backward compatibility with React 16.8+
+- Upgraded to TypeScript 5.8 with ES2020 target and stricter type checking
+- Updated to ESLint 9 with flat config format and modern React rules
+- Added Prettier integration for automatic code formatting
+- Enhanced developer experience with VS Code settings and improved scripts
+
+### Improvements:
+- Updated all dependencies to latest versions (Blockly 12.1.0+, Webpack 5, etc.)
+- Cleaner builds with incremental TypeScript compilation
+- Improved type safety with better annotations and safer array/object access
+- Added `clean`, `dev`, `format`, and `format:check` npm scripts
+- Enhanced package.json with keywords and engine requirements
+
+### Fixes:
+- Eliminated need for `--legacy-peer-deps` flag during installation
+- Updated from deprecated `ReactDOM.render()` to `createRoot()` API for React 19
+- Fixed TypeScript compilation errors with stricter settings
+- Zero ESLint errors with modern configuration
+
+**Migration Guide**: This version maintains API compatibility while requiring React 19+. Update your React version and remove any `--legacy-peer-deps` flags from install commands.
+
 # Version 6.0.1 - September 17, 2020
 
 - Fix broken entrypoint in package.json; clean up build a bit.

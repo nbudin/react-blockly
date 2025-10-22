@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import * as Blockly from "blockly/core";
 import { javascriptGenerator } from "blockly/javascript";
+import { WorkspaceSvg } from "blockly";
 
 import { BlocklyWorkspace } from "./index";
 import ConfigFiles from "./initContent/content";
@@ -39,16 +40,26 @@ const TestEditor = () => {
     }, 2000);
 
     window.setTimeout(() => {
-      setToolboxConfiguration((prevConfig: ToolboxInfo) => ({
-        ...prevConfig,
-        contents: [
-          ...prevConfig.contents.slice(0, prevConfig.contents.length - 1),
-          {
-            ...prevConfig.contents[prevConfig.contents.length - 1],
-            contents: [{ kind: "block", type: "text" }],
-          },
-        ],
-      }));
+      setToolboxConfiguration((prevConfig: ToolboxInfo) => {
+        const {contents} = prevConfig;
+        const lastIndex = contents.length - 1;
+        const lastItem = contents[lastIndex];
+
+        if (!lastItem || lastIndex < 0) {
+          return prevConfig;
+        }
+
+        return {
+          ...prevConfig,
+          contents: [
+            ...contents.slice(0, lastIndex),
+            {
+              ...lastItem,
+              contents: [{ kind: "block", type: "text" }],
+            },
+          ],
+        };
+      });
     }, 4000);
 
     window.setTimeout(() => {
@@ -61,7 +72,7 @@ const TestEditor = () => {
     }, 10000);
   }, []);
 
-  const onWorkspaceChange = React.useCallback((workspace) => {
+  const onWorkspaceChange = React.useCallback((workspace: WorkspaceSvg) => {
     workspace.registerButtonCallback("myFirstButtonPressed", () => {
       alert("button is pressed");
     });
@@ -75,11 +86,11 @@ const TestEditor = () => {
     setGeneratedCode(code);
   }, []);
 
-  const onXmlChange = React.useCallback((newXml) => {
+  const onXmlChange = React.useCallback((newXml: string) => {
     setGeneratedXml(newXml);
   }, []);
 
-  const onJsonChange = React.useCallback((newJson) => {
+  const onJsonChange = React.useCallback((newJson: object) => {
     setGeneratedJson(JSON.stringify(newJson));
   }, []);
   const [serialState, setSerialState] = useState<"XML" | "JSON">("XML");
@@ -87,7 +98,7 @@ const TestEditor = () => {
     <>
       <div style={{ height: "600px", width: "800px" }}>
         <button
-          onClick={(e) =>
+          onClick={e =>
             setSerialState(
               (e.target as HTMLElement).innerText == "XML" ? "XML" : "JSON"
             )
@@ -131,8 +142,9 @@ const TestEditor = () => {
 
 window.addEventListener("load", () => {
   const editor = React.createElement(TestEditor);
-  const root = document.createElement("div");
-  document.body.appendChild(root);
+  const rootElement = document.createElement("div");
+  document.body.appendChild(rootElement);
 
-  ReactDOM.render(editor, root);
+  const root = createRoot(rootElement);
+  root.render(editor);
 });

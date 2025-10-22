@@ -1,9 +1,20 @@
 {
-  "search.exclude": {
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.enable": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/*.tsbuildinfo": true,
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "eslint.nodePath": ".yarn/sdks",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  }
 }

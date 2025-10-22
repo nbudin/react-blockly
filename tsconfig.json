@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es2020",
+    "lib": ["dom", "dom.iterable", "es2020"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -11,11 +11,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "**/*.test.*", "**/*.spec.*"]
 }

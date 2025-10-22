@@ -7,19 +7,19 @@ export interface CommonBlocklyProps {
   initialJson?: object;
   toolboxConfiguration?: Blockly.utils.toolbox.ToolboxDefinition;
   workspaceConfiguration: Blockly.BlocklyOptions;
-  onWorkspaceChange?: (workspace: WorkspaceSvg) => void;
+  onWorkspaceChange?: (_workspace: WorkspaceSvg) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportXmlError?: (error: any) => void;
+  onImportXmlError?: (_error: any) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportError?: (error: any) => void;
-  onInject?: (newWorkspace: WorkspaceSvg) => void;
-  onDispose?: (workspace: WorkspaceSvg) => void;
+  onImportError?: (_error: any) => void;
+  onInject?: (_newWorkspace: WorkspaceSvg) => void;
+  onDispose?: (_workspace: WorkspaceSvg) => void;
 }
 export interface BlocklyWorkspaceProps extends CommonBlocklyProps {
   className?: string;
-  onXmlChange?: (xml: string) => void;
-  onJsonChange?: (worksapceJson: object) => void;
+  onXmlChange?: (_xml: string) => void;
+  onJsonChange?: (_worksapceJson: object) => void;
 }
 export interface UseBlocklyProps extends CommonBlocklyProps {
-  ref: RefObject<Element>;
+  ref: RefObject<HTMLDivElement | null>;
 }

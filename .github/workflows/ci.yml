@@ -11,15 +11,17 @@ jobs:
     name: eslint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Read .node-version
       id: node-version
       run: echo "node-version=$(cat .node-version)" >> $GITHUB_OUTPUT
     - name: install node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         cache: yarn
         node-version: ${{ steps.node-version.outputs.node-version }}
+    - name: Display Node.js version
+      run: node --version
     - name: yarn install
       run: yarn install
     - name: yarn run lint
@@ -28,15 +30,17 @@ jobs:
     name: typescript
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Read .node-version
       id: node-version
       run: echo "node-version=$(cat .node-version)" >> $GITHUB_OUTPUT
     - name: install node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         cache: yarn
         node-version: ${{ steps.node-version.outputs.node-version }}
+    - name: Display Node.js version
+      run: node --version
     - name: yarn install
       run: yarn install
     - name: tsc on resulting generated files

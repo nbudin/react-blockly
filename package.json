@@ -1,63 +1,79 @@
 {
-  "name": "react-blockly",
-  "version": "9.0.0",
+  "name": "@kuband/react-blockly",
+  "version": "10.0.1",
+  "type": "module",
   "description": "A React wrapper for the Blockly visual programming editor",
+  "keywords": [
+    "react",
+    "blockly",
+    "visual-programming",
+    "editor",
+    "typescript",
+    "drag-and-drop",
+    "coding"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "watch": "tsc --watch",
+    "dev": "npm start",
+    "start": "webpack-dev-server --config webpack.config.test.cjs",
     "lint": "eslint --ext .ts,.tsx src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
-    "start": "webpack-dev-server --config webpack.config.test.js",
+    "format": "prettier --write 'src/**/*.{ts,tsx}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx}'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepack": "yarn run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "tsconfig.json"
   ],
   "author": "Nat Budin <natbudin@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "blockly": ">= 11.0.0",
-    "prop-types": "^15.8.1"
+    "blockly": ">=12.3.1",
+    "prop-types": "^15.8.1",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "react": "^16.8 || ^17.0 || ^18.0"
+    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0",
+    "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0"
   },
   "devDependencies": {
-    "@types/node": "^12.0.0",
-    "@types/prop-types": "^15.7.5",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "babel-eslint": "^10.1.0",
-    "css-loader": "^6.7.3",
-    "eslint": "^8.34.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.5",
-    "webpack": "^5.63.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.4.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "@eslint/js": "^9.38.0",
+    "@types/node": "^24.9.1",
+    "@types/prop-types": "^15.7.15",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "html-webpack-plugin": "^5.6.4",
+    "mini-css-extract-plugin": "^2.9.4",
+    "prettier": "^3.6.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "ts-loader": "^9.5.4",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nbudin/react-blockly/"
+    "url": "git+https://github.com/JakubAndrysek/react-blockly.git"
   },
   "packageManager": "yarn@3.4.1"
 }

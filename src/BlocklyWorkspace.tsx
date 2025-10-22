@@ -6,8 +6,8 @@ import { BlocklyWorkspaceProps } from "./BlocklyWorkspaceProps";
 const propTypes = {
   initialXml: PropTypes.string,
   initialJson: PropTypes.object,
-  toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  toolboxConfiguration: PropTypes.object,
+  workspaceConfiguration: PropTypes.object,
   className: PropTypes.string,
   onWorkspaceChange: PropTypes.func,
   onImportXmlError: PropTypes.func,
@@ -32,7 +32,7 @@ function BlocklyWorkspace({
   onInject,
   onDispose,
 }: BlocklyWorkspaceProps) {
-  const editorDiv = React.useRef(null);
+  const editorDiv = React.useRef<HTMLDivElement>(null);
   const { xml, json } = useBlocklyWorkspace({
     ref: editorDiv,
     initialXml,

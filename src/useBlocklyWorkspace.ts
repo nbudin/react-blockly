@@ -9,7 +9,7 @@ function importFromXml(
   xml: string,
   workspace: Workspace,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportError?: (error: any) => void
+  onImportError?: (_error: any) => void
 ) {
   try {
     if (workspace.getAllBlocks(false).length > 0) return; // we won't load blocks again if they are already loaded
@@ -27,7 +27,7 @@ function importFromJson(
   json: object,
   workspace: Workspace,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onImportError?: (error: any) => void
+  onImportError?: (_error: any) => void
 ) {
   try {
     Blockly.serialization.workspaces.load(json, workspace);
